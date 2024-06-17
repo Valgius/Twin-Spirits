@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : Singleton<PlayerController>
 {
-    [Header("Both")]
     private Rigidbody2D playerRb;
     private BoxCollider2D playerCollider;
     [SerializeField] private LayerMask groundLayer;
@@ -16,6 +15,15 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpForce = 0f;
     private bool doubleJump;
+
+    [Header("Dash")]
+    public bool facingLeft;
+    private bool canDash = true;
+    private bool isDashing;
+    [SerializeField] private float dashingPower = 0f;
+    [SerializeField] private float dashingTime = 0f;
+    [SerializeField] private float dashingCooldown = 0f;
+    [SerializeField] private TrailRenderer trailRenderer;
 
     [Header("Swim")]
     [SerializeField] private float swimForce = 0f;
@@ -38,6 +46,7 @@ public class PlayerController : Singleton<PlayerController>
     private bool canWallJump = false;
     private Vector2 wallNormal = Vector2.zero;
 
+    
     private enum MovementState { idle, running, jumping, falling, swimming, climbing}
 
     // Start is called before the first frame update
@@ -50,11 +59,23 @@ public class PlayerController : Singleton<PlayerController>
     // Update is called once per frame
     void Update()
     {
+        if (isDashing)
+            return;
+
         //Moves the Player Horizontal
         movement = Input.GetAxisRaw("Horizontal");
         playerRb.velocity = new Vector2(movement * moveSpeed, playerRb.velocity.y);
         float verticalInput = Input.GetAxis("Vertical");
         bool jumpInput = Input.GetKeyDown(KeyCode.Space);
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            facingLeft = true;
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            facingLeft = false;
+        }
 
         //Allows the player to jump
         if (Input.GetButtonDown("Jump"))
@@ -72,6 +93,18 @@ public class PlayerController : Singleton<PlayerController>
                     doubleJump = true;
 
                 }
+            }
+        }
+
+        if (Input.GetButtonDown("Dash")  && canDash)
+        {
+            if (facingLeft == true)
+            {
+                StartCoroutine(DashLeft());
+            }
+            else
+            {
+                StartCoroutine(DashRight());
             }
         }
 
@@ -145,10 +178,14 @@ public class PlayerController : Singleton<PlayerController>
                 canWallJump = false;
             }
         }
+
     }
 
     void FixedUpdate()
     {
+        if (isDashing)
+            return;
+
         // Check for wall detection using raycast
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, 0.6f, LayerMask.GetMask("Climb"));
 
@@ -187,7 +224,7 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
-        void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the player enters water
         if (other.CompareTag("Water"))
@@ -208,13 +245,45 @@ public class PlayerController : Singleton<PlayerController>
         if (other.CompareTag("Water"))
         {
             isSwimming = false;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
             //playerRb.gravityScale = 1; // Enable gravity again
         }
     }
 
-        private bool IsGrounded()
+    private bool IsGrounded()
     {
         //Checking if our player is colliding with the ground.
         return Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, groundLayer);
+    }
+
+    private IEnumerator DashRight()
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = playerRb.gravityScale;
+        playerRb.gravityScale = 0;
+        playerRb.velocity = new Vector3(transform.localScale.x * dashingPower, 0f);
+        trailRenderer.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+        trailRenderer.emitting = false;
+        playerRb.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+    }
+    private IEnumerator DashLeft()
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = playerRb.gravityScale;
+        playerRb.gravityScale = 0;
+        playerRb.velocity = new Vector3(transform.localScale.x * -dashingPower, 0f);
+        trailRenderer.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+        trailRenderer.emitting = false;
+        playerRb.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
     }
 }
