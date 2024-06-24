@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerController : Singleton<PlayerController>
 {
@@ -17,7 +18,7 @@ public class PlayerController : Singleton<PlayerController>
     private bool doubleJump;
 
     [Header("Dash")]
-    public bool facingLeft;
+    public bool isFacingRight;
     private bool canDash = true;
     private bool isDashing;
     [SerializeField] private float dashingPower = 0f;
@@ -68,14 +69,14 @@ public class PlayerController : Singleton<PlayerController>
         float verticalInput = Input.GetAxis("Vertical");
         bool jumpInput = Input.GetKeyDown(KeyCode.Space);
 
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
-            facingLeft = true;
+            isFacingRight = false;
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            facingLeft = false;
-        }
+            isFacingRight = true;
+        }*/
 
         //Allows the player to jump
         if (Input.GetButtonDown("Jump"))
@@ -98,13 +99,13 @@ public class PlayerController : Singleton<PlayerController>
 
         if (Input.GetButtonDown("Dash")  && canDash)
         {
-            if (facingLeft == true)
+            if (isFacingRight == true)
             {
-                StartCoroutine(DashLeft());
+                StartCoroutine(DashRight());
             }
             else
             {
-                StartCoroutine(DashRight());
+                StartCoroutine(DashLeft());
             }
         }
 
@@ -178,11 +179,16 @@ public class PlayerController : Singleton<PlayerController>
                 canWallJump = false;
             }
         }
-
     }
 
     void FixedUpdate()
     {
+        float moveFactor = movement * Time.fixedDeltaTime;
+
+        // Flip the sprite according to movement direction...
+        if (moveFactor > 0 && !isFacingRight) FlipSprite();
+        else if (moveFactor < 0 && isFacingRight) FlipSprite();
+
         if (isDashing)
             return;
 
@@ -285,5 +291,13 @@ public class PlayerController : Singleton<PlayerController>
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+
+    private void FlipSprite()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 transformScale = transform.localScale;
+        transformScale.x *= -1;
+        transform.localScale = transformScale;
     }
 }
