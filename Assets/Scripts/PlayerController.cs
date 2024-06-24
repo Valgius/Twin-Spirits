@@ -9,13 +9,14 @@ public class PlayerController : Singleton<PlayerController>
     private BoxCollider2D playerCollider;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask climbLayer;
+    public Animator anim;
 
     public bool isLeaf;
 
     private float movement = 0f;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpForce = 0f;
-    private bool doubleJump;
+    public bool doubleJump;
 
     [Header("Dash")]
     public bool isFacingRight;
@@ -29,7 +30,7 @@ public class PlayerController : Singleton<PlayerController>
     [Header("Swim")]
     [SerializeField] private float swimForce = 0f;
     [SerializeField] private float swimSpeed = 0f;
-    [SerializeField] private float rotationSpeed = 0f;
+    //[SerializeField] private float rotationSpeed = 0f;
     [SerializeField] private float waterDrag = 0f;
     [SerializeField] private float buoyancyForce = 0f;
     [SerializeField] public float maxBuoyancyVelocity = 0f;
@@ -63,27 +64,27 @@ public class PlayerController : Singleton<PlayerController>
         if (isDashing)
             return;
 
+        if (IsGrounded())
+        {
+            anim.SetBool("isJumping", falsea);
+        }
+
         //Moves the Player Horizontal
         movement = Input.GetAxisRaw("Horizontal");
         playerRb.velocity = new Vector2(movement * moveSpeed, playerRb.velocity.y);
         float verticalInput = Input.GetAxis("Vertical");
         bool jumpInput = Input.GetKeyDown(KeyCode.Space);
 
-        /*if (Input.GetKeyDown(KeyCode.A))
-        {
-            isFacingRight = false;
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            isFacingRight = true;
-        }*/
+        anim.SetFloat("Speed", Mathf.Abs(movement));
 
         //Allows the player to jump
         if (Input.GetButtonDown("Jump"))
         {
             if (doubleJump == true)
             {
+                anim.SetBool("isJumping", false);
                 playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                anim.SetBool("isJumping", true);
                 doubleJump = false;
             }
             else
@@ -91,6 +92,7 @@ public class PlayerController : Singleton<PlayerController>
                 if (IsGrounded())
                 {
                     playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                    anim.SetBool("isJumping", true);
                     doubleJump = true;
 
                 }
@@ -121,13 +123,13 @@ public class PlayerController : Singleton<PlayerController>
                 playerRb.velocity = playerRb.velocity.normalized * swimSpeed;
             }
 
-            // Rotate the player towards the movement direction
+            /*// Rotate the player towards the movement direction
             if (moveDirection != Vector2.zero)
             {
                 float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
                 Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            }
+            }*/
 
             // Apply drag when swimming
             if (isSwimming)
@@ -222,11 +224,13 @@ public class PlayerController : Singleton<PlayerController>
             isClimbing = true;
             playerRb.gravityScale = 0f;
             playerRb.velocity = Vector2.zero;
+            anim.SetBool("isClimbing", true);
         }
         else if (!isTouchingWall || Input.GetAxis("Vertical") == 0)
         {
             isClimbing = false;
             playerRb.gravityScale = 1f;
+            anim.SetBool("isClimbing", false);
         }
     }
 
@@ -251,7 +255,7 @@ public class PlayerController : Singleton<PlayerController>
         if (other.CompareTag("Water"))
         {
             isSwimming = false;
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            //transform.rotation = Quaternion.Euler(0, 0, 0);
             //playerRb.gravityScale = 1; // Enable gravity again
         }
     }
@@ -269,6 +273,7 @@ public class PlayerController : Singleton<PlayerController>
         float originalGravity = playerRb.gravityScale;
         playerRb.gravityScale = 0;
         playerRb.velocity = new Vector3(transform.localScale.x * dashingPower, 0f);
+        doubleJump = false;
         trailRenderer.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
@@ -283,7 +288,8 @@ public class PlayerController : Singleton<PlayerController>
         isDashing = true;
         float originalGravity = playerRb.gravityScale;
         playerRb.gravityScale = 0;
-        playerRb.velocity = new Vector3(transform.localScale.x * -dashingPower, 0f);
+        playerRb.velocity = new Vector3(transform.localScale.x * dashingPower, 0f);
+        doubleJump = false;
         trailRenderer.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
