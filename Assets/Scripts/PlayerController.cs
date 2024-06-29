@@ -66,7 +66,7 @@ public class PlayerController : Singleton<PlayerController>
 
         if (IsGrounded())
         {
-            anim.SetBool("isJumping", falsea);
+            anim.SetBool("isJumping", false);
         }
 
         //Moves the Player Horizontal
@@ -82,7 +82,7 @@ public class PlayerController : Singleton<PlayerController>
         {
             if (doubleJump == true)
             {
-                anim.SetBool("isJumping", false);
+                //anim.SetBool("isJumping", false);
                 playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 anim.SetBool("isJumping", true);
                 doubleJump = false;
@@ -114,8 +114,12 @@ public class PlayerController : Singleton<PlayerController>
         //Check if player is in water
         if (isSwimming)
         {
-            Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
-            playerRb.AddForce(moveDirection * swimForce);
+            if (isLeaf == false)
+            {
+                Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+                playerRb.AddForce(moveDirection * swimForce);
+            }
+            
 
             // Limit the player's maximum speed
             if (playerRb.velocity.magnitude > swimSpeed)
@@ -123,13 +127,6 @@ public class PlayerController : Singleton<PlayerController>
                 playerRb.velocity = playerRb.velocity.normalized * swimSpeed;
             }
 
-            /*// Rotate the player towards the movement direction
-            if (moveDirection != Vector2.zero)
-            {
-                float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-                Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            }*/
 
             // Apply drag when swimming
             if (isSwimming)
@@ -238,15 +235,12 @@ public class PlayerController : Singleton<PlayerController>
     {
         // Check if the player enters water
         if (other.CompareTag("Water"))
-            if (isLeaf == false)
-            {
-                isSwimming = true;
-                //playerRb.gravityScale = 0; // Disable gravity while swimming
-            }
-        else
-            {
-                print("Respwan");
-            }
+        {
+            isSwimming = true;
+            doubleJump = true;
+            anim.SetBool("isSwimming", true);
+            anim.SetBool("isJumping", false);
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -255,6 +249,8 @@ public class PlayerController : Singleton<PlayerController>
         if (other.CompareTag("Water"))
         {
             isSwimming = false;
+            anim.SetBool("isSwimming", false);
+            anim.SetBool("isJumping", true);
             //transform.rotation = Quaternion.Euler(0, 0, 0);
             //playerRb.gravityScale = 1; // Enable gravity again
         }
@@ -268,6 +264,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private IEnumerator DashRight()
     {
+        anim.SetBool("isDashing", true);
         canDash = false;
         isDashing = true;
         float originalGravity = playerRb.gravityScale;
@@ -279,11 +276,13 @@ public class PlayerController : Singleton<PlayerController>
         trailRenderer.emitting = false;
         playerRb.gravityScale = originalGravity;
         isDashing = false;
+        anim.SetBool("isDashing", false);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
     private IEnumerator DashLeft()
     {
+        anim.SetBool("isDashing", true);
         canDash = false;
         isDashing = true;
         float originalGravity = playerRb.gravityScale;
@@ -295,6 +294,7 @@ public class PlayerController : Singleton<PlayerController>
         trailRenderer.emitting = false;
         playerRb.gravityScale = originalGravity;
         isDashing = false;
+        anim.SetBool("isDashing", false);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }

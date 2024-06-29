@@ -471,6 +471,32 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5308891258708276551, guid: 295623737c86be242bdf6977014ae890, type: 3}
   m_PrefabInstance: {fileID: 3626130231162851338}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1786647768 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3185086201695122656, guid: 295623737c86be242bdf6977014ae890, type: 3}
+  m_PrefabInstance: {fileID: 3626130231162851338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1786647774
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786647768}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1611244113e1c4d4fa6783e2d3ff4a03, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &1854945602 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2673422607798132598, guid: ff66e8fbc89bd5545a8602a9e9d4341f, type: 3}
@@ -2237,6 +2263,14 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 1854945608}
+    - target: {fileID: 5760917252326873394, guid: ff66e8fbc89bd5545a8602a9e9d4341f, type: 3}
+      propertyPath: buoyancyForce
+      value: 2.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760917252326873394, guid: ff66e8fbc89bd5545a8602a9e9d4341f, type: 3}
+      propertyPath: maxBuoyancyVelocity
+      value: 1.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6337171594953462721, guid: ff66e8fbc89bd5545a8602a9e9d4341f, type: 3}
       propertyPath: m_Size.x
       value: 0.8716104
@@ -2289,6 +2323,10 @@ PrefabInstance:
       value: 2.0730882
       objectReference: {fileID: 0}
     - target: {fileID: 237750264120570238, guid: 295623737c86be242bdf6977014ae890, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 991b1c28c3446d745b0048706e144440, type: 2}
+    - target: {fileID: 237750264120570238, guid: 295623737c86be242bdf6977014ae890, type: 3}
       propertyPath: m_Offset.x
       value: -0.15199414
       objectReference: {fileID: 0}
@@ -2304,6 +2342,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2872918865855090263, guid: 295623737c86be242bdf6977014ae890, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1786647774}
     - target: {fileID: 3185086201695122656, guid: 295623737c86be242bdf6977014ae890, type: 3}
       propertyPath: m_Name
       value: PlayerSea
@@ -2374,7 +2416,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5308891258708276551, guid: 295623737c86be242bdf6977014ae890, type: 3}
       insertIndex: -1
       addedObject: {fileID: 519420032}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3185086201695122656, guid: 295623737c86be242bdf6977014ae890, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1786647774}
   m_SourcePrefab: {fileID: 100100000, guid: 295623737c86be242bdf6977014ae890, type: 3}
 --- !u!1 &4110444951668559575
 GameObject:
