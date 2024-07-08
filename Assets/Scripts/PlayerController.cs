@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
-public class PlayerController : Singleton<PlayerController>
+public class PlayerController : GameBehaviour
 {
     private Rigidbody2D playerRb;
     private BoxCollider2D playerCollider;

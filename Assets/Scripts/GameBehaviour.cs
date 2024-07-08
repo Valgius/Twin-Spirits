@@ -7,7 +7,7 @@ public class GameBehaviour : MonoBehaviour
     protected static EnemyManager _EM { get { return EnemyManager.INSTANCE; } }
     protected static UIManager _UI { get { return UIManager.INSTANCE; } }
     protected static AudioManager _AM { get { return AudioManager.INSTANCE; } }
-    protected static PlayerController _PLAYER { get { return PlayerController.INSTANCE; } }
+    //protected static PlayerController _PLAYER { get { return PlayerController.INSTANCE; } }
 
     /// <summary>
     /// Scales all objects in a list to a new scale
