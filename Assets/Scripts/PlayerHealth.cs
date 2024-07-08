@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class PlayerHealth : GameBehaviour
 {
     public int health;
-    public int maxHealth;
+    public int numOfHearts;
     private PlayerRespawn playerRespawn;
 
-    public Image healthFill;
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
 
     void Start()
     {
@@ -18,23 +20,40 @@ public class PlayerHealth : GameBehaviour
         playerRespawn = GameObject.Find("PlayerLeaf").GetComponent<PlayerRespawn>();
     }
 
+    private void Update()
+    {
+        if (health > numOfHearts)
+            MaxHealth();
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < health)
+                hearts[i].sprite = fullHeart;
+            else
+                hearts[i].sprite = emptyHeart;
+
+            if (i < numOfHearts)
+                hearts[i].enabled = true;
+            else
+                hearts[i].enabled = false;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
             health -= 1;
-            UpdateHealthBar(health, maxHealth);
             if (health <= 0)
             {
                 playerRespawn.Respawn();
-                health = maxHealth;
-                UpdateHealthBar(health, maxHealth);
+                MaxHealth();
             }
         }
     }
 
-    public void UpdateHealthBar(int _health, int _maxHealth)
+    public void MaxHealth()
     {
-        healthFill.fillAmount = MapTo01(_health, 0, _maxHealth);
+        health = numOfHearts;
     }
 }
