@@ -852,7 +852,7 @@ GameObject:
   - component: {fileID: 1604196749}
   - component: {fileID: 1604196748}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: SceneController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : GameBehaviour
 {
-    public int health = 3;
+    public int health;
+    public int maxHealth;
     private PlayerRespawn playerRespawn;
+
+    public Image healthFill;
 
     void Start()
     {
@@ -18,8 +23,18 @@ public class PlayerHealth : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             health -= 1;
+            UpdateHealthBar(health, maxHealth);
             if (health <= 0)
+            {
                 playerRespawn.Respawn();
+                health = maxHealth;
+                UpdateHealthBar(health, maxHealth);
+            }
         }
+    }
+
+    public void UpdateHealthBar(int _health, int _maxHealth)
+    {
+        healthFill.fillAmount = MapTo01(_health, 0, _maxHealth);
     }
 }
