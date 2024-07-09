@@ -9,8 +9,7 @@ public class PlayerRespawn : MonoBehaviour
 
     void Start()
     {
-        playerHealth = GameObject.Find("PlayerSea").GetComponent<PlayerHealth>();
-        playerHealth = GameObject.Find("PlayerLeaf").GetComponent<PlayerHealth>();
+        playerHealth = this.gameObject.GetComponent<PlayerHealth>();
     }
 
     public void Respawn()

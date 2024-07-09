@@ -16,8 +16,7 @@ public class PlayerHealth : GameBehaviour
 
     void Start()
     {
-        playerRespawn = GameObject.Find("PlayerSea").GetComponent<PlayerRespawn>();
-        playerRespawn = GameObject.Find("PlayerLeaf").GetComponent<PlayerRespawn>();
+        playerRespawn = this.gameObject.GetComponent<PlayerRespawn>();
     }
 
     private void Update()

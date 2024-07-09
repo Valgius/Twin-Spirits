@@ -261,7 +261,6 @@ public class PlayerController : GameBehaviour
         //Checking if our player is colliding with the ground.
         return Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, groundLayer);
     }
-
     private IEnumerator DashRight()
     {
         anim.SetBool("isDashing", true);
@@ -298,7 +297,6 @@ public class PlayerController : GameBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
-
     private void FlipSprite()
     {
         isFacingRight = !isFacingRight;

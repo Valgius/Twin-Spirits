@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    private PlayerRespawn playerRespawn;
+    private PlayerRespawn playerLeafRespawn;
+    private PlayerRespawn playerSeaRespawn;
     public GameObject active;
     public GameObject inActive;
 
@@ -12,18 +13,28 @@ public class CheckPoint : MonoBehaviour
 
     void Start()
     {
-        playerRespawn = GameObject.Find("PlayerSea").GetComponent<PlayerRespawn>();
-        playerRespawn = GameObject.Find("PlayerLeaf").GetComponent<PlayerRespawn>();
+        playerLeafRespawn = GameObject.Find("PlayerLeaf").GetComponent<PlayerRespawn>();
+        playerSeaRespawn = GameObject.Find("PlayerSea").GetComponent<PlayerRespawn>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (usedCheckPoint == false && (collision.gameObject.name == "PlayerSea" || collision.gameObject.name == "PlayerLeaf"))
+        if (usedCheckPoint == false && (collision.gameObject.name == "PlayerLeaf"))
         {
-            playerRespawn.respawnPoint = transform.position;
-            inActive.SetActive(false);
-            active.SetActive(true);
-            usedCheckPoint = true;
+            playerLeafRespawn.respawnPoint = transform.position;
+            UpdateFlag();
         }
+        if(usedCheckPoint == false && (collision.gameObject.name == "PlayerSea"))
+        {
+            playerSeaRespawn.respawnPoint = transform.position;
+            UpdateFlag();
+        }
+    }
+
+    private void UpdateFlag()
+    {
+        inActive.SetActive(false);
+        active.SetActive(true);
+        usedCheckPoint = true;
     }
 }
