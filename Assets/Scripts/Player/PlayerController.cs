@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class PlayerController : GameBehaviour
 {
@@ -30,11 +32,17 @@ public class PlayerController : GameBehaviour
     [Header("Swim")]
     [SerializeField] private float swimForce = 0f;
     [SerializeField] private float swimSpeed = 0f;
-    //[SerializeField] private float rotationSpeed = 0f;
     [SerializeField] private float waterDrag = 0f;
     [SerializeField] private float buoyancyForce = 0f;
     [SerializeField] public float maxBuoyancyVelocity = 0f;
+
+    [SerializeField] private float breathTimer = 0;
+    [SerializeField] private float maxBreathTimer = 0;
+    [SerializeField] private Image breathFill;
+    [SerializeField] private GameObject breathPanel;
+
     public bool isSwimming = false;
+
 
     [Header("Climb")]
     public float climbSpeed = 0f;                      
@@ -56,6 +64,9 @@ public class PlayerController : GameBehaviour
     {
         playerRb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
+        this.gameObject.GetComponent<PlayerRespawn>();
+        breathTimer = maxBreathTimer;
+        breathPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -120,20 +131,25 @@ public class PlayerController : GameBehaviour
                 playerRb.AddForce(moveDirection * swimForce);
             }
             
-
             // Limit the player's maximum speed
             if (playerRb.velocity.magnitude > swimSpeed)
-            {
                 playerRb.velocity = playerRb.velocity.normalized * swimSpeed;
-            }
 
+
+            //Enables Breath Countdown
+            if (breathTimer > 0)
+            {
+                breathTimer -= Time.deltaTime;
+            }
+            else
+                this.gameObject.GetComponent<PlayerRespawn>().Respawn();
 
             // Apply drag when swimming
             if (isSwimming)
             {
                 playerRb.drag = waterDrag;
 
-                // Apply buoyancy force to counteract gravity
+                //Apply buoyancy force to counteract gravity
                 if (playerRb.velocity.y < maxBuoyancyVelocity)
                 {
                     playerRb.AddForce(Vector2.up * buoyancyForce, ForceMode2D.Force);
@@ -144,6 +160,9 @@ public class PlayerController : GameBehaviour
                 playerRb.drag = 0f;
             }
         }
+
+        UpdateBreathBar();
+
 
         if (isLeaf == true)
         {
@@ -240,6 +259,12 @@ public class PlayerController : GameBehaviour
             doubleJump = true;
             anim.SetBool("isSwimming", true);
             anim.SetBool("isJumping", false);
+            breathPanel.SetActive(true);
+        }
+        else
+        {
+            breathTimer = maxBreathTimer;
+            breathPanel.SetActive(false);
         }
     }
 
@@ -303,5 +328,10 @@ public class PlayerController : GameBehaviour
         Vector3 transformScale = transform.localScale;
         transformScale.x *= -1;
         transform.localScale = transformScale;
+    }
+
+    public void UpdateBreathBar()
+    {
+        breathFill.fillAmount = MapTo01(breathTimer, 0, maxBreathTimer);
     }
 }

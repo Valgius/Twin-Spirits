@@ -15,6 +15,7 @@ public class PlayerRespawn : MonoBehaviour
     public void Respawn()
     {
         transform.position = respawnPoint;
+        playerHealth.MaxHealth();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -22,7 +23,6 @@ public class PlayerRespawn : MonoBehaviour
         if (collision.gameObject.tag == "Death")
         {
             Respawn();
-            playerHealth.MaxHealth();
         }
     }
 }
