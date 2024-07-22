@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3516890887614811783}
   - component: {fileID: 5453183634524093308}
   - component: {fileID: 5967097492324351397}
-  - component: {fileID: 4736871964073821265}
   - component: {fileID: -4564880121283493928}
+  - component: {fileID: 4441063017514351321}
+  - component: {fileID: -5363931461165616302}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Enemy
@@ -132,18 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4736871964073821265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2755492120442977157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48242284dbce40e4eb09f3c76748eb36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &-4564880121283493928
 Rigidbody2D:
   serializedVersion: 4
@@ -171,3 +160,42 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &4441063017514351321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755492120442977157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2d5bfc5e2ec5d499ec53b07b82868d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myPatrol: 0
+  myEnemy: 2
+  enemyAttack: {fileID: -5363931461165616302}
+  baseSpeed: 1
+  mySpeed: 1
+  jumpForce: 1
+  pointA: {fileID: 0}
+  pointB: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackDistance: 2
+  detectTime: 5
+  detectDistance: 10
+--- !u!114 &-5363931461165616302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755492120442977157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff0e8fe183087a49a771a2b89574009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPatrol: {fileID: 4441063017514351321}

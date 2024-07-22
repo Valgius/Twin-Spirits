@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3516890887614811783}
   - component: {fileID: 5453183634524093308}
   - component: {fileID: 5967097492324351397}
-  - component: {fileID: 8372378095629090842}
   - component: {fileID: -1309635625031969661}
+  - component: {fileID: 1651881864610817181}
+  - component: {fileID: -8774944650780396100}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Enemy
@@ -132,24 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.79286, y: 1.4667134}
   m_EdgeRadius: 0
---- !u!114 &8372378095629090842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2755492120442977157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f47b777e907d6459e10d751e014e7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myPatrol: 0
-  mySpeed: 1
-  moveToPos: {fileID: 0}
-  attackDistance: 2
-  detectTime: 5
-  detectDistance: 10
 --- !u!50 &-1309635625031969661
 Rigidbody2D:
   serializedVersion: 4
@@ -177,3 +160,42 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &1651881864610817181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755492120442977157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2d5bfc5e2ec5d499ec53b07b82868d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myPatrol: 0
+  myEnemy: 0
+  enemyAttack: {fileID: -8774944650780396100}
+  baseSpeed: 1
+  mySpeed: 1
+  jumpForce: 1
+  pointA: {fileID: 0}
+  pointB: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackDistance: 2
+  detectTime: 5
+  detectDistance: 10
+--- !u!114 &-8774944650780396100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755492120442977157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff0e8fe183087a49a771a2b89574009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPatrol: {fileID: 1651881864610817181}

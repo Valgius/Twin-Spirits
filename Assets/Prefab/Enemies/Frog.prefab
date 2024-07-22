@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3516890887614811783}
   - component: {fileID: 5453183634524093308}
   - component: {fileID: 5967097492324351397}
-  - component: {fileID: 7139481708880753587}
   - component: {fileID: -7525744513280305459}
+  - component: {fileID: 226807470164166178}
+  - component: {fileID: -6021142250087442319}
   m_Layer: 0
   m_Name: Frog
   m_TagString: Enemy
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.45, y: -1.85, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: -0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,18 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7139481708880753587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2755492120442977157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94e8a39768fedb14b9098eb6e0c7af5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &-7525744513280305459
 Rigidbody2D:
   serializedVersion: 4
@@ -171,3 +160,42 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &226807470164166178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755492120442977157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2d5bfc5e2ec5d499ec53b07b82868d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myPatrol: 0
+  myEnemy: 1
+  enemyAttack: {fileID: -6021142250087442319}
+  baseSpeed: 1
+  mySpeed: 1
+  jumpForce: 1
+  pointA: {fileID: 0}
+  pointB: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  attackDistance: 2
+  detectTime: 5
+  detectDistance: 10
+--- !u!114 &-6021142250087442319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755492120442977157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff0e8fe183087a49a771a2b89574009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPatrol: {fileID: 226807470164166178}
