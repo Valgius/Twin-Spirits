@@ -27,7 +27,7 @@ public class EnemyAttack : GameBehaviour
         print("Fish Attack");
         enemyPatrol.ChangeSpeed(0);
         //PlayAnimation("Attack");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         enemyPatrol.ChangeSpeed(enemyPatrol.mySpeed);
         enemyPatrol.myPatrol = PatrolType.Chase;
     }
@@ -38,7 +38,7 @@ public class EnemyAttack : GameBehaviour
         print("Frog Attack");
         //enemyPatrol.ChangeSpeed(0);
         //PlayAnimation("Attack");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         enemyPatrol.myPatrol = PatrolType.Detect;
     }
 
@@ -48,7 +48,7 @@ public class EnemyAttack : GameBehaviour
         print("Spider Attack");
         //enemyPatrol.ChangeSpeed(0);
         //PlayAnimation("Attack");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         enemyPatrol.myPatrol = PatrolType.Detect;
     }
 }

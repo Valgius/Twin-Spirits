@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+//using System.Numerics;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
@@ -15,12 +16,15 @@ public class EnemyPatrol : GameBehaviour
 
     public GameObject pointA;
     public GameObject pointB;
+    public Transform[] waypoints;
+    private int currentWaypointIndex = 0;
     [SerializeField] private LayerMask groundLayer;
 
     private Rigidbody2D rb;
     private BoxCollider2D enemyCollider;
     //private Animator anim;
     public Transform currentPoint;
+    public Transform nextPoint;
     private Transform playerSea;
     private Transform playerLeaf;
 
@@ -28,6 +32,7 @@ public class EnemyPatrol : GameBehaviour
     public float attackDistance = 2;
     public float detectTime = 5f;
     public float detectDistance = 10f;
+    public int patrolDistance = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -74,12 +79,19 @@ public class EnemyPatrol : GameBehaviour
                 switch (myEnemy)
                 {
                     case EnemyType.Fish:
+                        // Calculate distance to current waypoint
+                        float distanceToWaypoint = Vector2.Distance(transform.position, currentPoint.position);
 
-                        Vector2 fishPoint = currentPoint.position - transform.position;
-                        if (currentPoint == pointB.transform)
-                            rb.velocity = new Vector2(mySpeed, 0);
-                        else
-                            rb.velocity = new Vector2(-mySpeed, 0);
+                        // If close to current waypoint, switch to the next one
+                        if (distanceToWaypoint < 1f)
+                        {
+                            currentPoint = nextPoint;
+                        }
+
+                        // Move towards current waypoint
+                        Vector2 fishPoint = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
+                        rb.MovePosition(fishPoint);
+
                         break;
 
                     case EnemyType.Spider:
@@ -142,6 +154,7 @@ public class EnemyPatrol : GameBehaviour
                     }
                     detectTime = 5;
                 }
+                 
                 if (distToLeaf <= detectDistance)
                 {
                     switch (myEnemy)
@@ -169,6 +182,9 @@ public class EnemyPatrol : GameBehaviour
 
             case PatrolType.Chase:
 
+                Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
+                rb.MovePosition(targetPosition);
+
                 //increase the speed of which to chase the player
                 ChangeSpeed(mySpeed * 2);
 
@@ -180,6 +196,7 @@ public class EnemyPatrol : GameBehaviour
 
                 //Check if we are close to the player, then attack
 
+                /*
                 if (distToLeaf <= attackDistance)
                     switch (myEnemy)
                 {
@@ -191,7 +208,8 @@ public class EnemyPatrol : GameBehaviour
                             StartCoroutine(enemyAttack.FrogAttack());
                             break;
                 }
-                break;     
+                */
+                break;        
         }
     }
 
@@ -227,6 +245,6 @@ public class EnemyPatrol : GameBehaviour
         Gizmos.DrawSphere(pointB.transform.position, 1f);
         Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
 
-        Gizmos.DrawSphere(this.gameObject.transform.position ,detectDistance);
+        //Gizmos.DrawSphere(this.gameObject.transform.position ,detectDistance);
     }
 }
