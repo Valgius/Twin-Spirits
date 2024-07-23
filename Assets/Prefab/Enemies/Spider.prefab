@@ -175,17 +175,21 @@ MonoBehaviour:
   myPatrol: 0
   myEnemy: 2
   enemyAttack: {fileID: -5363931461165616302}
-  baseSpeed: 1
+  baseSpeed: 20
   mySpeed: 1
   jumpForce: 1
   pointA: {fileID: 0}
   pointB: {fileID: 0}
+  waypoints: []
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  currentPoint: {fileID: 0}
+  nextPoint: {fileID: 0}
   attackDistance: 2
   detectTime: 5
   detectDistance: 10
+  patrolDistance: 10
 --- !u!114 &-5363931461165616302
 MonoBehaviour:
   m_ObjectHideFlags: 0

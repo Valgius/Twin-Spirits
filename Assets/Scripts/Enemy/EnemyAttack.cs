@@ -39,7 +39,7 @@ public class EnemyAttack : GameBehaviour
         //enemyPatrol.ChangeSpeed(0);
         //PlayAnimation("Attack");
         yield return new WaitForSeconds(3);
-        enemyPatrol.myPatrol = PatrolType.Detect;
+        enemyPatrol.myPatrol = PatrolType.Chase;
     }
 
     public IEnumerator SpiderAttack()
