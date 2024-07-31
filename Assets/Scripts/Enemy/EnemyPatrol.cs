@@ -20,6 +20,7 @@ public class EnemyPatrol : GameBehaviour
     private Transform playerSea;
     private Transform playerLeaf;
     private Transform closestPlayer;
+    SpriteRenderer spriteRenderer;
 
     //private Animator anim;
 
@@ -29,9 +30,9 @@ public class EnemyPatrol : GameBehaviour
     public float chaseSpeed = 1f;
     public float jumpForce = 1f;
     public float attackDistance = 2;
+    private float detectCountdown = 5f;
     public float detectTime = 5f;
     public float detectDistance = 10f;
-    public int patrolDistance = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -40,9 +41,11 @@ public class EnemyPatrol : GameBehaviour
         //anim = GetComponent<Animator>();
         currentPoint = pointB.transform;
         mySpeed = baseSpeed;
+        detectCountdown = detectTime;
         enemyCollider = GetComponent<BoxCollider2D>();
         playerSea = GameObject.Find("PlayerSea").GetComponent<Transform>();
         playerLeaf = GameObject.Find("PlayerLeaf").GetComponent<Transform>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -85,12 +88,13 @@ public class EnemyPatrol : GameBehaviour
                 switch (myEnemy)
                 {
                     case EnemyType.Fish:
-                        // Move towards current waypoint
-                        Vector2 fishPoint = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
-                        rb.MovePosition(fishPoint);
+                        Move();
                         break;
 
                     case EnemyType.Frog:
+                        Move();
+                        //Jump();
+                        /*
                         Vector2 frogPoint = currentPoint.position - transform.position;
                         if (currentPoint == pointB.transform)
                         {
@@ -102,27 +106,23 @@ public class EnemyPatrol : GameBehaviour
                         {
                             rb.velocity = new Vector2(-mySpeed, 0);
                             Jump();
-                        }
+                        }*/
                         break;
 
                     case EnemyType.Spider:
-                        // Move towards current waypoint
-                        Vector2 spiderPoint = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
-                        rb.MovePosition(spiderPoint);
+                        Move();
                         break;    
                 }
 
-                // If close to current waypoint, switch to the next one and flip Sprite
+                // If close to current waypoint, switch to the next one
                 if (Vector2.Distance(transform.position, currentPoint.position) < 1f && currentPoint == pointB.transform)
                 {
                     currentPoint = pointA.transform;
-                    FlipSprite();
                 }
 
                 if (Vector2.Distance(transform.position, currentPoint.position) < 1f && currentPoint == pointA.transform)
                 {
                     currentPoint = pointB.transform;
-                    FlipSprite();
                 }
                 break;
                 
@@ -131,7 +131,7 @@ public class EnemyPatrol : GameBehaviour
                 ChangeSpeed(0);
 
                 //Decrement our detect time
-                detectTime -= Time.deltaTime;
+                detectCountdown -= Time.deltaTime;
                 if (distToClosest <= detectDistance)
                 {
                     switch (myEnemy)
@@ -145,13 +145,13 @@ public class EnemyPatrol : GameBehaviour
                             currentPoint = closestPlayer;
                             break;
                         case EnemyType.Spider:
-                            myPatrol = PatrolType.Attack;
+                            StartCoroutine(enemyAttack.SpiderAttack());
                             break;
                     }
-                    detectTime = 5;
+                    detectCountdown = detectTime;
                 }
                 
-                if (detectTime <= 0)
+                if (detectCountdown <= 0)
                 {
                     ChangeSpeed(baseSpeed);
                     myPatrol = PatrolType.Patrol;              
@@ -163,13 +163,12 @@ public class EnemyPatrol : GameBehaviour
                 switch (myEnemy)
                 {
                     case EnemyType.Fish:
-                        Vector2 fishTarget = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
-                        rb.MovePosition(fishTarget);
+                        Move();
 
                         break;
                     case EnemyType.Frog:
-                        Vector2 frogTarget = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
-                        rb.MovePosition(frogTarget);
+                        Move();
+                        //Jump();
                         break;
                 }
 
@@ -183,10 +182,8 @@ public class EnemyPatrol : GameBehaviour
                     myPatrol = PatrolType.Detect;
                 }
 
-                //Check if we are close to the player, then attack
-
-                /*
-                if (distToLeaf <= attackDistance)
+                //Check if we are close to the player, then attack         
+                if (distToClosest<= attackDistance)
                     switch (myEnemy)
                 {
                     case EnemyType.Fish:
@@ -197,16 +194,8 @@ public class EnemyPatrol : GameBehaviour
                             StartCoroutine(enemyAttack.FrogAttack());
                             break;
                 }
-                */
                 break;        
         }
-    }
-
-    private void FlipSprite()
-    {
-        Vector3 transformScale = transform.localScale;
-        transformScale.x *= -1;
-        transform.localScale = transformScale;
     }
 
     public void ChangeSpeed(float _speed)
@@ -225,6 +214,28 @@ public class EnemyPatrol : GameBehaviour
         if (IsGrounded())
         {
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        }
+    }
+
+    private void Move()
+    {
+        // Move towards current waypoint
+        Vector2 point = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
+        rb.MovePosition(point);
+
+        // Determine the direction of movement
+        Vector2 movementDirection = (point - (Vector2)transform.position).normalized;
+
+        // Flip the sprite based on movement direction
+        if (movementDirection.x > 0)
+        {
+            // Moving right
+            spriteRenderer.flipX = false;
+        }
+        else if (movementDirection.x < 0)
+        {
+            // Moving left
+            spriteRenderer.flipX = true;
         }
     }
 
