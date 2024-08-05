@@ -8,6 +8,7 @@ TagManager:
   - Climb
   - Death
   - Enemy
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - Water
   - UI
   - Climb
-  - 
-  - 
+  - Enemy
+  - Projectile
   - 
   - 
   - 

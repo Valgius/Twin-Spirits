@@ -42,12 +42,25 @@ public class PlayerHealth : GameBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            health -= 1;
-            if (health <= 0)
-            {
-                playerRespawn.Respawn();
-                MaxHealth();
-            }
+            EnemyHit();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            EnemyHit();
+        }
+    }
+
+    public void EnemyHit()
+    {
+        health -= 1;
+        if (health <= 0)
+        {
+            playerRespawn.Respawn();
+            MaxHealth();
         }
     }
 
@@ -55,4 +68,6 @@ public class PlayerHealth : GameBehaviour
     {
         health = numOfHearts;
     }
+
+
 }

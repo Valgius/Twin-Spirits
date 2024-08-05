@@ -1,24 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyAttack : GameBehaviour
 {
     public EnemyPatrol enemyPatrol;
 
+    public GameObject projectilePrefab;
+    public float spiderFireRate = 1f;
+    public Transform spiderFirePoint;
 
+    public Transform playerTransform;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        
-
+        Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), projectilePrefab.GetComponent<BoxCollider2D>());
+        playerTransform = enemyPatrol.closestPlayer;
     }
 
     public IEnumerator FishAttack()
@@ -50,9 +50,20 @@ public class EnemyAttack : GameBehaviour
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Spider Attack");
         enemyPatrol.ChangeSpeed(0);
+        Fire(playerTransform.position);
         //PlayAnimation("Attack");
-        yield return new WaitForSeconds(3);
-        enemyPatrol.ChangeSpeed(enemyPatrol.mySpeed);
+        yield return new WaitForSeconds(spiderFireRate);
         enemyPatrol.myPatrol = PatrolType.Detect;
+    }
+
+    void Fire(Vector2 targetPosition)
+    {
+        if (projectilePrefab && spiderFirePoint)
+        {
+            // Instantiate the projectile
+            GameObject projectile = Instantiate(projectilePrefab, spiderFirePoint.position, Quaternion.identity);
+            // Initialize the projectile with the target position
+            projectile.GetComponent<Projectile>()?.Initialize(targetPosition);
+        }
     }
 }
