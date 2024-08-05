@@ -19,7 +19,7 @@ public class EnemyPatrol : GameBehaviour
     private Transform currentPoint;
     private Transform playerSea;
     private Transform playerLeaf;
-    private Transform closestPlayer;
+    public Transform closestPlayer;
     SpriteRenderer spriteRenderer;
 
     //private Animator anim;
