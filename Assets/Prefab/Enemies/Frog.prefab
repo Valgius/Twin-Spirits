@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7525744513280305459}
   - component: {fileID: 226807470164166178}
   - component: {fileID: -6021142250087442319}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Frog
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -31,9 +31,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.45, y: -1.85, z: 0}
-  m_LocalScale: {x: -0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: -1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7348861279939885388}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5453183634524093308
@@ -149,7 +150,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 991b1c28c3446d745b0048706e144440, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -159,7 +160,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &226807470164166178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,21 +176,19 @@ MonoBehaviour:
   myPatrol: 0
   myEnemy: 1
   enemyAttack: {fileID: -6021142250087442319}
-  baseSpeed: 20
-  mySpeed: 1
-  jumpForce: 1
   pointA: {fileID: 0}
   pointB: {fileID: 0}
-  waypoints: []
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  currentPoint: {fileID: 0}
-  nextPoint: {fileID: 0}
+  closestPlayer: {fileID: 0}
+  baseSpeed: 10
+  mySpeed: 1
+  chaseSpeed: 1
+  jumpForce: 10
   attackDistance: 2
-  detectTime: 5
+  detectTime: 1
   detectDistance: 10
-  patrolDistance: 10
 --- !u!114 &-6021142250087442319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,3 +202,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPatrol: {fileID: 226807470164166178}
+  projectilePrefab: {fileID: 2930296512969016943, guid: 378a336a375b74443aee039573c3eae4, type: 3}
+  spiderFireRate: 1
+  spiderFirePoint: {fileID: 0}
+  frogGas: {fileID: 8358659242322031658, guid: deca6cea7946eaf45ad83955a1fcc8a0, type: 3}
+  frogFirePoint: {fileID: 7348861279939885388}
+  playerTransform: {fileID: 0}
+--- !u!1 &7845429446759368709
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7348861279939885388}
+  m_Layer: 7
+  m_Name: FrogFirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7348861279939885388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7845429446759368709}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.5571423, y: 26.056427, z: 0}
+  m_LocalScale: {x: -0.8928571, y: 0.8928571, z: 0.8928571}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3516890887614811783}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

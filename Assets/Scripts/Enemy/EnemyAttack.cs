@@ -11,6 +11,9 @@ public class EnemyAttack : GameBehaviour
     public float spiderFireRate = 1f;
     public Transform spiderFirePoint;
 
+    public GameObject frogGas;
+    public Transform frogFirePoint;
+
     public Transform playerTransform;
 
 
@@ -39,6 +42,7 @@ public class EnemyAttack : GameBehaviour
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Frog Attack");
         enemyPatrol.ChangeSpeed(0);
+        GasAttack();
         //PlayAnimation("Attack");
         yield return new WaitForSeconds(3);
         enemyPatrol.ChangeSpeed(enemyPatrol.mySpeed);
@@ -65,5 +69,10 @@ public class EnemyAttack : GameBehaviour
             // Initialize the projectile with the target position
             projectile.GetComponent<Projectile>()?.Initialize(targetPosition);
         }
+    }
+
+    void GasAttack()
+    {
+        Instantiate(frogGas, frogFirePoint.position, Quaternion.identity);
     }
 }

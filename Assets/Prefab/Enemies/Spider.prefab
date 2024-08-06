@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4564880121283493928}
   - component: {fileID: 4441063017514351321}
   - component: {fileID: -5363931461165616302}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -181,6 +181,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  closestPlayer: {fileID: 0}
   baseSpeed: 20
   mySpeed: 1
   chaseSpeed: 1
@@ -204,6 +205,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2930296512969016943, guid: 378a336a375b74443aee039573c3eae4, type: 3}
   spiderFireRate: 1
   spiderFirePoint: {fileID: 1400350560216112581}
+  frogGas: {fileID: 0}
+  frogFirePoint: {fileID: 0}
+  playerTransform: {fileID: 0}
 --- !u!1 &5257714660153568331
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,8 +217,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1400350560216112581}
-  m_Layer: 0
-  m_Name: FirePoint
+  m_Layer: 7
+  m_Name: SpiderFirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
