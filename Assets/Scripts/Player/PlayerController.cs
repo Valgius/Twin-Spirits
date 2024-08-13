@@ -14,6 +14,8 @@ public class PlayerController : GameBehaviour
     public Animator anim;
 
     public bool isLeaf;
+    public bool hasLeafOrb;
+    public bool hasSeaOrb;
 
     private float movement = 0f;
     [SerializeField] private float moveSpeed = 0f;
@@ -30,8 +32,8 @@ public class PlayerController : GameBehaviour
     [SerializeField] private TrailRenderer trailRenderer;
 
     [Header("Swim")]
-    [SerializeField] private float swimForce = 0f;
     [SerializeField] private float swimSpeed = 0f;
+    [SerializeField] private float maxSwimSpeed = 0f;
     [SerializeField] private float waterDrag = 0f;
     [SerializeField] private float buoyancyForce = 0f;
     [SerializeField] public float maxBuoyancyVelocity = 0f;
@@ -40,6 +42,8 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float maxBreathTimer = 0;
     [SerializeField] private Image breathFill;
     [SerializeField] private GameObject breathPanel;
+    [SerializeField] private float swimmingStateCooldown = 0.5f;
+    private float swimmingStateTimer = 0f;
 
     public bool isSwimming = false;
 
@@ -62,6 +66,7 @@ public class PlayerController : GameBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        swimSpeed = maxSwimSpeed;
         playerRb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         this.gameObject.GetComponent<PlayerRespawn>();
@@ -91,7 +96,7 @@ public class PlayerController : GameBehaviour
         //Allows the player to jump
         if (Input.GetButtonDown("Jump"))
         {
-            if (doubleJump == true)
+            if (doubleJump && isLeaf && hasLeafOrb)
             {
                 //anim.SetBool("isJumping", false);
                 playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
@@ -110,60 +115,62 @@ public class PlayerController : GameBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Dash")  && canDash)
+        //Allows the player to Dash
+        if (Input.GetButtonDown("Dash")  && canDash && !isLeaf && hasSeaOrb)
         {
-            if (isFacingRight == true)
-            {
-                StartCoroutine(DashRight());
-            }
-            else
-            {
-                StartCoroutine(DashLeft());
-            }
+            StartCoroutine(Dash());
         }
 
         //Check if player is in water
-        if (isSwimming)
+        if (swimmingStateTimer > 0)
         {
-            if (isLeaf == false)
-            {
-                Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
-                playerRb.AddForce(moveDirection * swimForce);
-            }
-            
-            // Limit the player's maximum speed
-            if (playerRb.velocity.magnitude > swimSpeed)
-                playerRb.velocity = playerRb.velocity.normalized * swimSpeed;
+            swimmingStateTimer -= Time.deltaTime;
+        }
 
-
-            //Enables Breath Countdown
-            if (breathTimer > 0)
-            {
-                breathTimer -= Time.deltaTime;
-            }
-            else
-                this.gameObject.GetComponent<PlayerRespawn>().Respawn();
-
-            // Apply drag when swimming
+        else
+        {
             if (isSwimming)
             {
-                playerRb.drag = waterDrag;
-
-                //Apply buoyancy force to counteract gravity
-                if (playerRb.velocity.y < maxBuoyancyVelocity)
+                if (isLeaf == false)
                 {
-                    playerRb.AddForce(Vector2.up * buoyancyForce, ForceMode2D.Force);
+                    Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+                    playerRb.AddForce(moveDirection * swimSpeed);
                 }
-            }
-            else
-            {
-                playerRb.drag = 0f;
+
+                // Limit the player's maximum speed
+                if (playerRb.velocity.magnitude > maxSwimSpeed)
+                    playerRb.velocity = playerRb.velocity.normalized * maxSwimSpeed;
+
+
+                //Enables Breath Countdown
+                if (breathTimer > 0)
+                {
+                    breathTimer -= Time.deltaTime;
+                }
+                else
+                    this.gameObject.GetComponent<PlayerRespawn>().Respawn();
+
+                // Apply drag when swimming
+                if (isSwimming)
+                {
+                    playerRb.drag = waterDrag;
+
+                    //Apply buoyancy force to counteract gravity
+                    if (playerRb.velocity.y < maxBuoyancyVelocity)
+                    {
+                        playerRb.AddForce(Vector2.up * buoyancyForce, ForceMode2D.Force);
+                    }
+                }
+                else
+                {
+                    playerRb.drag = 0f;
+                }
             }
         }
 
         UpdateBreathBar();
 
-
+        //Allows the player to climb and Wall Jump
         if (isLeaf == true)
         {
             // Check if player can wall jump
@@ -256,15 +263,10 @@ public class PlayerController : GameBehaviour
         if (other.CompareTag("Water"))
         {
             isSwimming = true;
-            doubleJump = true;
             anim.SetBool("isSwimming", true);
             anim.SetBool("isJumping", false);
             breathPanel.SetActive(true);
-        }
-        else
-        {
-            breathTimer = maxBreathTimer;
-            breathPanel.SetActive(false);
+            swimmingStateTimer = swimmingStateCooldown;
         }
     }
 
@@ -276,8 +278,9 @@ public class PlayerController : GameBehaviour
             isSwimming = false;
             anim.SetBool("isSwimming", false);
             anim.SetBool("isJumping", true);
-            //transform.rotation = Quaternion.Euler(0, 0, 0);
-            //playerRb.gravityScale = 1; // Enable gravity again
+            breathTimer = maxBreathTimer;
+            breathPanel.SetActive(false);
+            swimmingStateTimer = swimmingStateCooldown;
         }
     }
 
@@ -286,17 +289,18 @@ public class PlayerController : GameBehaviour
         //Checking if our player is colliding with the ground.
         return Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, groundLayer);
     }
-    private IEnumerator DashRight()
+    private IEnumerator Dash()
     {
+        maxSwimSpeed = dashingPower;
         anim.SetBool("isDashing", true);
         canDash = false;
         isDashing = true;
         float originalGravity = playerRb.gravityScale;
         playerRb.gravityScale = 0;
         playerRb.velocity = new Vector3(transform.localScale.x * dashingPower, 0f);
-        doubleJump = false;
         trailRenderer.emitting = true;
         yield return new WaitForSeconds(dashingTime);
+        maxSwimSpeed = swimSpeed;
         trailRenderer.emitting = false;
         playerRb.gravityScale = originalGravity;
         isDashing = false;
@@ -304,24 +308,7 @@ public class PlayerController : GameBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
-    private IEnumerator DashLeft()
-    {
-        anim.SetBool("isDashing", true);
-        canDash = false;
-        isDashing = true;
-        float originalGravity = playerRb.gravityScale;
-        playerRb.gravityScale = 0;
-        playerRb.velocity = new Vector3(transform.localScale.x * dashingPower, 0f);
-        doubleJump = false;
-        trailRenderer.emitting = true;
-        yield return new WaitForSeconds(dashingTime);
-        trailRenderer.emitting = false;
-        playerRb.gravityScale = originalGravity;
-        isDashing = false;
-        anim.SetBool("isDashing", false);
-        yield return new WaitForSeconds(dashingCooldown);
-        canDash = true;
-    }
+
     private void FlipSprite()
     {
         isFacingRight = !isFacingRight;
