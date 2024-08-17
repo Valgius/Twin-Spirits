@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class EnemyAttack : GameBehaviour
@@ -42,6 +40,7 @@ public class EnemyAttack : GameBehaviour
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Frog Attack");
         enemyPatrol.ChangeSpeed(0);
+        yield return new WaitForSeconds(0.5f);
         GasAttack();
         //PlayAnimation("Attack");
         yield return new WaitForSeconds(3);

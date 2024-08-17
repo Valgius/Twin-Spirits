@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-//using System.Numerics;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EnemyPatrol : GameBehaviour
 {
@@ -12,6 +8,7 @@ public class EnemyPatrol : GameBehaviour
 
     public GameObject pointA;
     public GameObject pointB;
+
     [SerializeField] private LayerMask groundLayer;
 
     private Rigidbody2D rb;
@@ -20,15 +17,15 @@ public class EnemyPatrol : GameBehaviour
     private Transform playerSea;
     private Transform playerLeaf;
     public Transform closestPlayer;
-    SpriteRenderer spriteRenderer;
 
-    //private Animator anim;
+    SpriteRenderer spriteRenderer;
+    //Animator anim;
 
     [Header("AI")]
     public float baseSpeed = 1f;
     public float mySpeed = 1f;
     public float chaseSpeed = 1f;
-    public float jumpForce = 1f;
+    public float jumpHeight = 1f;
     public float attackDistance = 2;
     private float detectCountdown = 5f;
     public float detectTime = 5f;
@@ -38,14 +35,13 @@ public class EnemyPatrol : GameBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //anim = GetComponent<Animator>();
-        currentPoint = pointB.transform;
-        mySpeed = baseSpeed;
-        detectCountdown = detectTime;
         enemyCollider = GetComponent<BoxCollider2D>();
         playerSea = GameObject.Find("PlayerSea").GetComponent<Transform>();
         playerLeaf = GameObject.Find("PlayerLeaf").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        currentPoint = pointB.transform;
+        mySpeed = baseSpeed;
+        detectCountdown = detectTime;
     }
 
     // Update is called once per frame
@@ -58,14 +54,7 @@ public class EnemyPatrol : GameBehaviour
         float distToSea = Vector3.Distance(transform.position, playerSea.transform.position);
         float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
 
-        if (distToLeaf < distToSea)
-        {
-            closestPlayer = playerLeaf;
-        }
-        else
-        {
-            closestPlayer = playerSea;
-        }
+        closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
 
         float distToClosest = Vector3.Distance(transform.position, closestPlayer.transform.position);
 
@@ -82,120 +71,114 @@ public class EnemyPatrol : GameBehaviour
         switch (myPatrol)
         {
             case PatrolType.Patrol:
-                // Calculate distance to current waypoint
-                float distanceToWaypoint = Vector2.Distance(transform.position, currentPoint.position);
-
-                switch (myEnemy)
-                {
-                    case EnemyType.Fish:
-                        Move();
-                        break;
-
-                    case EnemyType.Frog:
-                        Move();
-                        //Jump();
-                        /*
-                        Vector2 frogPoint = currentPoint.position - transform.position;
-                        if (currentPoint == pointB.transform)
-                        {
-                            rb.velocity = new Vector2(mySpeed, 0);
-                            Jump();
-                        }
-
-                        else
-                        {
-                            rb.velocity = new Vector2(-mySpeed, 0);
-                            Jump();
-                        }*/
-                        break;
-
-                    case EnemyType.Spider:
-                        Move();
-                        break;    
-                }
-
-                // If close to current waypoint, switch to the next one
-                if (Vector2.Distance(transform.position, currentPoint.position) < 1f && currentPoint == pointB.transform)
-                {
-                    currentPoint = pointA.transform;
-                }
-
-                if (Vector2.Distance(transform.position, currentPoint.position) < 1f && currentPoint == pointA.transform)
-                {
-                    currentPoint = pointB.transform;
-                }
+                Patrol();
                 break;
                 
             case PatrolType.Detect:
-               //Stop speed
-                ChangeSpeed(0);
-
-                //Decrement our detect time
-                detectCountdown -= Time.deltaTime;
-                if (distToClosest <= detectDistance)
-                {
-                    switch (myEnemy)
-                    {
-                        case EnemyType.Fish:
-                            currentPoint = closestPlayer;
-                            myPatrol = PatrolType.Chase;
-                            break;
-                        case EnemyType.Frog:
-                            myPatrol = PatrolType.Chase;
-                            currentPoint = closestPlayer;
-                            break;
-                        case EnemyType.Spider:
-                            StartCoroutine(enemyAttack.SpiderAttack());
-                            break;
-                    }
-                    detectCountdown = detectTime;
-                }
-                
-                if (detectCountdown <= 0)
-                {
-                    ChangeSpeed(baseSpeed);
-                    myPatrol = PatrolType.Patrol;              
-                }
+                Detect(distToClosest);
                 break;
 
             case PatrolType.Chase:
-
-                switch (myEnemy)
-                {
-                    case EnemyType.Fish:
-                        Move();
-
-                        break;
-                    case EnemyType.Frog:
-                        Move();
-                        //Jump();
-                        break;
-                }
-
-                //increase the speed of which to chase the player
-                ChangeSpeed(baseSpeed + chaseSpeed);
-
-                //If the player gets outside the detect distance, go back to the detect state.
-                if (distToClosest > detectDistance)
-                {
-                    currentPoint = pointA.transform;
-                    myPatrol = PatrolType.Detect;
-                }
-
-                //Check if we are close to the player, then attack         
-                if (distToClosest<= attackDistance)
-                    switch (myEnemy)
-                {
-                    case EnemyType.Fish:
-                            StartCoroutine(enemyAttack.FishAttack());
-                            break;
-
-                    case EnemyType.Frog:
-                            StartCoroutine(enemyAttack.FrogAttack());
-                            break;
-                }
+                Chase(distToClosest);
                 break;        
         }
+    }
+
+    private void Patrol()
+    {
+        // Calculate distance to current waypoint
+        float distanceToWaypoint = Vector2.Distance(transform.position, currentPoint.position);
+
+        switch (myEnemy)
+        {
+            case EnemyType.Fish:
+                Move();
+                break;
+
+            case EnemyType.Frog:
+                FrogMove();
+                break;
+
+            case EnemyType.Spider:
+                Move();
+                break;
+        }
+
+        if (distanceToWaypoint < 1f)
+        {
+            currentPoint = (currentPoint == pointB.transform) ? pointA.transform : pointB.transform;
+        }
+    }
+
+    private void Detect(float distToClosest)
+    {
+        //Stop speed
+        ChangeSpeed(0);
+
+        //Decrement our detect time
+        detectCountdown -= Time.deltaTime;
+
+        if (distToClosest <= detectDistance)
+        {
+            switch (myEnemy)
+            {
+                case EnemyType.Fish:
+                    currentPoint = closestPlayer;
+                    myPatrol = PatrolType.Chase;
+                    break;
+                case EnemyType.Frog:
+                    myPatrol = PatrolType.Chase;
+                    currentPoint = closestPlayer;
+                    break;
+                case EnemyType.Spider:
+                    StartCoroutine(enemyAttack.SpiderAttack());
+                    break;
+            }
+            detectCountdown = detectTime;
+        }
+
+        if (detectCountdown <= 0)
+        {
+            ChangeSpeed(baseSpeed);
+            myPatrol = PatrolType.Patrol;
+        }
+    }
+
+    private void Chase(float distToClosest)
+    {
+        switch (myEnemy)
+        {
+            case EnemyType.Fish:
+                Move();
+
+                break;
+            case EnemyType.Frog:
+                FrogMove();
+                break;
+        }
+
+        //increase the speed of which to chase the player
+        ChangeSpeed(baseSpeed + chaseSpeed);
+
+        //If the player gets outside the detect distance, go back to the detect state.
+        if (distToClosest > detectDistance)
+        {
+            currentPoint = pointA.transform;
+            myPatrol = PatrolType.Detect;
+        }
+
+        //Check if we are close to the player, then attack         
+        if (distToClosest <= attackDistance)
+            switch (myEnemy)
+            {
+                case EnemyType.Fish:
+                    StartCoroutine(enemyAttack.FishAttack());
+                    break;
+
+                case EnemyType.Frog:
+                    StartCoroutine(enemyAttack.FrogAttack());
+                    break;
+            }
     }
 
     public void ChangeSpeed(float _speed)
@@ -213,7 +196,7 @@ public class EnemyPatrol : GameBehaviour
     {
         if (IsGrounded())
         {
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
         }
     }
 
@@ -237,6 +220,37 @@ public class EnemyPatrol : GameBehaviour
             // Moving left
             spriteRenderer.flipX = true;
         }
+    }
+
+    private void FrogMove()
+    {
+        // Calculate the direction to the current point
+        Vector2 direction = (currentPoint.position - transform.position).normalized;
+
+        // Set the velocity of the Rigidbody2D to move towards the current point
+        rb.velocity = new Vector2(direction.x * mySpeed, rb.velocity.y);
+
+        // Flip the sprite based on movement direction
+        if (direction.x > 0)
+        {
+            spriteRenderer.flipX = false; // Moving right
+        }
+        else if (direction.x < 0)
+        {
+            spriteRenderer.flipX = true;  // Moving left
+        }
+
+        Jump();
+    }
+
+    public void CalculateClosestPlayer()
+    {
+        //Always get the distance between the players and this object and assign the closest player.
+        float distToSea = Vector3.Distance(transform.position, playerSea.transform.position);
+        float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
+
+        closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
+
     }
 
     private void OnDrawGizmos()
