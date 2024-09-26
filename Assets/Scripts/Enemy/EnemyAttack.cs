@@ -26,12 +26,12 @@ public class EnemyAttack : GameBehaviour
     {
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Fish Attack");
-        enemyPatrol.ChangeSpeed(20);
         yield return new WaitForSeconds(1);
+        Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), enemyPatrol.closestPlayer.GetComponent<BoxCollider2D>());
         //PlayAnimation("Attack");
         enemyPatrol.ChangeSpeed(0);
         yield return new WaitForSeconds(3);
-        enemyPatrol.ChangeSpeed(enemyPatrol.mySpeed);
+        enemyPatrol.ChangeSpeed(20);
         enemyPatrol.myPatrol = PatrolType.Chase;
     }
 
