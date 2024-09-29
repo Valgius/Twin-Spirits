@@ -27,7 +27,7 @@ public class EnemyAttack : GameBehaviour
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Fish Attack");
         enemyPatrol.ChangeSpeed(20);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         //PlayAnimation("Attack");
         enemyPatrol.ChangeSpeed(0);
         yield return new WaitForSeconds(3);
@@ -37,10 +37,10 @@ public class EnemyAttack : GameBehaviour
 
     public IEnumerator FrogAttack()
     {
+        enemyPatrol.ChangeSpeed(0);
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Frog Attack");
-        enemyPatrol.ChangeSpeed(0);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1);
         GasAttack();
         //PlayAnimation("Attack");
         yield return new WaitForSeconds(3);

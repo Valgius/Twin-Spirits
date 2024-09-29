@@ -176,7 +176,13 @@ public class EnemyPatrol : GameBehaviour
                     break;
 
                 case EnemyType.Frog:
-                    StartCoroutine(enemyAttack.FrogAttack());
+                    if (IsGrounded())
+                    {
+                        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                        StartCoroutine(enemyAttack.FrogAttack());
+                        rb.constraints = RigidbodyConstraints2D.None;
+                        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    }
                     break;
             }
     }
