@@ -182,7 +182,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   closestPlayer: {fileID: 0}
-  baseSpeed: 20
+  baseSpeed: 15
   mySpeed: 1
   chaseSpeed: 1
   jumpHeight: 1
