@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OrbManager : MonoBehaviour
+public class OrbManager : Singleton<OrbManager>
 {
     [Header("- Player -")]
     public GameObject playerLeaf;

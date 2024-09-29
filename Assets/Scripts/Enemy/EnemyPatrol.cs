@@ -80,7 +80,7 @@ public class EnemyPatrol : GameBehaviour
 
             case PatrolType.Chase:
                 Chase(distToClosest);
-                break;        
+                break;
         }
     }
 

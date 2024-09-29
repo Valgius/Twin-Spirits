@@ -78,7 +78,7 @@ public class PlayerController : GameBehaviour
         Movement();
         Jumping();
         Dashing();
-        Swimming();
+        
         ClimbingAndWallJumping();
         UpdateBreathBar();
 
@@ -90,9 +90,14 @@ public class PlayerController : GameBehaviour
 
     void FixedUpdate()
     {
+        Swimming();
         SpriteFlipping();
         WallDetection();
-        ClimbingAndWallSliding();
+        if (isLeaf)
+        {
+            ClimbingAndWallSliding();
+        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -163,6 +168,7 @@ public class PlayerController : GameBehaviour
             if (doubleJump && isLeaf && hasLeafOrb)
             {
                 //anim.SetBool("isJumping", false);
+                playerRb.velocity = new Vector2(0, 0);
                 Jump();
                 doubleJump = false;
             }
@@ -260,6 +266,7 @@ public class PlayerController : GameBehaviour
         anim.SetBool("isJumping", false);
         breathPanel.SetActive(true);
         swimmingStateTimer = swimmingStateCooldown;
+        playerRb.gravityScale = 0.5f;
     }
 
     private void ExitWater()
@@ -270,6 +277,8 @@ public class PlayerController : GameBehaviour
         breathTimer = maxBreathTimer;
         breathPanel.SetActive(false);
         swimmingStateTimer = swimmingStateCooldown;
+        playerRb.AddForce(Vector2.up * 15, ForceMode2D.Force);
+        playerRb.gravityScale = 1;
     }
 
     public void UpdateBreathBar()

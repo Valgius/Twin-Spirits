@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseController : MonoBehaviour
+public class PauseController : GameBehaviour
 {
     public GameObject pausePanel;
     private bool paused;
@@ -25,6 +25,6 @@ public class PauseController : MonoBehaviour
     {
         paused = !paused;
         pausePanel.SetActive(paused);
-        Time.timeScale = paused ? 0 : 1;
+        Time.timeScale = paused ? 0 : 1; 
     }
 }

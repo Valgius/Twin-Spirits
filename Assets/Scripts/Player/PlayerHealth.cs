@@ -17,6 +17,7 @@ public class PlayerHealth : GameBehaviour
     void Start()
     {
         playerRespawn = this.gameObject.GetComponent<PlayerRespawn>();
+        
     }
 
     private void Update()
