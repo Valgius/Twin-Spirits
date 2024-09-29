@@ -7,6 +7,11 @@ public class OrbScript : MonoBehaviour
     public OrbManager orbManager;
     public bool isLeafOrb;
 
+    private void Start()
+    {
+        orbManager = FindObjectOfType<OrbManager>();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject == orbManager.playerLeaf)

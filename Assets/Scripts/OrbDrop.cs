@@ -6,32 +6,41 @@ public class OrbDrop : GameBehaviour
 {
     public GameObject playerLeaf;
     public GameObject playerSea;
-    public Transform dropZone;
+    public GameObject dropZone;
     public GameObject leafOrb;
-    public GameObject SeaOrb;
+    public GameObject seaOrb;
 
     private PlayerController playerLeafController;
     private PlayerController playerSeaController;
     
+    
     void Start()
     {
-        dropZone = this.transform;
+        //Set Player controllers to be called on.
         playerLeafController = playerLeaf.GetComponent<PlayerController>();
         playerSeaController = playerSea.GetComponent<PlayerController>();
     }
 
-    
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player") && playerLeafController.hasSeaOrb)
+        //When Player hits the trigger zone and has the corresponding orb, drop the orb to set location.
+        if (collision.gameObject.CompareTag("Player") && playerLeafController.hasSeaOrb)
         {
+            print("Drop Orb Sea");
             playerLeafController.ToggleHasSeaOrb();
-            Instantiate(SeaOrb.gameObject, this.transform);
+            //New orb is set as the sea orb in Orb Manager Script as old one would be disabled.
+            _OM.orbSea = Instantiate(seaOrb, dropZone.transform.position, transform.rotation);
+            _OM.orbPanelLeaf.SetActive(false);
+            
+        }
+        else if (collision.gameObject.CompareTag("Player") && playerSeaController.hasLeafOrb)
+        {
+            print("Drop Orb Leaf");
+            playerSeaController.ToggleHasLeafOrb();
+            //Same as previous line but for leaf orb.
+            _OM.orbLeaf = Instantiate(leafOrb, dropZone.transform.position, transform.rotation);
+            _OM.orbPanelSea.SetActive(false);
+            
         }
     }
 }

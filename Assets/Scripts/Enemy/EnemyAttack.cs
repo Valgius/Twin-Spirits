@@ -14,6 +14,7 @@ public class EnemyAttack : GameBehaviour
 
     public Transform playerTransform;
 
+    public float attackTimer;
 
     // Update is called once per frame
     void Update()
@@ -27,7 +28,13 @@ public class EnemyAttack : GameBehaviour
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Fish Attack");
         yield return new WaitForSeconds(1);
-        Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), enemyPatrol.closestPlayer.GetComponent<BoxCollider2D>());
+        attackTimer = 2f;
+        while (attackTimer > 0)
+        {
+            Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), enemyPatrol.closestPlayer.GetComponent<BoxCollider2D>());
+            attackTimer -= Time.deltaTime;
+        }
+        
         //PlayAnimation("Attack");
         enemyPatrol.ChangeSpeed(0);
         yield return new WaitForSeconds(3);
