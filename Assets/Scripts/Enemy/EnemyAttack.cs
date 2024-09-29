@@ -16,11 +16,13 @@ public class EnemyAttack : GameBehaviour
 
     public float attackTimer;
 
+
     // Update is called once per frame
     void Update()
     {
         Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), projectilePrefab.GetComponent<BoxCollider2D>());
         playerTransform = enemyPatrol.closestPlayer;
+        
     }
 
     public IEnumerator FishAttack()
@@ -28,13 +30,7 @@ public class EnemyAttack : GameBehaviour
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Fish Attack");
         yield return new WaitForSeconds(1);
-        attackTimer = 2f;
-        while (attackTimer > 0)
-        {
-            Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), enemyPatrol.closestPlayer.GetComponent<BoxCollider2D>());
-            attackTimer -= Time.deltaTime;
-        }
-        
+        StartTimer();
         //PlayAnimation("Attack");
         enemyPatrol.ChangeSpeed(0);
         yield return new WaitForSeconds(3);
@@ -80,5 +76,11 @@ public class EnemyAttack : GameBehaviour
     void GasAttack()
     {
         Instantiate(frogGas, frogFirePoint.position, Quaternion.identity);
+    }
+
+    void StartTimer()
+    {
+        attackTimer = 2f;
+        print("timer set");
     }
 }
