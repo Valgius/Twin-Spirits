@@ -100,13 +100,6 @@ public class PlayerController : GameBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Orb")
-        {
-
-        }
-    }
 
     void OnTriggerEnter2D(Collider2D other)
     {

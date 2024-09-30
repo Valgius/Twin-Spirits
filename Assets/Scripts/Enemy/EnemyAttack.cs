@@ -23,17 +23,29 @@ public class EnemyAttack : GameBehaviour
         Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), projectilePrefab.GetComponent<BoxCollider2D>());
         playerTransform = enemyPatrol.closestPlayer;
         
+        if(attackTimer > 0)
+        {
+            attackTimer -= Time.deltaTime;
+            gameObject.layer = 2;
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+        else
+        {
+            gameObject.layer = 0;
+            GetComponent<Rigidbody2D>().constraints = ~RigidbodyConstraints2D.FreezePosition;
+        }
+            
     }
 
     public IEnumerator FishAttack()
     {
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Fish Attack");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
         StartTimer();
         //PlayAnimation("Attack");
         enemyPatrol.ChangeSpeed(0);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         enemyPatrol.ChangeSpeed(20);
         enemyPatrol.myPatrol = PatrolType.Chase;
     }
@@ -82,5 +94,6 @@ public class EnemyAttack : GameBehaviour
     {
         attackTimer = 2f;
         print("timer set");
+        
     }
 }

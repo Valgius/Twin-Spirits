@@ -26,7 +26,7 @@ public class EnemyPatrol : GameBehaviour
     public float mySpeed = 1f;
     public float chaseSpeed = 1f;
     public float jumpHeight = 1f;
-    public float attackDistance = 2;
+    public float attackDistance = 0.1f;
     private float detectCountdown = 5f;
     public float detectTime = 5f;
     public float detectDistance = 10f;
