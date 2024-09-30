@@ -16,7 +16,7 @@ public class PlayerController : GameBehaviour
     public bool hasSeaOrb;
 
     private float movement = 0f;
-    private bool doubleJump;
+    [SerializeField] private bool doubleJump;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpForce = 0f;
 
@@ -158,7 +158,7 @@ public class PlayerController : GameBehaviour
         //Allows the player to jump
         if (Input.GetButtonDown("Jump"))
         {
-            if (doubleJump && isLeaf && hasLeafOrb)
+            if (doubleJump && isLeaf && hasLeafOrb && !IsGrounded())
             {
                 //anim.SetBool("isJumping", false);
                 playerRb.velocity = new Vector2(0, 0);
@@ -206,7 +206,12 @@ public class PlayerController : GameBehaviour
                 if (isLeaf == false)
                 {
                     Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
-                    playerRb.AddForce(moveDirection * swimSpeed);
+                    //playerRb.AddForce(moveDirection * swimSpeed);
+                    playerRb.velocity = moveDirection * swimSpeed;
+                    if(Input.GetKeyUp(KeyCode.W | KeyCode.S))
+                    {
+                        
+                    }
                     LimitSwimmingSpeed();
                     BreathTimer();
                     ApplyWaterDragAndBuoyancy();

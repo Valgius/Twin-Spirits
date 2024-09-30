@@ -171,9 +171,9 @@ public class EnemyPatrol : GameBehaviour
         if (distToClosest <= attackDistance)
             switch (myEnemy)
             {
-                case EnemyType.Fish:
-                    StartCoroutine(enemyAttack.FishAttack());
-                    break;
+                //case EnemyType.Fish:
+                //    StartCoroutine(enemyAttack.FishAttack());
+                //    break;
 
                 case EnemyType.Frog:
                     if (IsGrounded())
@@ -185,6 +185,21 @@ public class EnemyPatrol : GameBehaviour
                     }
                     break;
             }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        switch (myEnemy)
+        {
+            case EnemyType.Fish:
+                if (collision.gameObject.CompareTag("Player") && this.GetComponent<EnemyAttack>().attackTimer <= 0)
+                {
+                    StartCoroutine(enemyAttack.FishAttack());
+                    collision.gameObject.GetComponent<PlayerHealth>().EnemyHit();
+                }
+                    
+                break;
+        }
     }
 
     public void ChangeSpeed(float _speed)

@@ -16,23 +16,29 @@ public class EnemyAttack : GameBehaviour
 
     public float attackTimer;
 
+    private Rigidbody2D rb;
+
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), projectilePrefab.GetComponent<BoxCollider2D>());
         playerTransform = enemyPatrol.closestPlayer;
-        
+        //GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
         if(attackTimer > 0)
         {
             attackTimer -= Time.deltaTime;
-            gameObject.layer = 2;
-            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         else
         {
-            gameObject.layer = 0;
-            GetComponent<Rigidbody2D>().constraints = ~RigidbodyConstraints2D.FreezePosition;
+            rb.constraints = ~RigidbodyConstraints2D.FreezePosition;
         }
             
     }
@@ -41,7 +47,6 @@ public class EnemyAttack : GameBehaviour
     {
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Fish Attack");
-        yield return new WaitForSeconds(0.1f);
         StartTimer();
         //PlayAnimation("Attack");
         enemyPatrol.ChangeSpeed(0);
