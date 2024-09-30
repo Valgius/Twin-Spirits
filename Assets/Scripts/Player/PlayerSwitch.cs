@@ -12,6 +12,9 @@ public class PlayerSwitch : MonoBehaviour
     public GameObject playerSeaUI;
     public GameObject playerSeaCamera;
 
+    public Rigidbody2D seaRb;
+    public Rigidbody2D leafRb;
+
     public bool isLeafActive;
     void Start()
     {
@@ -26,9 +29,11 @@ public class PlayerSwitch : MonoBehaviour
         {
             SwitchCharacter();
         }
+
+
     }
 
-    private void SwitchCharacter()
+    public void SwitchCharacter()
     {
         if (isLeafActive == true)
             ActivateSea();
@@ -47,6 +52,12 @@ public class PlayerSwitch : MonoBehaviour
         playerSeaCamera.SetActive(false);
 
         isLeafActive = true;
+
+        seaRb.constraints = RigidbodyConstraints2D.FreezeAll;
+        leafRb.constraints = RigidbodyConstraints2D.None;
+        leafRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+
     }
 
     private void ActivateSea()
@@ -60,5 +71,10 @@ public class PlayerSwitch : MonoBehaviour
         playerSeaCamera.SetActive(true);
 
         isLeafActive = false;
+
+        leafRb.constraints = RigidbodyConstraints2D.FreezeAll;
+        seaRb.constraints = RigidbodyConstraints2D.None;
+        seaRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
     }
 }
