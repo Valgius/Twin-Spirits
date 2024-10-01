@@ -30,8 +30,9 @@ public class PlayerController : GameBehaviour
     [SerializeField] private TrailRenderer trailRenderer;
 
     [Header("- Swim -")]
-    [SerializeField] private float swimSpeed = 0f;
-    [SerializeField] private float maxSwimSpeed = 0f;
+    [SerializeField] public float swimSpeed = 0f;
+    [SerializeField] private float swimSpeedUp = 0f;
+    [SerializeField] public float maxSwimSpeed = 0f;
     [SerializeField] private float waterDrag = 0f;
     [SerializeField] private float buoyancyForce = 0f;
     [SerializeField] public float maxBuoyancyVelocity = 0f;
@@ -206,12 +207,13 @@ public class PlayerController : GameBehaviour
             {
                 if (isLeaf == false)
                 {
+                    //Adds velocity to player character when swimming based on swimSpeed.
                     Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
                     //playerRb.AddForce(moveDirection * swimSpeed);
                     playerRb.velocity = moveDirection * swimSpeed;
-                    if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+                    if (Input.GetKey(KeyCode.Space)) //When holding Space, the player will swim upwards.
                     {
-                        playerRb.velocity = playerRb.velocity * swimDeceleration * Time.deltaTime;
+                        playerRb.velocity = Vector2.up * swimSpeedUp;
                     }
                     LimitSwimmingSpeed();
                     BreathTimer();
@@ -278,6 +280,7 @@ public class PlayerController : GameBehaviour
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.AddForce(Vector2.up * 15, ForceMode2D.Force);
         playerRb.gravityScale = 1;
+        
     }
 
     public void UpdateBreathBar()
