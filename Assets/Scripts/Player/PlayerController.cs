@@ -41,6 +41,7 @@ public class PlayerController : GameBehaviour
     [SerializeField] private Image breathFill;
     [SerializeField] private GameObject breathPanel;
     [SerializeField] private float swimmingStateCooldown = 0.5f;
+    [SerializeField] private float swimDeceleration;
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
 
@@ -205,12 +206,12 @@ public class PlayerController : GameBehaviour
             {
                 if (isLeaf == false)
                 {
-                    Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+                    Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
                     //playerRb.AddForce(moveDirection * swimSpeed);
                     playerRb.velocity = moveDirection * swimSpeed;
-                    if(Input.GetKeyUp(KeyCode.W | KeyCode.S))
+                    if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
                     {
-                        
+                        playerRb.velocity = playerRb.velocity * swimDeceleration * Time.deltaTime;
                     }
                     LimitSwimmingSpeed();
                     BreathTimer();
