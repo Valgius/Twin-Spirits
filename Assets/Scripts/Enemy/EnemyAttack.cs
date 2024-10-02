@@ -16,26 +16,42 @@ public class EnemyAttack : GameBehaviour
 
     public float attackTimer;
 
+    private Rigidbody2D rb;
+
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), projectilePrefab.GetComponent<BoxCollider2D>());
         playerTransform = enemyPatrol.closestPlayer;
-        
+        //GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        if(attackTimer > 0) //While attack timer is more then 0, fish will freeze in place for chomp animation to play when implemented.
+        {
+            attackTimer -= Time.deltaTime;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+        else
+        {
+            rb.constraints = ~RigidbodyConstraints2D.FreezePosition;
+        }
+            
     }
 
     public IEnumerator FishAttack()
     {
+        //When fish attacks, start timer for fish to freeze. Once done, the fish will return to chase.
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Fish Attack");
-        yield return new WaitForSeconds(1);
-        StartTimer();
+        attackTimer = 3f;
         //PlayAnimation("Attack");
-        enemyPatrol.ChangeSpeed(0);
-        yield return new WaitForSeconds(3);
-        enemyPatrol.ChangeSpeed(20);
         enemyPatrol.myPatrol = PatrolType.Chase;
+        yield return null;
     }
 
     public IEnumerator FrogAttack()
@@ -76,11 +92,5 @@ public class EnemyAttack : GameBehaviour
     void GasAttack()
     {
         Instantiate(frogGas, frogFirePoint.position, Quaternion.identity);
-    }
-
-    void StartTimer()
-    {
-        attackTimer = 2f;
-        print("timer set");
     }
 }

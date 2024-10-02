@@ -16,7 +16,7 @@ public class PlayerController : GameBehaviour
     public bool hasSeaOrb;
 
     private float movement = 0f;
-    private bool doubleJump;
+    [SerializeField] private bool doubleJump;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpForce = 0f;
 
@@ -30,8 +30,9 @@ public class PlayerController : GameBehaviour
     [SerializeField] private TrailRenderer trailRenderer;
 
     [Header("- Swim -")]
-    [SerializeField] private float swimSpeed = 0f;
-    [SerializeField] private float maxSwimSpeed = 0f;
+    [SerializeField] public float swimSpeed = 0f;
+    [SerializeField] private float swimSpeedUp = 0f;
+    [SerializeField] public float maxSwimSpeed = 0f;
     [SerializeField] private float waterDrag = 0f;
     [SerializeField] private float buoyancyForce = 0f;
     [SerializeField] public float maxBuoyancyVelocity = 0f;
@@ -41,6 +42,7 @@ public class PlayerController : GameBehaviour
     [SerializeField] private Image breathFill;
     [SerializeField] private GameObject breathPanel;
     [SerializeField] private float swimmingStateCooldown = 0.5f;
+    [SerializeField] private float swimDeceleration;
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
 
@@ -100,13 +102,6 @@ public class PlayerController : GameBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Orb")
-        {
-
-        }
-    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -165,7 +160,7 @@ public class PlayerController : GameBehaviour
         //Allows the player to jump
         if (Input.GetButtonDown("Jump"))
         {
-            if (doubleJump && isLeaf && hasLeafOrb)
+            if (doubleJump && isLeaf && hasLeafOrb && !IsGrounded())
             {
                 //anim.SetBool("isJumping", false);
                 playerRb.velocity = new Vector2(0, 0);
@@ -212,8 +207,14 @@ public class PlayerController : GameBehaviour
             {
                 if (isLeaf == false)
                 {
-                    Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
-                    playerRb.AddForce(moveDirection * swimSpeed);
+                    //Adds velocity to player character when swimming based on swimSpeed.
+                    Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                    //playerRb.AddForce(moveDirection * swimSpeed);
+                    playerRb.velocity = moveDirection * swimSpeed;
+                    if (Input.GetKey(KeyCode.Space)) //When holding Space, the player will swim upwards.
+                    {
+                        playerRb.velocity = Vector2.up * swimSpeedUp;
+                    }
                     LimitSwimmingSpeed();
                     BreathTimer();
                     ApplyWaterDragAndBuoyancy();
@@ -279,6 +280,7 @@ public class PlayerController : GameBehaviour
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.AddForce(Vector2.up * 15, ForceMode2D.Force);
         playerRb.gravityScale = 1;
+        
     }
 
     public void UpdateBreathBar()
