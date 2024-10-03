@@ -144,3 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSwitch: {fileID: 0}
+  hasSwitched: 0
+  sceneDelay: 2

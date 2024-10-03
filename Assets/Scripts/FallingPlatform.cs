@@ -10,6 +10,9 @@ public class FallingPlatform : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
 
+
+
+   
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
