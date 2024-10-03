@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaterGeysers : GameBehaviour
@@ -7,8 +8,8 @@ public class WaterGeysers : GameBehaviour
     [SerializeField] private GameObject seaPlayer;
     private PlayerController playerController;
     [SerializeField] private float forceSpeed;
+    public Vector2 forwardDirection;
     
-
 
     void Start()
     {
@@ -17,15 +18,22 @@ public class WaterGeysers : GameBehaviour
         
     }
 
+
     private void FixedUpdate()
     {
         if (playerController.touchingGeyser)
         {
             
-            playerController.GetComponent<Rigidbody2D>().AddRelativeForce(transform.right * forceSpeed, ForceMode2D.Impulse);
-            //playerController.GetComponent<Rigidbody2D>().velocity = this.gameObject.transform.right * forceSpeed;
+            playerController.GetComponent<Rigidbody2D>().AddRelativeForce(transform.right * forceSpeed);
+            //playerController.GetComponent<Rigidbody2D>().velocity = forwardDirection * forceSpeed;
             //playerController.isSwimming = false;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        print(this.gameObject.name + this.transform.rotation);
+        forwardDirection = this.gameObject.GetComponent<Transform>().transform.right;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -33,7 +41,7 @@ public class WaterGeysers : GameBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             playerController.touchingGeyser = true;
-            print(this.gameObject.name);
+            
         }
     }
 

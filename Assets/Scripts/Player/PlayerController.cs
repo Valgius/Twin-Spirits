@@ -93,6 +93,9 @@ public class PlayerController : GameBehaviour
 
     void FixedUpdate()
     {
+        if (isDashing)
+            return;
+
         Swimming();
         SpriteFlipping();
         WallDetection();
@@ -144,7 +147,7 @@ public class PlayerController : GameBehaviour
         isDashing = true;
         float originalGravity = playerRb.gravityScale;
         playerRb.gravityScale = 0;
-        playerRb.velocity = new Vector3(transform.localScale.x * dashingPower, 0f);
+        playerRb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         trailRenderer.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         maxSwimSpeed = swimSpeed;
