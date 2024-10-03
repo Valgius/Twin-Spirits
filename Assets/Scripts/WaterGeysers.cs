@@ -7,6 +7,8 @@ public class WaterGeysers : GameBehaviour
     [SerializeField] private GameObject seaPlayer;
     private PlayerController playerController;
     [SerializeField] private float forceSpeed;
+    
+
 
     void Start()
     {
@@ -15,15 +17,33 @@ public class WaterGeysers : GameBehaviour
         
     }
 
+    private void FixedUpdate()
+    {
+        if (playerController.touchingGeyser)
+        {
+            
+            playerController.GetComponent<Rigidbody2D>().AddRelativeForce(transform.right * forceSpeed, ForceMode2D.Impulse);
+            //playerController.GetComponent<Rigidbody2D>().velocity = this.gameObject.transform.right * forceSpeed;
+            //playerController.isSwimming = false;
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //playerController.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceSpeed, 0), ForceMode2D.Force);
-            playerController.GetComponent<Rigidbody2D>().AddForce(transform.right * forceSpeed, ForceMode2D.Force);
-            playerController.maxSwimSpeed = forceSpeed;
+            playerController.touchingGeyser = true;
+            print(this.gameObject.name);
         }
-        else
-            playerController.maxSwimSpeed = playerController.swimSpeed;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //playerController.maxSwimSpeed = playerController.swimSpeed;
+            //playerController.isSwimming = true;
+            playerController.touchingGeyser = false;
+        }
     }
 }

@@ -45,6 +45,7 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float swimDeceleration;
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
+    public bool touchingGeyser;
 
     [Header("- Climb -")]
     public float climbSpeed = 0f;                      
@@ -210,7 +211,9 @@ public class PlayerController : GameBehaviour
                     //Adds velocity to player character when swimming based on swimSpeed.
                     Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
                     //playerRb.AddForce(moveDirection * swimSpeed);
-                    playerRb.velocity = moveDirection * swimSpeed;
+                    if (touchingGeyser == false)
+                        playerRb.velocity = moveDirection * swimSpeed;
+
                     if (Input.GetKey(KeyCode.Space)) //When holding Space, the player will swim upwards.
                     {
                         playerRb.velocity = Vector2.up * swimSpeedUp;
