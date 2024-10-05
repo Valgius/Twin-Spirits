@@ -181,8 +181,8 @@ public class PlayerController : GameBehaviour
 
     private void Jump()
     {
-        playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         anim.SetBool("isJumping", true);
+        playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
     }
 
     private void Dashing()
