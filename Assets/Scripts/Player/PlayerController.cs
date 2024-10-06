@@ -128,7 +128,7 @@ public class PlayerController : GameBehaviour
         //Checking if our player is colliding with the ground.
         bool grounded = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, 0.1f, groundLayer);
 
-        Debug.Log("IsGrounded: " + grounded);
+        //Debug.Log("IsGrounded: " + grounded);
         return grounded;
     }
 

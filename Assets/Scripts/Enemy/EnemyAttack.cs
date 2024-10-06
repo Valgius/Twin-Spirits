@@ -50,6 +50,7 @@ public class EnemyAttack : GameBehaviour
         print("Fish Attack");
         attackTimer = 3f;
         //PlayAnimation("Attack");
+        _AM.PlaySFX("Fish Attack");
         enemyPatrol.myPatrol = PatrolType.Chase;
         yield return null;
     }
@@ -73,6 +74,7 @@ public class EnemyAttack : GameBehaviour
         print("Spider Attack");
         enemyPatrol.ChangeSpeed(0);
         Fire(playerTransform.position);
+        _AM.PlaySFX("Spider Attack");
         //PlayAnimation("Attack");
         yield return new WaitForSeconds(spiderFireRate);
         enemyPatrol.myPatrol = PatrolType.Detect;
