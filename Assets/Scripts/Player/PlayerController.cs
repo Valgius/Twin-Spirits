@@ -19,6 +19,7 @@ public class PlayerController : GameBehaviour
     [SerializeField] private bool doubleJump;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpForce = 0f;
+    public bool isGrounded;
 
     [Header("- Dash -")]
     public bool isFacingRight;
@@ -78,16 +79,18 @@ public class PlayerController : GameBehaviour
             return;
 
         Movement();
-        Jumping();
         Dashing();
-        
-        ClimbingAndWallJumping();
-        UpdateBreathBar();
 
         if (IsGrounded())
         {
             anim.SetBool("isJumping", false);
+            isGrounded = true;
         }
+
+        Jumping();
+
+        ClimbingAndWallJumping();
+        UpdateBreathBar();
     }
 
     void FixedUpdate()
@@ -99,7 +102,6 @@ public class PlayerController : GameBehaviour
         {
             ClimbingAndWallSliding();
         }
-        
     }
 
 
@@ -124,7 +126,10 @@ public class PlayerController : GameBehaviour
     private bool IsGrounded()
     {
         //Checking if our player is colliding with the ground.
-        return Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, groundLayer);
+        bool grounded = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, 0.1f, groundLayer);
+
+        Debug.Log("IsGrounded: " + grounded);
+        return grounded;
     }
 
     private void Movement()
@@ -173,7 +178,6 @@ public class PlayerController : GameBehaviour
                 {
                     Jump();
                     doubleJump = true;
-
                 }
             }
         }
@@ -181,8 +185,9 @@ public class PlayerController : GameBehaviour
 
     private void Jump()
     {
-        anim.SetBool("isJumping", true);
         playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        anim.SetBool("isJumping", true);
+        isGrounded = false;
     }
 
     private void Dashing()
