@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using System;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    public static AudioManager Instance;
-
     public Sound[] musicSounds, SFXSounds;
-    public AudioSource musicSource, SFXSource;
+
+
+    [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource SFXSource;
 
     public void Start()
     {
-        PlayMusic("Background");
+        PlayMusic("Treetops");
     }
 
     public void PlayMusic(string name)

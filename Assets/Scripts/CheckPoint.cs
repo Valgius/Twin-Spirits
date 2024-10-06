@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckPoint : MonoBehaviour
+public class CheckPoint : GameBehaviour
 {
     private PlayerRespawn playerLeafRespawn;
     private PlayerRespawn playerSeaRespawn;
@@ -36,5 +36,6 @@ public class CheckPoint : MonoBehaviour
         inActive.SetActive(false);
         active.SetActive(true);
         usedCheckPoint = true;
+        _AM.PlaySFX("Checkpoint Active");
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRespawn : MonoBehaviour
+public class PlayerRespawn : GameBehaviour
 {
     public Vector3 respawnPoint;
     private PlayerHealth playerHealth;
@@ -16,6 +16,7 @@ public class PlayerRespawn : MonoBehaviour
     {
         transform.position = respawnPoint;
         playerHealth.MaxHealth();
+        _AM.PlaySFX("Revive");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

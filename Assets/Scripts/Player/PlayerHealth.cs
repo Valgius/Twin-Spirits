@@ -57,9 +57,11 @@ public class PlayerHealth : GameBehaviour
 
     public void EnemyHit()
     {
+        _AM.PlaySFX("Player Hit");
         health -= 1;
         if (health <= 0)
         {
+            _AM.PlaySFX("Player Die");
             playerRespawn.Respawn();
             MaxHealth();
         }

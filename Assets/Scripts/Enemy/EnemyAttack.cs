@@ -94,5 +94,6 @@ public class EnemyAttack : GameBehaviour
     void GasAttack()
     {
         Instantiate(frogGas, frogFirePoint.position, Quaternion.identity);
+        _AM.PlaySFX("Frog Attack");
     }
 }

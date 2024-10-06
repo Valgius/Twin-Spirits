@@ -15,11 +15,14 @@ public class PlayerController : GameBehaviour
     public bool hasLeafOrb;
     public bool hasSeaOrb;
 
+    [Header("- Movement -")]
     private float movement = 0f;
     [SerializeField] private bool doubleJump;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpForce = 0f;
     public bool isGrounded;
+    //public float stepRate = 0.5f;
+    //float stepCooldown;
 
     [Header("- Dash -")]
     public bool isFacingRight;
@@ -138,12 +141,21 @@ public class PlayerController : GameBehaviour
         movement = Input.GetAxisRaw("Horizontal");
         playerRb.velocity = new Vector2(movement * moveSpeed, playerRb.velocity.y);
         anim.SetFloat("Speed", Mathf.Abs(movement));
+
+        /*//Footstep Audio Stuff
+        stepCooldown -= Time.deltaTime;
+        if (stepCooldown < 0 && isGrounded && (movement != 0))
+        {
+            stepCooldown = stepRate;
+            _AM.PlaySFX("Player Run");
+        }*/
     }
 
     private IEnumerator Dash()
     {
         maxSwimSpeed = dashingPower;
         anim.SetBool("isDashing", true);
+        _AM.PlaySFX("Player Dash");
         canDash = false;
         isDashing = true;
         float originalGravity = playerRb.gravityScale;
@@ -188,6 +200,7 @@ public class PlayerController : GameBehaviour
         playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         anim.SetBool("isJumping", true);
         isGrounded = false;
+        _AM.PlaySFX("Jump");
     }
 
     private void Dashing()
@@ -273,6 +286,7 @@ public class PlayerController : GameBehaviour
         breathPanel.SetActive(true);
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.gravityScale = 0.5f;
+        _AM.PlaySFX("Player Dive");
     }
 
     private void ExitWater()
@@ -285,7 +299,8 @@ public class PlayerController : GameBehaviour
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.AddForce(Vector2.up * 15, ForceMode2D.Force);
         playerRb.gravityScale = 1;
-        
+        _AM.PlaySFX("Player Dive");
+
     }
 
     public void UpdateBreathBar()
