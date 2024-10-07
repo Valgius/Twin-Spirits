@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +46,7 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float swimDeceleration;
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
-    public bool touchingGeyser;
+    public WaterGeysers geyser;
 
     [Header("- Climb -")]
     public float climbSpeed = 0f;                      
@@ -114,6 +115,8 @@ public class PlayerController : GameBehaviour
         {
             EnterWater();
         }
+        if (other.gameObject.GetComponent<WaterGeysers>() && geyser == null)
+            geyser = other.gameObject.GetComponent<WaterGeysers>();
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -123,6 +126,7 @@ public class PlayerController : GameBehaviour
         {
             ExitWater();
         }
+        geyser = null;
     }
 
     private bool IsGrounded()
@@ -141,14 +145,18 @@ public class PlayerController : GameBehaviour
 
     private IEnumerator Dash()
     {
+        //Set the maximum swimming speed to set dash power, enables the dashing animation, changes can dash to false so the player can't dash while dashing
+        //and is dashing to true.
         maxSwimSpeed = dashingPower;
         anim.SetBool("isDashing", true);
         canDash = false;
         isDashing = true;
+        //Set the original gravity to switch back to when dashing ends, changes gravity to 0, sets new player velocity to speed the player up and emits a trail.
         float originalGravity = playerRb.gravityScale;
         playerRb.gravityScale = 0;
         playerRb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         trailRenderer.emitting = true;
+        //After waiting a set amount of time, reset the player back to original swimming state.
         yield return new WaitForSeconds(dashingTime);
         maxSwimSpeed = swimSpeed;
         trailRenderer.emitting = false;
@@ -200,6 +208,9 @@ public class PlayerController : GameBehaviour
 
     private void Swimming()
     {
+        if (!isSwimming)
+            return;
+
         //Check if player is in water
         if (swimmingStateTimer > 0)
         {
@@ -207,27 +218,32 @@ public class PlayerController : GameBehaviour
         }
         else
         {
-            if (isSwimming)
-            {
-                if (isLeaf == false)
-                {
-                    //Adds velocity to player character when swimming based on swimSpeed.
-                    Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-                    //playerRb.AddForce(moveDirection * swimSpeed);
-                    if (touchingGeyser == false)
-                        playerRb.velocity = moveDirection * swimSpeed;
+            if (isLeaf == true)
+                return;
+            
+            //Adds velocity to player character when swimming based on swimSpeed.
+            Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-                    if (Input.GetKey(KeyCode.Space)) //When holding Space, the player will swim upwards.
-                    {
-                        playerRb.velocity = Vector2.up * swimSpeedUp;
-                    }
-                    LimitSwimmingSpeed();
-                    BreathTimer();
-                    ApplyWaterDragAndBuoyancy();
-                }
+            //Get Vector2 of the geyser
+            if (geyser != null)
+            {
+                print("got geyser direction: " + this.geyser.GetCurrentDirection());
+                moveDirection += geyser.GetCurrentDirection();
             }
+
+            playerRb.velocity = moveDirection * swimSpeed;
+
+            if (Input.GetKey(KeyCode.Space)) //When holding Space, the player will swim upwards.
+            {
+                playerRb.velocity = Vector2.up * swimSpeedUp;
+            }
+            LimitSwimmingSpeed();
+            BreathTimer();
+            ApplyWaterDragAndBuoyancy();
         }
     }
+
+    
 
     private void LimitSwimmingSpeed()
     {
@@ -297,38 +313,38 @@ public class PlayerController : GameBehaviour
     private void ClimbingAndWallJumping()
     {
         //Allows the player to climb and Wall Jump
-        if (isLeaf == true)
+        if (isLeaf == false)
+            return;
+        
+        // Check if player can wall jump
+        if (isTouchingWall && !isClimbing)
         {
-            // Check if player can wall jump
-            if (isTouchingWall && !isClimbing)
-            {
-                canWallJump = true;
-            }
-            else
-            {
-                canWallJump = false;
-            }
+            canWallJump = true;
+        }
+        else
+        {
+            canWallJump = false;
+        }
 
-            // Climb up or down when climbing
-            if (isClimbing)
-            {
-                playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxis("Vertical") * climbSpeed); ;
-            }
+        // Climb up or down when climbing
+        if (isClimbing)
+        {
+            playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxis("Vertical") * climbSpeed); ;
+        }
 
-            // Wall sliding
-            if (isWallSliding)
-            {
-                playerRb.velocity = new Vector2(playerRb.velocity.x, Mathf.Clamp(playerRb.velocity.y, -wallSlideSpeed, float.MaxValue));
-            }
+        // Wall sliding
+        if (isWallSliding)
+        {
+            playerRb.velocity = new Vector2(playerRb.velocity.x, Mathf.Clamp(playerRb.velocity.y, -wallSlideSpeed, float.MaxValue));
+        }
 
-            // Wall jump
-            if (canWallJump && Input.GetButtonDown("Jump"))
-            {
-                playerRb.velocity = new Vector2(-wallNormal.x * wallJumpHorizontalForce, wallJumpForce);
-                isClimbing = false;
-                isWallSliding = false;
-                canWallJump = false;
-            }
+        // Wall jump
+        if (canWallJump && Input.GetButtonDown("Jump"))
+        {
+            playerRb.velocity = new Vector2(-wallNormal.x * wallJumpHorizontalForce, wallJumpForce);
+            isClimbing = false;
+            isWallSliding = false;
+            canWallJump = false;
         }
     }
 
