@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2877875219003371347}
+  - component: {fileID: 5112266047270447435}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -33,6 +34,59 @@ Transform:
   - {fileID: 5288466157521306385}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5112266047270447435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054506164315461038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4596c4b05c1d3b64bb93353891fea1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroy: 0
+  musicSounds:
+  - name: Treetops
+    clip: {fileID: 8300000, guid: f6c186d227b79a44eb5f251cac2a8c6c, type: 3}
+  - name: Grasslands
+    clip: {fileID: 8300000, guid: f6c186d227b79a44eb5f251cac2a8c6c, type: 3}
+  - name: Undercove
+    clip: {fileID: 8300000, guid: f6c186d227b79a44eb5f251cac2a8c6c, type: 3}
+  SFXSounds:
+  - name: Fish Attack
+    clip: {fileID: 8300000, guid: 579a389c44b435a4cab8ea904ee8163d, type: 3}
+  - name: Frog
+    clip: {fileID: 8300000, guid: f229b7dbb9452bc4099cb286edadf586, type: 3}
+  - name: Frog Attack
+    clip: {fileID: 8300000, guid: c91fcf414acc0344cb03b13996f1bf3b, type: 3}
+  - name: Spider Attack
+    clip: {fileID: 8300000, guid: c64c130cf332a8e40bf274d3d83305fe, type: 3}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 4e349dc959014a845b9aa317d1c2b7f0, type: 3}
+  - name: Landing
+    clip: {fileID: 8300000, guid: eaae8fe8d600e1f459f34aa5757fa3b8, type: 3}
+  - name: Player Run
+    clip: {fileID: 8300000, guid: df7087e4d8a8bb546bc08ce68632903f, type: 3}
+  - name: Player Dash
+    clip: {fileID: 8300000, guid: c458b6714dab015479d507b21fd2cead, type: 3}
+  - name: Player Dive
+    clip: {fileID: 8300000, guid: 5c7b6d4002009e842bd2621585546d19, type: 3}
+  - name: Player Swim
+    clip: {fileID: 8300000, guid: c619008f1efb180488a78e4a966a3e16, type: 3}
+  - name: Player Climb
+    clip: {fileID: 8300000, guid: e1e2d06fe0d78194b9c7c8cc88414d0d, type: 3}
+  - name: Player Hit
+    clip: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
+  - name: Checkpoint Active
+    clip: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
+  - name: Revive
+    clip: {fileID: 8300000, guid: acbcb75601b0082458fda8807f67c813, type: 3}
+  - name: Death
+    clip: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
+  musicSource: {fileID: 5462371185516191440}
+  SFXSource: {fileID: 6121152529317204564}
 --- !u!1 &7191912134552656564
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +98,7 @@ GameObject:
   - component: {fileID: 3591910488004006534}
   - component: {fileID: 5462371185516191440}
   m_Layer: 0
-  m_Name: Music
+  m_Name: Music Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,12 +128,12 @@ AudioSource:
   m_GameObject: {fileID: 7191912134552656564}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8907677658720311773, guid: caf2909df47971e43b921cb53d552553, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -172,7 +226,7 @@ GameObject:
   - component: {fileID: 5288466157521306385}
   - component: {fileID: 6121152529317204564}
   m_Layer: 0
-  m_Name: SFX
+  m_Name: SFX Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +256,7 @@ AudioSource:
   m_GameObject: {fileID: 8726019127333707566}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1666707272204253671, guid: caf2909df47971e43b921cb53d552553, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
