@@ -1,29 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.EventSystems;
 
 public class WaterGeysers : GameBehaviour
 {
-    [SerializeField] private GameObject seaPlayer;
-    private PlayerController playerController;
-    [SerializeField] private float forceSpeed;
+    private Vector2 currentDirection;
 
-    void Start()
+    [SerializeField] private float geyserForce = 20f;
+    private void Start()
     {
-        seaPlayer = FindObjectOfType<PlayerController>().gameObject;
-        playerController = seaPlayer.GetComponent<PlayerController>();
-        
+        currentDirection = new Vector2(this.transform.up.x, transform.up.y);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    public Vector2 GetCurrentDirection()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //playerController.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceSpeed, 0), ForceMode2D.Force);
-            playerController.GetComponent<Rigidbody2D>().AddForce(transform.right * forceSpeed, ForceMode2D.Force);
-            playerController.maxSwimSpeed = forceSpeed;
-        }
-        else
-            playerController.maxSwimSpeed = playerController.swimSpeed;
+        return currentDirection * geyserForce;   
     }
 }
