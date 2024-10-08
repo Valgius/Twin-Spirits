@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
 public class PlayerController : GameBehaviour
 {
@@ -50,7 +51,9 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float swimDeceleration;
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
-    public WaterGeysers geyser;
+    public WaterFlow flow;
+    public bool isKnockback = false;
+    public float force = 30f;
 
     [Header("- Climb -")]
     public float climbSpeed = 0f;                      
@@ -112,6 +115,16 @@ public class PlayerController : GameBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("GeyserProjectile"))
+        {
+            isKnockback = true;
+            Vector2 knockback = (transform.position - collision.transform.position).normalized;
+            Vector2 knockbackForce = knockback * force;
+            playerRb.velocity = knockbackForce;
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -120,8 +133,8 @@ public class PlayerController : GameBehaviour
         {
             EnterWater();
         }
-        if (other.gameObject.GetComponent<WaterGeysers>() && geyser == null)
-            geyser = other.gameObject.GetComponent<WaterGeysers>();
+        if (other.gameObject.GetComponent<WaterFlow>() && flow == null)
+            flow = other.gameObject.GetComponent<WaterFlow>();
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -131,7 +144,7 @@ public class PlayerController : GameBehaviour
         {
             ExitWater();
         }
-        geyser = null;
+        flow = null;
     }
 
     private bool IsGrounded()
@@ -145,6 +158,8 @@ public class PlayerController : GameBehaviour
 
     private void Movement()
     {
+        if(isSwimming == true)
+            return;
         //Moves the Player Horizontal
         movement = Input.GetAxisRaw("Horizontal");
         playerRb.velocity = new Vector2(movement * moveSpeed, playerRb.velocity.y);
@@ -238,18 +253,24 @@ public class PlayerController : GameBehaviour
         {
             if (isLeaf == true)
                 return;
-            
+
             //Adds velocity to player character when swimming based on swimSpeed.
             Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-            //Get Vector2 of the geyser
-            if (geyser != null)
+            //Get Vector2 of the water flow.
+            if (flow != null)
             {
-                print("got geyser direction: " + this.geyser.GetCurrentDirection());
-                moveDirection += geyser.GetCurrentDirection();
+                print("got flow direction: " + this.flow.GetCurrentDirection());
+                moveDirection += flow.GetCurrentDirection();
             }
 
-            playerRb.velocity = moveDirection * swimSpeed;
+            if (isKnockback != true)
+            {
+                playerRb.velocity = moveDirection * swimSpeed;
+            }
+            else
+                return;
+            
 
             if (Input.GetKey(KeyCode.Space)) //When holding Space, the player will swim upwards.
             {
