@@ -98,7 +98,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2755492120442977157}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 991b1c28c3446d745b0048706e144440, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -146,10 +146,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -181,12 +181,13 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
-  baseSpeed: 10
+  baseSpeed: 4
   mySpeed: 1
   chaseSpeed: 1
-  jumpHeight: 1
-  attackDistance: 2
+  jumpHeight: 12
+  attackDistance: 3
   detectTime: 1
   detectDistance: 10
 --- !u!114 &-6021142250087442319
@@ -208,6 +209,7 @@ MonoBehaviour:
   frogGas: {fileID: 8358659242322031658, guid: deca6cea7946eaf45ad83955a1fcc8a0, type: 3}
   frogFirePoint: {fileID: 7348861279939885388}
   playerTransform: {fileID: 0}
+  attackTimer: 0
 --- !u!1 &7845429446759368709
 GameObject:
   m_ObjectHideFlags: 0

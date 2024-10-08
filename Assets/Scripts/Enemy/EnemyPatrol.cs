@@ -13,7 +13,7 @@ public class EnemyPatrol : GameBehaviour
 
     private Rigidbody2D rb;
     private BoxCollider2D enemyCollider;
-    private Transform currentPoint;
+    public Transform currentPoint;
     private Transform playerSea;
     private Transform playerLeaf;
     public Transform closestPlayer;

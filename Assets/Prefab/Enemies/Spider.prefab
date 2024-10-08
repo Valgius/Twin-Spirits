@@ -178,9 +178,11 @@ MonoBehaviour:
   enemyAttack: {fileID: -5363931461165616302}
   pointA: {fileID: 0}
   pointB: {fileID: 0}
+  chaseBoundaryDistance: 10
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
   baseSpeed: 15
   mySpeed: 1
@@ -208,6 +210,7 @@ MonoBehaviour:
   frogGas: {fileID: 0}
   frogFirePoint: {fileID: 0}
   playerTransform: {fileID: 0}
+  attackTimer: 0
 --- !u!1 &5257714660153568331
 GameObject:
   m_ObjectHideFlags: 0
