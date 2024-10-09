@@ -315,4 +315,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef8415013db2354a8017be8759ad4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  geyserForce: 84.61
+  seaPlayer: {fileID: 0}
+  forceSpeed: 30
