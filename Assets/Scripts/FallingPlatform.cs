@@ -17,7 +17,7 @@ public class FallingPlatform : MonoBehaviour
     public void Start()
     {
         startingPos = gameObject.transform.position;
-        Debug.Log(startingPos);
+       // Debug.Log(startingPos);
     }
 
 
