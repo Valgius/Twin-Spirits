@@ -187,23 +187,17 @@ public class PlayerController : GameBehaviour
     {
         //Set the maximum swimming speed to set dash power, enables the dashing animation, changes can dash to false so the player can't dash while dashing
         //and is dashing to true.
-        maxSwimSpeed = dashingPower;
-        anim.SetBool("isDashing", true);
+        maxSwimSpeed = dashingPower; anim.SetBool("isDashing", true);
         //_AM.PlaySFX("Player Dash");
-        canDash = false;
-        isDashing = true;
+        canDash = false; isDashing = true;
         //Set the original gravity to switch back to when dashing ends, changes gravity to 0, sets new player velocity to speed the player up and emits a trail.
-        float originalGravity = playerRb.gravityScale;
-        playerRb.gravityScale = 0;
+        float originalGravity = playerRb.gravityScale; playerRb.gravityScale = 0; trailRenderer.emitting = true;
+        //if(Input.GetButtonDown("Horizontal"))
         playerRb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
-        trailRenderer.emitting = true;
         //After waiting a set amount of time, reset the player back to original swimming state.
         yield return new WaitForSeconds(dashingTime);
-        maxSwimSpeed = swimSpeed;
-        trailRenderer.emitting = false;
-        playerRb.gravityScale = originalGravity;
-        isDashing = false;
-        anim.SetBool("isDashing", false);
+        maxSwimSpeed = swimSpeed; trailRenderer.emitting = false; playerRb.gravityScale = originalGravity;
+        isDashing = false; anim.SetBool("isDashing", false);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
@@ -242,7 +236,7 @@ public class PlayerController : GameBehaviour
     private void Dashing()
     {
         //Allows the player to Dash
-        if (Input.GetButtonDown("Dash") && canDash && !isLeaf && hasSeaOrb)
+        if (Input.GetButtonDown("Dash") && canDash && !isLeaf && hasSeaOrb && isSwimming)
         {
             StartCoroutine(Dash());
         }
@@ -263,10 +257,10 @@ public class PlayerController : GameBehaviour
             if (isLeaf == true)
                 return;
 
-            //Adds velocity to player character when swimming based on swimSpeed.
+            //Get move direction using Input keys.
             Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             
-            //Get Vector2 of the water flow.
+            //Get Vector2 of the water flow and apply movement speed depending on direction.
             if (flow != null)
             {
                 print("got flow direction: " + this.flow.GetCurrentDirection());

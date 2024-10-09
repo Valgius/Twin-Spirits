@@ -50,7 +50,7 @@ public class EnemyAttack : GameBehaviour
         print("Fish Attack");
         attackTimer = 3f;
         //PlayAnimation("Attack");
-        _AM.PlaySFX("Fish Attack");
+        //_AM.PlaySFX("Fish Attack");
         enemyPatrol.myPatrol = PatrolType.Chase;
         yield return null;
     }

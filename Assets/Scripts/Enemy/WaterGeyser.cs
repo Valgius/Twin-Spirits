@@ -21,13 +21,23 @@ public class WaterGeyser : GameBehaviour
             waterTimer -= Time.deltaTime;
         }
         else
-            ShootProjectile();
+            return;
     }
 
 
-    void ShootProjectile()
+    IEnumerator ShootProjectile()
     {
+        yield return new WaitForSeconds(setWaterTimer);
         currentCurrant = Instantiate(geyserProjectile, transform.position, Quaternion.identity, this.transform);
-        waterTimer = setWaterTimer;
+        //waterTimer = setWaterTimer;
+        yield return null;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && waterTimer <= 0)
+        {
+            StartCoroutine(ShootProjectile());
+        }
     }
 }
