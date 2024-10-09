@@ -8,11 +8,19 @@ public class FallingPlatform : MonoBehaviour
     
     private float destroyDelay = 2f;
 
+    public float respawnDelay = 2f;
+
     [SerializeField] private Rigidbody2D rb;
 
+    public Vector3 startingPos;
+
+    public void Start()
+    {
+        startingPos = gameObject.transform.position;
+        Debug.Log(startingPos);
+    }
 
 
-   
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -25,6 +33,17 @@ public class FallingPlatform : MonoBehaviour
     {
         yield return new WaitForSeconds(fallDelay);
         rb.bodyType = RigidbodyType2D.Dynamic;
-        Destroy(gameObject, destroyDelay);
+        
+        StartCoroutine(PlatformRespawn());
+
+    }
+
+    private IEnumerator PlatformRespawn()
+    {
+        yield return new WaitForSeconds(respawnDelay);
+       
+        rb.bodyType = RigidbodyType2D.Static;
+        gameObject.transform.position = startingPos;
+        
     }
 }
