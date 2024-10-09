@@ -189,7 +189,7 @@ MonoBehaviour:
   jumpHeight: 12
   attackDistance: 3
   detectTime: 1
-  detectDistance: 10
+  detectDistance: 0
 --- !u!114 &-6021142250087442319
 MonoBehaviour:
   m_ObjectHideFlags: 0

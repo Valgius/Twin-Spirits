@@ -122,14 +122,14 @@ public class EnemyPatrol : GameBehaviour
         {
             switch (myEnemy)
             {
-                case EnemyType.Fish:
+                /*case EnemyType.Fish:
                     currentPoint = closestPlayer;
                     myPatrol = PatrolType.Chase;
                     break;
                 case EnemyType.Frog:
                     myPatrol = PatrolType.Chase;
                     currentPoint = closestPlayer;
-                    break;
+                    break;*/
                 case EnemyType.Spider:
                     StartCoroutine(enemyAttack.SpiderAttack());
                     break;
@@ -160,20 +160,13 @@ public class EnemyPatrol : GameBehaviour
         //increase the speed of which to chase the player
         ChangeSpeed(baseSpeed + chaseSpeed);
 
-        //If the player gets outside the detect distance, go back to the detect state.
-        if (distToClosest > detectDistance)
-        {
-            currentPoint = pointA.transform;
-            myPatrol = PatrolType.Detect;
-        }
-
         //Check if we are close to the player, then attack         
         if (distToClosest <= attackDistance)
             switch (myEnemy)
             {
-                //case EnemyType.Fish:
-                //    StartCoroutine(enemyAttack.FishAttack());
-                //    break;
+                case EnemyType.Fish:
+                    StartCoroutine(enemyAttack.FishAttack());
+                    break;
 
                 case EnemyType.Frog:
                     if (IsGrounded())

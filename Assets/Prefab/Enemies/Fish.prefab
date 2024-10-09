@@ -177,7 +177,6 @@ MonoBehaviour:
   enemyAttack: {fileID: -8774944650780396100}
   pointA: {fileID: 0}
   pointB: {fileID: 0}
-  chaseBoundaryDistance: 10
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -189,7 +188,7 @@ MonoBehaviour:
   jumpHeight: 1
   attackDistance: 2
   detectTime: 5
-  detectDistance: 10
+  detectDistance: 0
 --- !u!114 &-8774944650780396100
 MonoBehaviour:
   m_ObjectHideFlags: 0
