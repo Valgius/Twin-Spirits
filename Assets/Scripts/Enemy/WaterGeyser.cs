@@ -4,42 +4,30 @@ using UnityEngine;
 
 public class WaterGeyser : GameBehaviour
 {
-    [SerializeField] private GameObject waterPush;
-    [SerializeField] private GameObject currentCurrant;
+    [SerializeField] private GameObject geyserProjectile;
+    private GameObject currentCurrant;
 
-    [SerializeField] private float pushbackForce = 1f;
-    [SerializeField] private float waterTimer = 1f;
+    public float projectileForce = 1f;
+    [SerializeField] private float setWaterTimer = 1f;
+    private float waterTimer = 1f;
 
     public enum Direction { Left, Right, Up, Down }
-    [SerializeField] public Direction direction;
+    public Direction direction;
 
     void Update()
     {
-        if (waterTimer > 0f)
+        if (waterTimer > 0)
         {
             waterTimer -= Time.deltaTime;
         }
         else
-            return;
+            ShootProjectile();
     }
 
 
     void ShootProjectile()
     {
-        if(waterTimer <= 0)
-        {
-            
-            currentCurrant = Instantiate(waterPush, transform.position, Quaternion.identity, this.transform);
-            currentCurrant.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.down * pushbackForce, ForceMode2D.Force);
-        }
-        
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            ShootProjectile();
-        }
+        currentCurrant = Instantiate(geyserProjectile, transform.position, Quaternion.identity, this.transform);
+        waterTimer = setWaterTimer;
     }
 }

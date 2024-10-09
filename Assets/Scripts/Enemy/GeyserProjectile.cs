@@ -30,24 +30,22 @@ public class GeyserProjectile : GameBehaviour
 
     private void FixedUpdate()
     {
-        
+        //Apply speed depending on parent geyser direction.
         switch (geyser.direction)
         {
             case WaterGeyser.Direction.Left:
-                this.GetComponent<Rigidbody2D>().velocity = new Vector2(-10, 0);
+                this.GetComponent<Rigidbody2D>().velocity = new Vector2(-geyser.projectileForce, 0);
                 break;
                 case WaterGeyser.Direction.Right:
-                this.GetComponent<Rigidbody2D>().velocity = new Vector2(10, 0);
+                this.GetComponent<Rigidbody2D>().velocity = new Vector2(geyser.projectileForce, 0);
                 break;
                 case WaterGeyser.Direction.Up:
-                this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 10);
+                this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, geyser.projectileForce);
                 break;
                 case WaterGeyser.Direction.Down:
-                this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -10);
+                this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -geyser.projectileForce);
                 break;
         }
         
     }
-
-    
 }

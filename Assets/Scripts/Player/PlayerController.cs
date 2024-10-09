@@ -29,7 +29,7 @@ public class PlayerController : GameBehaviour
     [Header("- Dash -")]
     public bool isFacingRight;
     private bool canDash = true;
-    private bool isDashing;
+    [SerializeField] private bool isDashing;
     [SerializeField] private float dashingPower = 0f;
     [SerializeField] private float dashingTime = 0f;
     [SerializeField] private float dashingCooldown = 0f;
@@ -52,7 +52,8 @@ public class PlayerController : GameBehaviour
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
     public WaterFlow flow;
-    public bool isKnockback = false;
+    private bool isKnockback = false;
+    [SerializeField] private float knockbackTimer = 0f;
     public float force = 30f;
 
     [Header("- Climb -")]
@@ -95,6 +96,10 @@ public class PlayerController : GameBehaviour
             isGrounded = true;
         }
 
+        //If knockbackTimer is less than or equal to 0, knockback is false, allowing movement.
+        if(knockbackTimer <=0)
+            isKnockback = false;
+
         Jumping();
 
         ClimbingAndWallJumping();
@@ -117,14 +122,18 @@ public class PlayerController : GameBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //When the player is hit by GeyserProjectile, start knockback with timer.
         if (collision.gameObject.CompareTag("GeyserProjectile"))
         {
             isKnockback = true;
             Vector2 knockback = (transform.position - collision.transform.position).normalized;
             Vector2 knockbackForce = knockback * force;
             playerRb.velocity = knockbackForce;
+            knockbackTimer = 1f;
         }
     }
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -180,7 +189,7 @@ public class PlayerController : GameBehaviour
         //and is dashing to true.
         maxSwimSpeed = dashingPower;
         anim.SetBool("isDashing", true);
-        _AM.PlaySFX("Player Dash");
+        //_AM.PlaySFX("Player Dash");
         canDash = false;
         isDashing = true;
         //Set the original gravity to switch back to when dashing ends, changes gravity to 0, sets new player velocity to speed the player up and emits a trail.
@@ -256,7 +265,7 @@ public class PlayerController : GameBehaviour
 
             //Adds velocity to player character when swimming based on swimSpeed.
             Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
+            
             //Get Vector2 of the water flow.
             if (flow != null)
             {
@@ -264,12 +273,15 @@ public class PlayerController : GameBehaviour
                 moveDirection += flow.GetCurrentDirection();
             }
 
+            //If the player isn't getting knocked back, allow movement with animations.
             if (isKnockback != true)
             {
                 playerRb.velocity = moveDirection * swimSpeed;
+                movement = Input.GetAxisRaw("Horizontal");
+                anim.SetFloat("Speed", Mathf.Abs(movement));
             }
             else
-                return;
+                knockbackTimer -= Time.deltaTime;
             
 
             if (Input.GetKey(KeyCode.Space)) //When holding Space, the player will swim upwards.
@@ -342,6 +354,7 @@ public class PlayerController : GameBehaviour
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.AddForce(Vector2.up * 15, ForceMode2D.Force);
         playerRb.gravityScale = 1;
+        playerRb.drag = 0f;
         _AM.PlaySFX("Player Dive");
 
     }
