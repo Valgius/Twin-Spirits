@@ -10,7 +10,7 @@ TagManager:
   - Enemy
   - Ground
   - Orb
-  - backtrackStopper
+  - GeyserProjectile
   layers:
   - Default
   - TransparentFX

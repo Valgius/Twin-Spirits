@@ -17,5 +17,7 @@ public class SceneController : GameBehaviour
         {
             SceneManager.LoadScene(scene);
         }
+        else
+            return;
     }
 }

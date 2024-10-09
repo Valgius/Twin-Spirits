@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
 public class PlayerController : GameBehaviour
 {
@@ -27,7 +29,7 @@ public class PlayerController : GameBehaviour
     [Header("- Dash -")]
     public bool isFacingRight;
     private bool canDash = true;
-    private bool isDashing;
+    [SerializeField] private bool isDashing;
     [SerializeField] private float dashingPower = 0f;
     [SerializeField] private float dashingTime = 0f;
     [SerializeField] private float dashingCooldown = 0f;
@@ -49,6 +51,10 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float swimDeceleration;
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
+    public WaterFlow flow;
+    private bool isKnockback = false;
+    [SerializeField] private float knockbackTimer = 0f;
+    public float force = 30f;
 
     [Header("- Climb -")]
     public float climbSpeed = 0f;                      
@@ -90,6 +96,10 @@ public class PlayerController : GameBehaviour
             isGrounded = true;
         }
 
+        //If knockbackTimer is less than or equal to 0, knockback is false, allowing movement.
+        if(knockbackTimer <=0)
+            isKnockback = false;
+
         Jumping();
 
         ClimbingAndWallJumping();
@@ -98,6 +108,9 @@ public class PlayerController : GameBehaviour
 
     void FixedUpdate()
     {
+        if (isDashing)
+            return;
+
         Swimming();
         SpriteFlipping();
         WallDetection();
@@ -107,6 +120,20 @@ public class PlayerController : GameBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //When the player is hit by GeyserProjectile, start knockback with timer.
+        if (collision.gameObject.CompareTag("GeyserProjectile"))
+        {
+            isKnockback = true;
+            Vector2 knockback = (transform.position - collision.transform.position).normalized;
+            Vector2 knockbackForce = knockback * force;
+            playerRb.velocity = knockbackForce;
+            knockbackTimer = 1f;
+        }
+    }
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -115,6 +142,8 @@ public class PlayerController : GameBehaviour
         {
             EnterWater();
         }
+        if (other.gameObject.GetComponent<WaterFlow>() && flow == null)
+            flow = other.gameObject.GetComponent<WaterFlow>();
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -124,6 +153,7 @@ public class PlayerController : GameBehaviour
         {
             ExitWater();
         }
+        flow = null;
     }
 
     private bool IsGrounded()
@@ -137,6 +167,8 @@ public class PlayerController : GameBehaviour
 
     private void Movement()
     {
+        if(isSwimming == true)
+            return;
         //Moves the Player Horizontal
         movement = Input.GetAxisRaw("Horizontal");
         playerRb.velocity = new Vector2(movement * moveSpeed, playerRb.velocity.y);
@@ -153,15 +185,19 @@ public class PlayerController : GameBehaviour
 
     private IEnumerator Dash()
     {
+        //Set the maximum swimming speed to set dash power, enables the dashing animation, changes can dash to false so the player can't dash while dashing
+        //and is dashing to true.
         maxSwimSpeed = dashingPower;
         anim.SetBool("isDashing", true);
-        _AM.PlaySFX("Player Dash");
+        //_AM.PlaySFX("Player Dash");
         canDash = false;
         isDashing = true;
+        //Set the original gravity to switch back to when dashing ends, changes gravity to 0, sets new player velocity to speed the player up and emits a trail.
         float originalGravity = playerRb.gravityScale;
         playerRb.gravityScale = 0;
-        playerRb.velocity = new Vector3(transform.localScale.x * dashingPower, 0f);
+        playerRb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         trailRenderer.emitting = true;
+        //After waiting a set amount of time, reset the player back to original swimming state.
         yield return new WaitForSeconds(dashingTime);
         maxSwimSpeed = swimSpeed;
         trailRenderer.emitting = false;
@@ -214,6 +250,9 @@ public class PlayerController : GameBehaviour
 
     private void Swimming()
     {
+        if (!isSwimming)
+            return;
+
         //Check if player is in water
         if (swimmingStateTimer > 0)
         {
@@ -221,25 +260,41 @@ public class PlayerController : GameBehaviour
         }
         else
         {
-            if (isSwimming)
+            if (isLeaf == true)
+                return;
+
+            //Adds velocity to player character when swimming based on swimSpeed.
+            Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            
+            //Get Vector2 of the water flow.
+            if (flow != null)
             {
-                if (isLeaf == false)
-                {
-                    //Adds velocity to player character when swimming based on swimSpeed.
-                    Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-                    //playerRb.AddForce(moveDirection * swimSpeed);
-                    playerRb.velocity = moveDirection * swimSpeed;
-                    if (Input.GetKey(KeyCode.Space)) //When holding Space, the player will swim upwards.
-                    {
-                        playerRb.velocity = Vector2.up * swimSpeedUp;
-                    }
-                    LimitSwimmingSpeed();
-                    BreathTimer();
-                    ApplyWaterDragAndBuoyancy();
-                }
+                print("got flow direction: " + this.flow.GetCurrentDirection());
+                moveDirection += flow.GetCurrentDirection();
             }
+
+            //If the player isn't getting knocked back, allow movement with animations.
+            if (isKnockback != true)
+            {
+                playerRb.velocity = moveDirection * swimSpeed;
+                movement = Input.GetAxisRaw("Horizontal");
+                anim.SetFloat("Speed", Mathf.Abs(movement));
+            }
+            else
+                knockbackTimer -= Time.deltaTime;
+            
+
+            if (Input.GetKey(KeyCode.Space)) //When holding Space, the player will swim upwards.
+            {
+                playerRb.velocity = Vector2.up * swimSpeedUp;
+            }
+            LimitSwimmingSpeed();
+            BreathTimer();
+            ApplyWaterDragAndBuoyancy();
         }
     }
+
+    
 
     private void LimitSwimmingSpeed()
     {
@@ -299,6 +354,7 @@ public class PlayerController : GameBehaviour
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.AddForce(Vector2.up * 15, ForceMode2D.Force);
         playerRb.gravityScale = 1;
+        playerRb.drag = 0f;
         _AM.PlaySFX("Player Dive");
 
     }
@@ -311,38 +367,38 @@ public class PlayerController : GameBehaviour
     private void ClimbingAndWallJumping()
     {
         //Allows the player to climb and Wall Jump
-        if (isLeaf == true)
+        if (isLeaf == false)
+            return;
+        
+        // Check if player can wall jump
+        if (isTouchingWall && !isClimbing)
         {
-            // Check if player can wall jump
-            if (isTouchingWall && !isClimbing)
-            {
-                canWallJump = true;
-            }
-            else
-            {
-                canWallJump = false;
-            }
+            canWallJump = true;
+        }
+        else
+        {
+            canWallJump = false;
+        }
 
-            // Climb up or down when climbing
-            if (isClimbing)
-            {
-                playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxis("Vertical") * climbSpeed); ;
-            }
+        // Climb up or down when climbing
+        if (isClimbing)
+        {
+            playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxis("Vertical") * climbSpeed); ;
+        }
 
-            // Wall sliding
-            if (isWallSliding)
-            {
-                playerRb.velocity = new Vector2(playerRb.velocity.x, Mathf.Clamp(playerRb.velocity.y, -wallSlideSpeed, float.MaxValue));
-            }
+        // Wall sliding
+        if (isWallSliding)
+        {
+            playerRb.velocity = new Vector2(playerRb.velocity.x, Mathf.Clamp(playerRb.velocity.y, -wallSlideSpeed, float.MaxValue));
+        }
 
-            // Wall jump
-            if (canWallJump && Input.GetButtonDown("Jump"))
-            {
-                playerRb.velocity = new Vector2(-wallNormal.x * wallJumpHorizontalForce, wallJumpForce);
-                isClimbing = false;
-                isWallSliding = false;
-                canWallJump = false;
-            }
+        // Wall jump
+        if (canWallJump && Input.GetButtonDown("Jump"))
+        {
+            playerRb.velocity = new Vector2(-wallNormal.x * wallJumpHorizontalForce, wallJumpForce);
+            isClimbing = false;
+            isWallSliding = false;
+            canWallJump = false;
         }
     }
 
