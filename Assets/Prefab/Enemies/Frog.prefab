@@ -186,7 +186,7 @@ MonoBehaviour:
   baseSpeed: 4
   mySpeed: 1
   chaseSpeed: 1
-  jumpHeight: 12
+  jumpHeight: 98.6
   attackDistance: 3
   detectTime: 1
   detectDistance: 0

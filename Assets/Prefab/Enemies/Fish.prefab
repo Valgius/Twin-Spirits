@@ -182,8 +182,8 @@ MonoBehaviour:
     m_Bits: 0
   currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
-  baseSpeed: 20
-  mySpeed: 1
+  baseSpeed: 25
+  mySpeed: 33.5
   chaseSpeed: 1
   jumpHeight: 1
   attackDistance: 2
