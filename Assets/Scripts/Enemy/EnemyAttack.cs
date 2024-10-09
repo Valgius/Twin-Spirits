@@ -51,7 +51,7 @@ public class EnemyAttack : GameBehaviour
         attackTimer = 3f;
         //PlayAnimation("Attack");
         _AM.PlaySFX("Fish Attack");
-        enemyPatrol.myPatrol = PatrolType.Chase;
+        //enemyPatrol.myPatrol = PatrolType.Chase;
         yield return null;
     }
 
