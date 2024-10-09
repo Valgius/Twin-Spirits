@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyPatrol : GameBehaviour
@@ -26,6 +27,9 @@ public class EnemyPatrol : GameBehaviour
     public float mySpeed = 1f;
     public float chaseSpeed = 1f;
     public float jumpHeight = 1f;
+    private Vector2 jumpDirection;
+    public float jumpCooldown = 1f;
+    private bool canJump = true;
     public float attackDistance = 0.1f;
     private float detectCountdown = 5f;
     public float detectTime = 5f;
@@ -104,7 +108,7 @@ public class EnemyPatrol : GameBehaviour
                 break;
         }
 
-        if (distanceToWaypoint < 1f)
+        if (distanceToWaypoint < 1.5f)
         {
             currentPoint = (currentPoint == pointB.transform) ? pointA.transform : pointB.transform;
         }
@@ -122,14 +126,6 @@ public class EnemyPatrol : GameBehaviour
         {
             switch (myEnemy)
             {
-                /*case EnemyType.Fish:
-                    currentPoint = closestPlayer;
-                    myPatrol = PatrolType.Chase;
-                    break;
-                case EnemyType.Frog:
-                    myPatrol = PatrolType.Chase;
-                    currentPoint = closestPlayer;
-                    break;*/
                 case EnemyType.Spider:
                     StartCoroutine(enemyAttack.SpiderAttack());
                     break;
@@ -186,11 +182,10 @@ public class EnemyPatrol : GameBehaviour
         {
             case EnemyType.Fish:
                 if (collision.gameObject.CompareTag("Player") && this.GetComponent<EnemyAttack>().attackTimer <= 0)
-                {
+                {  
                     StartCoroutine(enemyAttack.FishAttack());
                     collision.gameObject.GetComponent<PlayerHealth>().EnemyHit();
-                }
-                    
+                }    
                 break;
         }
     }
@@ -241,20 +236,29 @@ public class EnemyPatrol : GameBehaviour
         // Calculate the direction to the current point
         Vector2 direction = (currentPoint.position - transform.position).normalized;
 
-        // Set the velocity of the Rigidbody2D to move towards the current point
-        rb.velocity = new Vector2(direction.x * mySpeed, rb.velocity.y);
-
-        // Flip the sprite based on movement direction
-        if (direction.x > 0)
+        if (IsGrounded()  && canJump)
         {
-            spriteRenderer.flipX = false; // Moving right
-        }
-        else if (direction.x < 0)
-        {
-            spriteRenderer.flipX = true;  // Moving left
-        }
+            // Set the jump direction only if grounded
+            jumpDirection = direction;
+            rb.velocity = new Vector2(jumpDirection.x * mySpeed, jumpHeight);
 
-        Jump();
+            // Start the cooldown coroutine
+            StartCoroutine(JumpCooldownCoroutine());
+
+            if (direction.x > 0)
+            {
+                spriteRenderer.flipX = false; // Moving right
+            }
+            else if (direction.x < 0)
+            {
+                spriteRenderer.flipX = true;  // Moving left
+            }
+        }
+        else if (!IsGrounded())
+        {
+            // While in the air, maintain the horizontal velocity
+            rb.velocity = new Vector2(jumpDirection.x * mySpeed, rb.velocity.y);
+        }
     }
 
     public void CalculateClosestPlayer()
@@ -264,7 +268,6 @@ public class EnemyPatrol : GameBehaviour
         float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
 
         closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
-
     }
 
     private void OnDrawGizmos()
@@ -274,5 +277,12 @@ public class EnemyPatrol : GameBehaviour
         Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
 
         //Gizmos.DrawSphere(this.gameObject.transform.position ,detectDistance);
+    }
+
+    private IEnumerator JumpCooldownCoroutine()
+    {
+        canJump = false; // Disable jumping
+        yield return new WaitForSeconds(jumpCooldown); // Wait for the cooldown duration
+        canJump = true; // Enable jumping again
     }
 }
