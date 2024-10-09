@@ -180,6 +180,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
   baseSpeed: 25
   mySpeed: 33.5
@@ -187,7 +188,7 @@ MonoBehaviour:
   jumpHeight: 1
   attackDistance: 2
   detectTime: 5
-  detectDistance: 10
+  detectDistance: 0
 --- !u!114 &-8774944650780396100
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -60,7 +60,7 @@ public class EnemyAttack : GameBehaviour
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Frog Attack");
         enemyPatrol.ChangeSpeed(0);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1);
         GasAttack();
         //PlayAnimation("Attack");
         yield return new WaitForSeconds(3);
