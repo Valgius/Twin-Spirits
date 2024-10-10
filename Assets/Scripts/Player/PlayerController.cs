@@ -353,6 +353,7 @@ public class PlayerController : GameBehaviour
 
     private void ExitWater()
     {
+        StopCoroutine(Dash());
         isSwimming = false;
         anim.SetBool("isSwimming", false);
         anim.SetBool("isJumping", true);
