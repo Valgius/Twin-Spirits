@@ -31,27 +31,21 @@ public class EnemyAttack : GameBehaviour
         playerTransform = enemyPatrol.closestPlayer;
         //GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        if(attackTimer > 0) //While attack timer is more then 0, fish will freeze in place for chomp animation to play when implemented.
-        {
-            attackTimer -= Time.deltaTime;
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
-        else
-        {
-            rb.constraints = ~RigidbodyConstraints2D.FreezePosition;
-        }
-            
+        attackTimer -= Time.deltaTime;
     }
 
     public IEnumerator FishAttack()
     {
-        //When fish attacks, start timer for fish to freeze. Once done, the fish will return to chase.
-        enemyPatrol.myPatrol = PatrolType.Attack;
-        print("Fish Attack");
-        attackTimer = 3f;
-        //PlayAnimation("Attack");
-        _AM.PlaySFX("Fish Attack");
-        //enemyPatrol.myPatrol = PatrolType.Chase;
+        if (attackTimer < 0)
+        {
+            enemyPatrol.myPatrol = PatrolType.Attack;
+            print("Fish Attack");
+            //PlayAnimation("Attack");
+            _AM.PlaySFX("Fish Attack");
+            attackTimer = 3f;
+        }
+
+        enemyPatrol.myPatrol = PatrolType.Chase;
         yield return null;
     }
 

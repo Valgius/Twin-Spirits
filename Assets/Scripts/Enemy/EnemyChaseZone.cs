@@ -32,6 +32,7 @@ public class EnemyChaseZone : MonoBehaviour
             print("zone Exited");
             enemyPatrol.ChangeSpeed(0);
             Wait(1);
+
             // Switch patrol type and current point
             enemyPatrol.myPatrol = PatrolType.Patrol; // Reset to patrol mode
             enemyPatrol.currentPoint = (enemyPatrol.currentPoint == enemyPatrol.pointA.transform)

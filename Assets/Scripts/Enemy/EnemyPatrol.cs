@@ -161,7 +161,10 @@ public class EnemyPatrol : GameBehaviour
             switch (myEnemy)
             {
                 case EnemyType.Fish:
+                    rb.constraints = RigidbodyConstraints2D.FreezePosition;
                     StartCoroutine(enemyAttack.FishAttack());
+                    rb.constraints = RigidbodyConstraints2D.None;
+                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                     break;
 
                 case EnemyType.Frog:
@@ -176,7 +179,7 @@ public class EnemyPatrol : GameBehaviour
             }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
         switch (myEnemy)
         {
@@ -188,7 +191,7 @@ public class EnemyPatrol : GameBehaviour
                 }    
                 break;
         }
-    }
+    }*/
 
     public void ChangeSpeed(float _speed)
     {
@@ -199,14 +202,6 @@ public class EnemyPatrol : GameBehaviour
     {
         //Checking if our player is colliding with the ground.
         return Physics2D.BoxCast(enemyCollider.bounds.center, enemyCollider.bounds.size, 0f, Vector2.down, .1f, groundLayer);
-    }
-
-    private void Jump()
-    {
-        if (IsGrounded())
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
-        }
     }
 
     private void Move()

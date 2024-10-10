@@ -179,7 +179,6 @@ public class PlayerController : GameBehaviour
         {
             if (doubleJump && isLeaf && hasLeafOrb && !IsGrounded())
             {
-                //anim.SetBool("isJumping", false);
                 playerRb.velocity = new Vector2(0, 0);
                 Jump();
                 doubleJump = false;
@@ -300,7 +299,6 @@ public class PlayerController : GameBehaviour
         playerRb.AddForce(Vector2.up * 15, ForceMode2D.Force);
         playerRb.gravityScale = 1;
         _AM.PlaySFX("Player Dive");
-
     }
 
     public void UpdateBreathBar()
