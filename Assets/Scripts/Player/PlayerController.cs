@@ -122,15 +122,7 @@ public class PlayerController : GameBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //When the player is hit by GeyserProjectile, start knockback with timer.
-        if (collision.gameObject.CompareTag("GeyserProjectile"))
-        {
-            isKnockback = true;
-            Vector2 knockback = (transform.position - collision.transform.position).normalized;
-            Vector2 knockbackForce = knockback * force;
-            playerRb.velocity = knockbackForce;
-            knockbackTimer = 1f;
-        }
+        
     }
 
 
@@ -144,6 +136,18 @@ public class PlayerController : GameBehaviour
         }
         if (other.gameObject.GetComponent<WaterFlow>() && flow == null)
             flow = other.gameObject.GetComponent<WaterFlow>();
+
+        //When the player is hit by GeyserProjectile, start knockback with timer.
+        if (other.gameObject.CompareTag("GeyserProjectile"))
+        {
+            isKnockback = true;
+            Vector2 knockback = new Vector2(-playerRb.velocity.x - other.transform.position.x, 0f);
+            
+            Vector2 knockbackForce = knockback * force;
+            playerRb.velocity = knockbackForce;
+            
+            knockbackTimer = 1f;
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -192,7 +196,6 @@ public class PlayerController : GameBehaviour
         canDash = false; isDashing = true;
         //Set the original gravity to switch back to when dashing ends, changes gravity to 0, sets new player velocity to speed the player up and emits a trail.
         float originalGravity = playerRb.gravityScale; playerRb.gravityScale = 0; trailRenderer.emitting = true;
-        //if(Input.GetButtonDown("Horizontal"))
         playerRb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         //After waiting a set amount of time, reset the player back to original swimming state.
         yield return new WaitForSeconds(dashingTime);

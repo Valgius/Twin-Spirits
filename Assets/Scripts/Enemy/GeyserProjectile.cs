@@ -8,7 +8,7 @@ public class GeyserProjectile : GameBehaviour
     [SerializeField] private float timer = 1.2f;
     [SerializeField] private float force = 4;
 
-    [SerializeField] private Transform projectileDirection;
+    [SerializeField] private Quaternion projectileDirection;
     WaterGeyser geyser;
     
     
@@ -17,7 +17,7 @@ public class GeyserProjectile : GameBehaviour
         geyser = transform.parent.GetComponent<WaterGeyser>();
         //this.transform.rotation = this.GetComponentInParent<Transform>().rotation;
         this.transform.rotation = transform.parent.rotation;
-        projectileDirection = gameObject.transform;
+        projectileDirection = gameObject.transform.rotation;
     }
 
     
@@ -28,7 +28,7 @@ public class GeyserProjectile : GameBehaviour
         {
             Destroy(gameObject);
         }
-        transform.rotation = projectileDirection.transform.rotation;
+        transform.rotation = projectileDirection;
     }
 
     private void FixedUpdate()
