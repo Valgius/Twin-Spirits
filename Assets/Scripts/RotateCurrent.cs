@@ -8,6 +8,7 @@ public class RotateCurrent : MonoBehaviour
     //seperates the two triggers so one will stop the player from backtracking
     public bool isBackTrackStopper;
 
+    public WaterFlow waterFlow;
 
     //// Update is called once per frame
     //void Update()
@@ -18,12 +19,18 @@ public class RotateCurrent : MonoBehaviour
     //    }
     //}
 
+    private void Start()
+    {
+        waterFlow = GameObject.Find("RotatingWaterFlow").GetComponent<WaterFlow>();
+    }
+
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             rotatingCurrent.transform.eulerAngles = new Vector3(0, 0, 0);
             print("current trigger entered");
+            waterFlow.ResetCurrentDirection();
 
         }
        
@@ -31,6 +38,7 @@ public class RotateCurrent : MonoBehaviour
         if (isBackTrackStopper == true)
         {
             rotatingCurrent.transform.eulerAngles = new Vector3(0, 0, 90);
+            waterFlow.ResetCurrentDirection();
         }
     }
 
