@@ -9,7 +9,8 @@ public class WaterGeyser : GameBehaviour
 
     public float projectileForce = 1f;
     [SerializeField] private float setWaterTimer = 1f;
-    private float waterTimer = 1f;
+    [SerializeField] private float defaultWaterTimer = 3f;
+    [SerializeField] private float waterTimer = 3f;
 
     public enum Direction { Left, Right, Up, Down }
     public Direction direction;
@@ -29,11 +30,11 @@ public class WaterGeyser : GameBehaviour
     {
         yield return new WaitForSeconds(setWaterTimer);
         currentCurrant = Instantiate(geyserProjectile, transform.position, Quaternion.identity, this.transform);
-        //waterTimer = setWaterTimer;
-        yield return null;
+        waterTimer = defaultWaterTimer;
+        
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && waterTimer <= 0)
         {
