@@ -98,7 +98,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2755492120442977157}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 991b1c28c3446d745b0048706e144440, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -209,6 +209,7 @@ MonoBehaviour:
   spiderFirePoint: {fileID: 0}
   frogGas: {fileID: 8358659242322031658, guid: deca6cea7946eaf45ad83955a1fcc8a0, type: 3}
   frogFirePoint: {fileID: 7348861279939885388}
+  fishAttackBox: {fileID: 0}
   playerTransform: {fileID: 0}
   attackTimer: 0
 --- !u!1 &7845429446759368709

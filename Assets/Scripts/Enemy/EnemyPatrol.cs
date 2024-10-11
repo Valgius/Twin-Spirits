@@ -77,7 +77,7 @@ public class EnemyPatrol : GameBehaviour
             case PatrolType.Patrol:
                 Patrol();
                 break;
-                
+
             case PatrolType.Detect:
                 Detect(distToClosest);
                 break;
@@ -179,20 +179,6 @@ public class EnemyPatrol : GameBehaviour
             }
     }
 
-    /*private void OnCollisionEnter2D(Collision2D collision)
-    {
-        switch (myEnemy)
-        {
-            case EnemyType.Fish:
-                if (collision.gameObject.CompareTag("Player") && this.GetComponent<EnemyAttack>().attackTimer <= 0)
-                {  
-                    StartCoroutine(enemyAttack.FishAttack());
-                    collision.gameObject.GetComponent<PlayerHealth>().EnemyHit();
-                }    
-                break;
-        }
-    }*/
-
     public void ChangeSpeed(float _speed)
     {
         mySpeed = _speed;
@@ -206,48 +192,32 @@ public class EnemyPatrol : GameBehaviour
 
     private void Move()
     {
-        // Move towards current waypoint
-        Vector2 point = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
-        rb.MovePosition(point);
+        // Move towards the current waypoint
+        Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
+        rb.MovePosition(targetPosition);
 
         // Determine the direction of movement
-        Vector2 movementDirection = (point - (Vector2)transform.position).normalized;
+        Vector2 movementDirection = (targetPosition - (Vector2)transform.position).normalized;
 
         // Flip the sprite based on movement direction
-        if (movementDirection.x > 0)
-        {
-            // Moving right
-            spriteRenderer.flipX = false;
-        }
-        else if (movementDirection.x < 0)
-        {
-            // Moving left
-            spriteRenderer.flipX = true;
-        }
+        UpdateSpriteAndCollider(movementDirection);
     }
 
     private void FrogMove()
     {
         // Calculate the direction to the current point
-        Vector2 direction = (currentPoint.position - transform.position).normalized;
+        Vector2 movementDirection = (currentPoint.position - transform.position).normalized;
 
-        if (IsGrounded()  && canJump)
+        if (IsGrounded() && canJump)
         {
             // Set the jump direction only if grounded
-            jumpDirection = direction;
+            jumpDirection = movementDirection;
             rb.velocity = new Vector2(jumpDirection.x * mySpeed, jumpHeight);
 
             // Start the cooldown coroutine
             StartCoroutine(JumpCooldownCoroutine());
 
-            if (direction.x > 0)
-            {
-                spriteRenderer.flipX = false; // Moving right
-            }
-            else if (direction.x < 0)
-            {
-                spriteRenderer.flipX = true;  // Moving left
-            }
+            UpdateSpriteAndCollider(movementDirection);
         }
         else if (!IsGrounded())
         {
@@ -279,5 +249,19 @@ public class EnemyPatrol : GameBehaviour
         canJump = false; // Disable jumping
         yield return new WaitForSeconds(jumpCooldown); // Wait for the cooldown duration
         canJump = true; // Enable jumping again
+    }
+
+    private void UpdateSpriteAndCollider(Vector2 movementDirection)
+    {
+        // Flip the sprite based on movement direction
+        spriteRenderer.flipX = movementDirection.x < 0;
+
+        // Adjust collider offset for Fish type
+        if (myEnemy == EnemyType.Fish)
+        {
+            BoxCollider2D boxCollider = enemyAttack.fishAttackBox.GetComponent<BoxCollider2D>();
+            Vector2 newOffset = new Vector2(movementDirection.x > 0 ? 1.0f : -1.0f, 0f);
+            boxCollider.offset = newOffset;
+        }
     }
 }

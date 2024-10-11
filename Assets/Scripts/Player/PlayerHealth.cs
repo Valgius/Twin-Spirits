@@ -47,6 +47,14 @@ public class PlayerHealth : GameBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            EnemyHit();
+        }
+    }
+
     public void EnemyHit()
     {
         _AM.PlaySFX("Player Hit");

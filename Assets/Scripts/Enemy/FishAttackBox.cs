@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class FishAttackBox : MonoBehaviour
 {
-    public PlayerHealth playerHealth;
     public EnemyAttack enemyAttack;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-            playerHealth.EnemyHit();
-            enemyAttack.FishAttack();
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.EnemyHit();
+            }
+            else
+            {
+                Debug.LogWarning("PlayerHealth not Found");
+            }
         }
     }
 }

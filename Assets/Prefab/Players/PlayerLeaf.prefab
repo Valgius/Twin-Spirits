@@ -117,7 +117,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &6337171594953462721
 BoxCollider2D:
@@ -176,28 +176,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c247a6a751d4944b200542002c18fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 1064394873255402958}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   climbLayer:
     serializedVersion: 2
     m_Bits: 64
-  anim: {fileID: 1064394873255402958}
   isLeaf: 1
+  hasLeafOrb: 0
+  hasSeaOrb: 0
+  doubleJump: 0
   moveSpeed: 5
   jumpForce: 5
-  doubleJump: 0
+  isGrounded: 0
   isFacingRight: 1
+  isDashing: 0
   dashingPower: 10
   dashingTime: 0.5
   dashingCooldown: 0.2
   trailRenderer: {fileID: 2546723653339653019}
-  swimForce: 10
   swimSpeed: 5
+  swimSpeedUp: 0
+  maxSwimSpeed: 0
   waterDrag: 2
   buoyancyForce: 2
   maxBuoyancyVelocity: 1.6
+  breathTimer: 0
+  maxBreathTimer: 0
+  breathFill: {fileID: 0}
+  breathPanel: {fileID: 0}
+  swimmingStateCooldown: 0.5
+  swimDeceleration: 0
   isSwimming: 0
+  flow: {fileID: 0}
+  knockbackTimer: 0
+  force: 30
   climbSpeed: 3
   wallSlideSpeed: 1
   wallJumpForce: 5

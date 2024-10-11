@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 847948475174877395}
   - component: {fileID: 7687182385814030072}
   - component: {fileID: 1740146269938861127}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FishAttackBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f5bb19a49a72a45b6ede7ce17823b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyAttack: {fileID: 0}
 --- !u!1 &2755492120442977157
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +105,7 @@ GameObject:
   - component: {fileID: -1309635625031969661}
   - component: {fileID: 1651881864610817181}
   - component: {fileID: -8774944650780396100}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fish
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -294,10 +295,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPatrol: {fileID: 1651881864610817181}
-  projectilePrefab: {fileID: 2930296512969016943, guid: 378a336a375b74443aee039573c3eae4, type: 3}
+  projectilePrefab: {fileID: 0}
   spiderFireRate: 1
   spiderFirePoint: {fileID: 0}
-  frogGas: {fileID: 8358659242322031658, guid: deca6cea7946eaf45ad83955a1fcc8a0, type: 3}
+  frogGas: {fileID: 0}
   frogFirePoint: {fileID: 0}
+  fishAttackBox: {fileID: 977786722818313546}
   playerTransform: {fileID: 0}
   attackTimer: 0

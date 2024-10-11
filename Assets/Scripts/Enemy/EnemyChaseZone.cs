@@ -42,7 +42,7 @@ public class EnemyChaseZone : MonoBehaviour
         }
     }
 
-    public IEnumerator Wait(float sec)
+    private IEnumerator Wait(float sec)
     {
         yield return new WaitForSeconds(sec);
     }

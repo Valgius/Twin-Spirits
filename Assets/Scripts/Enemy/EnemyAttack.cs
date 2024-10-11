@@ -12,24 +12,17 @@ public class EnemyAttack : GameBehaviour
     public GameObject frogGas;
     public Transform frogFirePoint;
 
+    public GameObject fishAttackBox;
+
     public Transform playerTransform;
 
     public float attackTimer;
 
-    private Rigidbody2D rb;
 
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), projectilePrefab.GetComponent<BoxCollider2D>());
         playerTransform = enemyPatrol.closestPlayer;
-        //GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
         attackTimer -= Time.deltaTime;
     }
@@ -40,8 +33,11 @@ public class EnemyAttack : GameBehaviour
         {
             enemyPatrol.myPatrol = PatrolType.Attack;
             print("Fish Attack");
+            fishAttackBox.SetActive(true);
             //PlayAnimation("Attack");
             _AM.PlaySFX("Fish Attack");
+            yield return new WaitForSeconds(0.5f);
+            fishAttackBox.SetActive(false);
             attackTimer = 3f;
         }
 
