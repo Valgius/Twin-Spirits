@@ -61,6 +61,7 @@ public class PlayerController : GameBehaviour
     public float wallSlideSpeed = 0f;       
     public float wallJumpForce = 0f;       
     public float wallJumpHorizontalForce = 0f;
+    private float wallJumpTimer = 1f;
 
     public bool isClimbing = false;
     private bool isTouchingWall = false;
@@ -90,15 +91,18 @@ public class PlayerController : GameBehaviour
         Movement();
         Dashing();
 
-        if (IsGrounded())
+        if (isGrounded)
         {
             anim.SetBool("isJumping", false);
-            isGrounded = true;
+            //isGrounded = true;
         }
 
         //If knockbackTimer is less than or equal to 0, knockback is false, allowing movement.
         if(knockbackTimer <=0)
             isKnockback = false;
+
+        if(wallJumpTimer > 0)
+            wallJumpTimer -= Time.deltaTime;
 
         Jumping();
 
@@ -122,6 +126,14 @@ public class PlayerController : GameBehaviour
         if (isLeaf)
         {
             ClimbingAndWallSliding();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
         }
     }
 
@@ -341,6 +353,7 @@ public class PlayerController : GameBehaviour
 
     private void EnterWater()
     {
+        isGrounded = false;
         isSwimming = true;
         anim.SetBool("isSwimming", true);
         anim.SetBool("isJumping", false);
@@ -372,7 +385,7 @@ public class PlayerController : GameBehaviour
     private void ClimbingAndWallJumping()
     {
         //Allows the player to climb and Wall Jump
-        if (isLeaf == false)
+        if (!isLeaf)
             return;
         
         // Check if player can wall jump
@@ -404,6 +417,8 @@ public class PlayerController : GameBehaviour
             isClimbing = false;
             isWallSliding = false;
             canWallJump = false;
+            anim.SetBool("isJumping", true);
+            wallJumpTimer = 1f;
         }
     }
 
@@ -444,6 +459,11 @@ public class PlayerController : GameBehaviour
         {
             isTouchingWall = true;
             wallNormal = hit.normal;
+            if(wallJumpTimer <= 0)
+            {
+                anim.SetBool("isJumping", false);
+            }
+            
         }
         else
         {
