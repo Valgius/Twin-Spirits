@@ -181,11 +181,13 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
   baseSpeed: 15
   mySpeed: 1
   chaseSpeed: 1
   jumpHeight: 1
+  jumpCooldown: 1
   attackDistance: 15.47
   detectTime: 5
   detectDistance: 10
@@ -208,6 +210,7 @@ MonoBehaviour:
   frogGas: {fileID: 0}
   frogFirePoint: {fileID: 0}
   playerTransform: {fileID: 0}
+  attackTimer: 0
 --- !u!1 &5257714660153568331
 GameObject:
   m_ObjectHideFlags: 0

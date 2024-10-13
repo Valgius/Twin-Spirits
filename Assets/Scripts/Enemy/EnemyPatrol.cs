@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyPatrol : GameBehaviour
@@ -13,7 +14,7 @@ public class EnemyPatrol : GameBehaviour
 
     private Rigidbody2D rb;
     private BoxCollider2D enemyCollider;
-    private Transform currentPoint;
+    public Transform currentPoint;
     private Transform playerSea;
     private Transform playerLeaf;
     public Transform closestPlayer;
@@ -26,6 +27,9 @@ public class EnemyPatrol : GameBehaviour
     public float mySpeed = 1f;
     public float chaseSpeed = 1f;
     public float jumpHeight = 1f;
+    private Vector2 jumpDirection;
+    public float jumpCooldown = 1f;
+    private bool canJump = true;
     public float attackDistance = 0.1f;
     private float detectCountdown = 5f;
     public float detectTime = 5f;
@@ -73,7 +77,7 @@ public class EnemyPatrol : GameBehaviour
             case PatrolType.Patrol:
                 Patrol();
                 break;
-                
+
             case PatrolType.Detect:
                 Detect(distToClosest);
                 break;
@@ -104,7 +108,7 @@ public class EnemyPatrol : GameBehaviour
                 break;
         }
 
-        if (distanceToWaypoint < 1f)
+        if (distanceToWaypoint < 1.5f)
         {
             currentPoint = (currentPoint == pointB.transform) ? pointA.transform : pointB.transform;
         }
@@ -122,14 +126,6 @@ public class EnemyPatrol : GameBehaviour
         {
             switch (myEnemy)
             {
-                case EnemyType.Fish:
-                    currentPoint = closestPlayer;
-                    myPatrol = PatrolType.Chase;
-                    break;
-                case EnemyType.Frog:
-                    myPatrol = PatrolType.Chase;
-                    currentPoint = closestPlayer;
-                    break;
                 case EnemyType.Spider:
                     StartCoroutine(enemyAttack.SpiderAttack());
                     break;
@@ -160,20 +156,16 @@ public class EnemyPatrol : GameBehaviour
         //increase the speed of which to chase the player
         ChangeSpeed(baseSpeed + chaseSpeed);
 
-        //If the player gets outside the detect distance, go back to the detect state.
-        if (distToClosest > detectDistance)
-        {
-            currentPoint = pointA.transform;
-            myPatrol = PatrolType.Detect;
-        }
-
         //Check if we are close to the player, then attack         
         if (distToClosest <= attackDistance)
             switch (myEnemy)
             {
-                //case EnemyType.Fish:
-                //    StartCoroutine(enemyAttack.FishAttack());
-                //    break;
+                case EnemyType.Fish:
+                    rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                    StartCoroutine(enemyAttack.FishAttack());
+                    rb.constraints = RigidbodyConstraints2D.None;
+                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    break;
 
                 case EnemyType.Frog:
                     if (IsGrounded())
@@ -187,21 +179,6 @@ public class EnemyPatrol : GameBehaviour
             }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        switch (myEnemy)
-        {
-            case EnemyType.Fish:
-                if (collision.gameObject.CompareTag("Player") && this.GetComponent<EnemyAttack>().attackTimer <= 0)
-                {
-                    StartCoroutine(enemyAttack.FishAttack());
-                    collision.gameObject.GetComponent<PlayerHealth>().EnemyHit();
-                }
-                    
-                break;
-        }
-    }
-
     public void ChangeSpeed(float _speed)
     {
         mySpeed = _speed;
@@ -213,55 +190,40 @@ public class EnemyPatrol : GameBehaviour
         return Physics2D.BoxCast(enemyCollider.bounds.center, enemyCollider.bounds.size, 0f, Vector2.down, .1f, groundLayer);
     }
 
-    private void Jump()
-    {
-        if (IsGrounded())
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
-        }
-    }
-
     private void Move()
     {
-        // Move towards current waypoint
-        Vector2 point = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
-        rb.MovePosition(point);
+        // Move towards the current waypoint
+        Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
+        rb.MovePosition(targetPosition);
 
         // Determine the direction of movement
-        Vector2 movementDirection = (point - (Vector2)transform.position).normalized;
+        Vector2 movementDirection = (targetPosition - (Vector2)transform.position).normalized;
 
         // Flip the sprite based on movement direction
-        if (movementDirection.x > 0)
-        {
-            // Moving right
-            spriteRenderer.flipX = false;
-        }
-        else if (movementDirection.x < 0)
-        {
-            // Moving left
-            spriteRenderer.flipX = true;
-        }
+        UpdateSpriteAndCollider(movementDirection);
     }
 
     private void FrogMove()
     {
         // Calculate the direction to the current point
-        Vector2 direction = (currentPoint.position - transform.position).normalized;
+        Vector2 movementDirection = (currentPoint.position - transform.position).normalized;
 
-        // Set the velocity of the Rigidbody2D to move towards the current point
-        rb.velocity = new Vector2(direction.x * mySpeed, rb.velocity.y);
-
-        // Flip the sprite based on movement direction
-        if (direction.x > 0)
+        if (IsGrounded() && canJump)
         {
-            spriteRenderer.flipX = false; // Moving right
-        }
-        else if (direction.x < 0)
-        {
-            spriteRenderer.flipX = true;  // Moving left
-        }
+            // Set the jump direction only if grounded
+            jumpDirection = movementDirection;
+            rb.velocity = new Vector2(jumpDirection.x * mySpeed, jumpHeight);
 
-        Jump();
+            // Start the cooldown coroutine
+            StartCoroutine(JumpCooldownCoroutine());
+
+            UpdateSpriteAndCollider(movementDirection);
+        }
+        else if (!IsGrounded())
+        {
+            // While in the air, maintain the horizontal velocity
+            rb.velocity = new Vector2(jumpDirection.x * mySpeed, rb.velocity.y);
+        }
     }
 
     public void CalculateClosestPlayer()
@@ -271,7 +233,6 @@ public class EnemyPatrol : GameBehaviour
         float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
 
         closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
-
     }
 
     private void OnDrawGizmos()
@@ -281,5 +242,26 @@ public class EnemyPatrol : GameBehaviour
         Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
 
         //Gizmos.DrawSphere(this.gameObject.transform.position ,detectDistance);
+    }
+
+    private IEnumerator JumpCooldownCoroutine()
+    {
+        canJump = false; // Disable jumping
+        yield return new WaitForSeconds(jumpCooldown); // Wait for the cooldown duration
+        canJump = true; // Enable jumping again
+    }
+
+    private void UpdateSpriteAndCollider(Vector2 movementDirection)
+    {
+        // Flip the sprite based on movement direction
+        spriteRenderer.flipX = movementDirection.x < 0;
+
+        // Adjust collider offset for Fish type
+        if (myEnemy == EnemyType.Fish)
+        {
+            BoxCollider2D boxCollider = enemyAttack.fishAttackBox.GetComponent<BoxCollider2D>();
+            Vector2 newOffset = new Vector2(movementDirection.x > 0 ? 1.0f : -1.0f, 0f);
+            boxCollider.offset = newOffset;
+        }
     }
 }

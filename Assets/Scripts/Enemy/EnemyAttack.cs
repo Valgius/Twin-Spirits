@@ -12,45 +12,35 @@ public class EnemyAttack : GameBehaviour
     public GameObject frogGas;
     public Transform frogFirePoint;
 
+    public GameObject fishAttackBox;
+
     public Transform playerTransform;
 
     public float attackTimer;
 
-    private Rigidbody2D rb;
 
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), projectilePrefab.GetComponent<BoxCollider2D>());
         playerTransform = enemyPatrol.closestPlayer;
-        //GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        if(attackTimer > 0) //While attack timer is more then 0, fish will freeze in place for chomp animation to play when implemented.
-        {
-            attackTimer -= Time.deltaTime;
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
-        else
-        {
-            rb.constraints = ~RigidbodyConstraints2D.FreezePosition;
-        }
-            
+        attackTimer -= Time.deltaTime;
     }
 
     public IEnumerator FishAttack()
     {
-        //When fish attacks, start timer for fish to freeze. Once done, the fish will return to chase.
-        enemyPatrol.myPatrol = PatrolType.Attack;
-        print("Fish Attack");
-        attackTimer = 3f;
-        //PlayAnimation("Attack");
-        //_AM.PlaySFX("Fish Attack");
+        if (attackTimer < 0)
+        {
+            enemyPatrol.myPatrol = PatrolType.Attack;
+            print("Fish Attack");
+            fishAttackBox.SetActive(true);
+            //PlayAnimation("Attack");
+            _AM.PlaySFX("Fish Attack");
+            yield return new WaitForSeconds(0.5f);
+            fishAttackBox.SetActive(false);
+            attackTimer = 3f;
+        }
+
         enemyPatrol.myPatrol = PatrolType.Chase;
         yield return null;
     }
@@ -60,7 +50,7 @@ public class EnemyAttack : GameBehaviour
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Frog Attack");
         enemyPatrol.ChangeSpeed(0);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1);
         GasAttack();
         //PlayAnimation("Attack");
         yield return new WaitForSeconds(3);

@@ -71,6 +71,4 @@ public class PlayerHealth : GameBehaviour
     {
         health = numOfHearts;
     }
-
-
 }
