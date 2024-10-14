@@ -366,11 +366,7 @@ public class PlayerController : GameBehaviour
 
     private void ExitWater()
     {
-        if (isDashing && playerRb.velocity.y >= 30)
-        {
-            playerRb.AddForce(Vector2.down * dashingPushback, ForceMode2D.Force);
-            print("stopDashing");
-        }
+        playerRb.velocity = playerRb.velocity.normalized * swimSpeedUp;
         isSwimming = false;
         anim.SetBool("isSwimming", false);
         anim.SetBool("isJumping", true);
