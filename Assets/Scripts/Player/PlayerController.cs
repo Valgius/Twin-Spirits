@@ -55,6 +55,7 @@ public class PlayerController : GameBehaviour
     private bool isKnockback = false;
     [SerializeField] private float knockbackTimer = 0f;
     public float force = 30f;
+    [SerializeField] private float dashingPushback;
 
     [Header("- Climb -")]
     public float climbSpeed = 0f;                      
@@ -260,7 +261,7 @@ public class PlayerController : GameBehaviour
     private void Dashing()
     {
         //Allows the player to Dash
-        if (Input.GetButtonDown("Dash") && canDash && !isLeaf && hasSeaOrb && isSwimming)
+        if (Input.GetButtonDown("Dash") && canDash && !isLeaf && hasSeaOrb && isSwimming && !isKnockback)
         {
             StartCoroutine(Dash());
         }
@@ -365,7 +366,11 @@ public class PlayerController : GameBehaviour
 
     private void ExitWater()
     {
-        StopCoroutine(Dash());
+        if (isDashing && playerRb.velocity.y >= 30)
+        {
+            playerRb.AddForce(Vector2.down * dashingPushback, ForceMode2D.Force);
+            print("stopDashing");
+        }
         isSwimming = false;
         anim.SetBool("isSwimming", false);
         anim.SetBool("isJumping", true);
