@@ -55,12 +55,14 @@ public class PlayerController : GameBehaviour
     private bool isKnockback = false;
     [SerializeField] private float knockbackTimer = 0f;
     public float force = 30f;
+    [SerializeField] private float dashingPushback;
 
     [Header("- Climb -")]
     public float climbSpeed = 0f;                      
     public float wallSlideSpeed = 0f;       
     public float wallJumpForce = 0f;       
     public float wallJumpHorizontalForce = 0f;
+    [SerializeField] private float wallJumpTimer = 0.5f;
 
     public bool isClimbing = false;
     private bool isTouchingWall = false;
@@ -90,20 +92,28 @@ public class PlayerController : GameBehaviour
         Movement();
         Dashing();
 
-        if (IsGrounded())
+        if (isGrounded)
         {
             anim.SetBool("isJumping", false);
-            isGrounded = true;
+            //isGrounded = true;
         }
 
         //If knockbackTimer is less than or equal to 0, knockback is false, allowing movement.
         if(knockbackTimer <=0)
             isKnockback = false;
 
+        if(wallJumpTimer > 0)
+            wallJumpTimer -= Time.deltaTime;
+
         Jumping();
 
         ClimbingAndWallJumping();
         UpdateBreathBar();
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            hasSeaOrb = true;
+        }
     }
 
     void FixedUpdate()
@@ -122,18 +132,11 @@ public class PlayerController : GameBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //When the player is hit by GeyserProjectile, start knockback with timer.
-        if (collision.gameObject.CompareTag("GeyserProjectile"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            isKnockback = true;
-            Vector2 knockback = (transform.position - collision.transform.position).normalized;
-            Vector2 knockbackForce = knockback * force;
-            playerRb.velocity = knockbackForce;
-            knockbackTimer = 1f;
+            isGrounded = true;
         }
     }
-
-
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -144,6 +147,32 @@ public class PlayerController : GameBehaviour
         }
         if (other.gameObject.GetComponent<WaterFlow>() && flow == null)
             flow = other.gameObject.GetComponent<WaterFlow>();
+
+        //When the player is hit by GeyserProjectile, start knockback with timer.
+        if (other.gameObject.CompareTag("GeyserProjectile") && isDashing == false)
+        {
+            //Assign knockback values
+            Vector2 knockback = new Vector2(transform.position.x - other.transform.position.x, 0f);
+            Vector2 knockbackUp = new Vector2(0f, transform.position.y - other.transform.position.y);
+            Vector2 knockbackForce = knockback * force;
+            switch (other.gameObject.GetComponentInParent<WaterGeyser>().direction) // Depending on projectile direction, knockback player in direction of knockback.
+            {
+                case WaterGeyser.Direction.Down:
+                    playerRb.velocity = knockbackForce;
+                    break;
+                case WaterGeyser.Direction.Up:
+                    playerRb.velocity = knockbackForce;
+                    break;
+                case WaterGeyser.Direction.Right: 
+                    playerRb.velocity = knockbackUp * force;
+                    break;
+                case WaterGeyser.Direction.Left:
+                    playerRb.velocity = knockbackUp * force;
+                    break;
+            }
+            isKnockback = true;
+            knockbackTimer = 1f;
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -185,25 +214,16 @@ public class PlayerController : GameBehaviour
 
     private IEnumerator Dash()
     {
-        //Set the maximum swimming speed to set dash power, enables the dashing animation, changes can dash to false so the player can't dash while dashing
-        //and is dashing to true.
-        maxSwimSpeed = dashingPower;
-        anim.SetBool("isDashing", true);
-        //_AM.PlaySFX("Player Dash");
-        canDash = false;
-        isDashing = true;
-        //Set the original gravity to switch back to when dashing ends, changes gravity to 0, sets new player velocity to speed the player up and emits a trail.
-        float originalGravity = playerRb.gravityScale;
-        playerRb.gravityScale = 0;
-        playerRb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        LimitSwimmingSpeed();
+        //Enables the dashing animation, changes can dash to false so the player can't dash while dashing and is dashing to true.
+        canDash = false; isDashing = true; anim.SetBool("isDashing", true); //_AM.PlaySFX("Player Dash");
+        //Set new player velocity to speed the player up and emit a trail.
         trailRenderer.emitting = true;
+        playerRb.velocity *= dashingPower; 
         //After waiting a set amount of time, reset the player back to original swimming state.
         yield return new WaitForSeconds(dashingTime);
-        maxSwimSpeed = swimSpeed;
         trailRenderer.emitting = false;
-        playerRb.gravityScale = originalGravity;
-        isDashing = false;
-        anim.SetBool("isDashing", false);
+        isDashing = false; anim.SetBool("isDashing", false);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
@@ -241,7 +261,7 @@ public class PlayerController : GameBehaviour
     private void Dashing()
     {
         //Allows the player to Dash
-        if (Input.GetButtonDown("Dash") && canDash && !isLeaf && hasSeaOrb)
+        if (Input.GetButtonDown("Dash") && canDash && !isLeaf && hasSeaOrb && isSwimming && !isKnockback)
         {
             StartCoroutine(Dash());
         }
@@ -262,10 +282,10 @@ public class PlayerController : GameBehaviour
             if (isLeaf == true)
                 return;
 
-            //Adds velocity to player character when swimming based on swimSpeed.
+            //Get move direction using Input keys.
             Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             
-            //Get Vector2 of the water flow.
+            //Get Vector2 of the water flow and apply movement speed depending on direction.
             if (flow != null)
             {
                 print("got flow direction: " + this.flow.GetCurrentDirection());
@@ -334,6 +354,7 @@ public class PlayerController : GameBehaviour
 
     private void EnterWater()
     {
+        isGrounded = false;
         isSwimming = true;
         anim.SetBool("isSwimming", true);
         anim.SetBool("isJumping", false);
@@ -345,13 +366,13 @@ public class PlayerController : GameBehaviour
 
     private void ExitWater()
     {
+        playerRb.velocity = playerRb.velocity.normalized * swimSpeedUp;
         isSwimming = false;
         anim.SetBool("isSwimming", false);
         anim.SetBool("isJumping", true);
         breathTimer = maxBreathTimer;
         breathPanel.SetActive(false);
         swimmingStateTimer = swimmingStateCooldown;
-        playerRb.AddForce(Vector2.up * 15, ForceMode2D.Force);
         playerRb.gravityScale = 1;
         playerRb.drag = 0f;
         _AM.PlaySFX("Player Dive");
@@ -365,7 +386,7 @@ public class PlayerController : GameBehaviour
     private void ClimbingAndWallJumping()
     {
         //Allows the player to climb and Wall Jump
-        if (isLeaf == false)
+        if (!isLeaf)
             return;
         
         // Check if player can wall jump
@@ -391,12 +412,14 @@ public class PlayerController : GameBehaviour
         }
 
         // Wall jump
-        if (canWallJump && Input.GetButtonDown("Jump"))
+        if (canWallJump && Input.GetButtonDown("Jump") && wallJumpTimer <=0)
         {
             playerRb.velocity = new Vector2(-wallNormal.x * wallJumpHorizontalForce, wallJumpForce);
             isClimbing = false;
             isWallSliding = false;
             canWallJump = false;
+            anim.SetBool("isJumping", true);
+            wallJumpTimer = 0.5f;
         }
     }
 
@@ -437,6 +460,11 @@ public class PlayerController : GameBehaviour
         {
             isTouchingWall = true;
             wallNormal = hit.normal;
+            if(wallJumpTimer <= 0)
+            {
+                anim.SetBool("isJumping", false);
+            }
+            
         }
         else
         {
