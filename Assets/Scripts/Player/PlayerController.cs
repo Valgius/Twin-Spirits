@@ -62,7 +62,7 @@ public class PlayerController : GameBehaviour
     public float wallSlideSpeed = 0f;       
     public float wallJumpForce = 0f;       
     public float wallJumpHorizontalForce = 0f;
-    private float wallJumpTimer = 1f;
+    [SerializeField] private float wallJumpTimer = 0.5f;
 
     public bool isClimbing = false;
     private bool isTouchingWall = false;
@@ -412,14 +412,14 @@ public class PlayerController : GameBehaviour
         }
 
         // Wall jump
-        if (canWallJump && Input.GetButtonDown("Jump"))
+        if (canWallJump && Input.GetButtonDown("Jump") && wallJumpTimer <=0)
         {
             playerRb.velocity = new Vector2(-wallNormal.x * wallJumpHorizontalForce, wallJumpForce);
             isClimbing = false;
             isWallSliding = false;
             canWallJump = false;
             anim.SetBool("isJumping", true);
-            wallJumpTimer = 1f;
+            wallJumpTimer = 0.5f;
         }
     }
 
