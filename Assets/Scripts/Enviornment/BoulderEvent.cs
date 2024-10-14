@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BoulderEvent : MonoBehaviour
 {
     private float fallDelay = 1f;
     private float destroyDelay = 2f;
     private Rigidbody2D boulderRb;
+    
 
     [SerializeField] private GameObject boulder;
     [SerializeField] private GameObject stalacitestart;
@@ -36,4 +38,5 @@ public class BoulderEvent : MonoBehaviour
         stalacitestart.SetActive(false);
         stalaciteEnd.SetActive(true);
     }
+
 }
