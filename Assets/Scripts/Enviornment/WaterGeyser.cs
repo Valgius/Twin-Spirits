@@ -5,14 +5,19 @@ using UnityEngine;
 public class WaterGeyser : GameBehaviour
 {
     [SerializeField] private GameObject geyserProjectile;
-    private GameObject currentCurrant;
 
     public float projectileForce = 1f;
     [SerializeField] private float setWaterTimer = 1f;
-    private float waterTimer = 1f;
+    [SerializeField] private float defaultWaterTimer = 3f;
+    [SerializeField] private float waterTimer = 3f;
 
     public enum Direction { Left, Right, Up, Down }
     public Direction direction;
+
+    private void Start()
+    {
+        projectileForce = 75;
+    }
 
     void Update()
     {
@@ -25,9 +30,34 @@ public class WaterGeyser : GameBehaviour
     }
 
 
-    void ShootProjectile()
+    private void ShootProjectile()
     {
-        currentCurrant = Instantiate(geyserProjectile, transform.position, Quaternion.identity, this.transform);
-        waterTimer = setWaterTimer;
+        Instantiate(geyserProjectile, transform.position, Quaternion.identity, this.transform);
+        waterTimer = defaultWaterTimer;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            ShootProjectile();
+            waterTimer = 0.15f;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            defaultWaterTimer = 0.15f;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            defaultWaterTimer = 1f;
+        }
     }
 }

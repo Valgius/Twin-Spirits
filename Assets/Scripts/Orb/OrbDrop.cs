@@ -12,6 +12,8 @@ public class OrbDrop : GameBehaviour
 
     public Cinemachine.CinemachineVirtualCamera seaCamera;
     public Cinemachine.CinemachineVirtualCamera leafCamera;
+    public Cinemachine.CinemachineVirtualCamera leafOrbCamera;
+    public Cinemachine.CinemachineVirtualCamera seaOrbCamera;
 
     private PlayerController playerLeafController;
     private PlayerController playerSeaController;
@@ -88,8 +90,7 @@ public class OrbDrop : GameBehaviour
 
         orb1.SetActive(true);
 
-        //seaCamera.Follow = orb1.transform;
-        //seaCamera.LookAt = orb1.transform;
+        leafOrbCamera.Priority = 15;
 
         animator.SetTrigger("LeafOrbTransition");
         print("leaf animation play");
@@ -99,9 +100,27 @@ public class OrbDrop : GameBehaviour
     public void AnimateSeaOrb()
     {
         orb2.SetActive(true);
+
+        seaOrbCamera.Priority = 15;
+
         animator.SetTrigger("SeaOrbTransition");
         print("sea animation play");
     }
 
-    
+    public void AfterLeafAnimation()
+    {
+        print("afterleafAnimation");
+        leafOrbCamera.Priority = 0;
+        playerSwitch.isLeafActive = false;
+        playerSwitch.SwitchCharacter();
+    }
+
+    public void AfterSeaAnimation()
+    {
+        print("afterseaAnimation");
+        seaOrbCamera.Priority = 0;
+        playerSwitch.isLeafActive = true;
+        playerSwitch.SwitchCharacter();
+    }
+
 }

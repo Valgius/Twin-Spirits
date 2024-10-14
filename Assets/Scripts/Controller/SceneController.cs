@@ -13,7 +13,7 @@ public class SceneController : GameBehaviour
 
     private void Update()
     {
-        if (loadScene.activeInHierarchy == true)
+        if (loadScene != null && loadScene.activeInHierarchy == true)
         {
             SceneManager.LoadScene(scene);
         }
