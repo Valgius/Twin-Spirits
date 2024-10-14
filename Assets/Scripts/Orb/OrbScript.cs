@@ -7,6 +7,8 @@ public class OrbScript : MonoBehaviour
     public OrbManager orbManager;
     public bool isLeafOrb;
 
+
+
     private void Start()
     {
         orbManager = FindObjectOfType<OrbManager>();
@@ -16,6 +18,7 @@ public class OrbScript : MonoBehaviour
     {
         if (collision.gameObject == orbManager.playerLeaf)
         {
+
             if (isLeafOrb)
             {
                 orbManager.LeafLeafOrbCollision();
@@ -37,4 +40,6 @@ public class OrbScript : MonoBehaviour
             }
         }
     }
+
+
 }
