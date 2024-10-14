@@ -11,6 +11,8 @@ TagManager:
   - Ground
   - Orb
   - GeyserProjectile
+  - backtrackStopper
+  - EnemyPatrol
   layers:
   - Default
   - TransparentFX

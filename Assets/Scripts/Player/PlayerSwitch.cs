@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSwitch : MonoBehaviour
+public class PlayerSwitch : GameBehaviour
 {
     public GameObject playerLeaf;
     public GameObject playerLeafUI;
@@ -60,7 +60,7 @@ public class PlayerSwitch : MonoBehaviour
         leafRb.constraints = RigidbodyConstraints2D.None;
         leafRb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-
+        _EM.player = playerLeaf.transform;
     }
 
     private void ActivateSea()
@@ -79,6 +79,8 @@ public class PlayerSwitch : MonoBehaviour
         leafRb.constraints = RigidbodyConstraints2D.FreezeAll;
         seaRb.constraints = RigidbodyConstraints2D.None;
         seaRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        _EM.player = playerSea.transform;
 
     }
 
