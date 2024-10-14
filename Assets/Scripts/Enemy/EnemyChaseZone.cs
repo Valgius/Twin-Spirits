@@ -6,13 +6,10 @@ public class EnemyChaseZone : MonoBehaviour
 {
     [SerializeField] private GameObject enemy;
     private EnemyPatrol enemyPatrol;
-    private SpriteRenderer triggerZoneSprite;
 
     public void Start()
     {
         enemyPatrol = enemy.GetComponent<EnemyPatrol>();
-        triggerZoneSprite = this.GetComponent<SpriteRenderer>();
-        triggerZoneSprite.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

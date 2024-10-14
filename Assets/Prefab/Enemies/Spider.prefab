@@ -142,7 +142,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2755492120442977157}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -209,6 +209,7 @@ MonoBehaviour:
   spiderFirePoint: {fileID: 1400350560216112581}
   frogGas: {fileID: 0}
   frogFirePoint: {fileID: 0}
+  fishAttackBox: {fileID: 0}
   playerTransform: {fileID: 0}
   attackTimer: 0
 --- !u!1 &5257714660153568331
