@@ -4,10 +4,11 @@ using System;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    public Sound[] musicSounds, SFXSounds;
+    public Sound[] musicSounds, AmbienceSounds, SFXSounds;
 
 
     [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource ambienceSource;
     [SerializeField] AudioSource SFXSource;
 
     public void Start()
@@ -46,6 +47,21 @@ public class AudioManager : Singleton<AudioManager>
 
         }
     }
+    public void PlayAmbience(string name)
+    {
+        Sound s = Array.Find(AmbienceSounds, x => x.name == name);
+
+        if (s == null)
+        {
+            Debug.Log("Sound Not Found");
+        }
+
+        else
+        {
+            ambienceSource.clip = s.clip;
+            ambienceSource.Play();
+        }
+    }
 
     public void ToggleMusic()
     {
@@ -56,6 +72,10 @@ public class AudioManager : Singleton<AudioManager>
     {
         SFXSource.mute = !SFXSource.mute;
     }
+    public void ToggleAmbience()
+    {
+        ambienceSource.mute = !ambienceSource.mute;
+    }
 
     public void MusicVolume(float volume)
     {
@@ -65,5 +85,10 @@ public class AudioManager : Singleton<AudioManager>
     public void SFXVolume(float volume)
     {
         SFXSource.volume = volume;
+    }
+
+    public void AmbienceVolume(float volume)
+    {
+        ambienceSource.volume = volume;
     }
 }
