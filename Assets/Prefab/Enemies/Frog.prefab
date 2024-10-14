@@ -183,10 +183,10 @@ MonoBehaviour:
     m_Bits: 8
   currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
-  baseSpeed: 4
-  mySpeed: 1
+  baseSpeed: 2
+  mySpeed: 2
   chaseSpeed: 1
-  jumpHeight: 98.6
+  jumpHeight: 12
   jumpCooldown: 1
   attackDistance: 3
   detectTime: 1
@@ -237,8 +237,8 @@ Transform:
   m_GameObject: {fileID: 7845429446759368709}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5571423, y: 26.056427, z: 0}
-  m_LocalScale: {x: -0.8928571, y: 0.8928571, z: 0.8928571}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3516890887614811783}

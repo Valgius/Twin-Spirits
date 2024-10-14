@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5304847031615193191}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 0
@@ -104,6 +104,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3623876828456699949}
     m_Modifications:
+    - target: {fileID: -4564880121283493928, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2755492120442977157, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
       propertyPath: m_Name
       value: Spider
@@ -171,30 +175,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4449286105014926401, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7225465158266718520}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
 --- !u!4 &2683439793716444356 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3516890887614811783, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
   m_PrefabInstance: {fileID: 1581889263460119107}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2903966085264281090 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4449286105014926401, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
-  m_PrefabInstance: {fileID: 1581889263460119107}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7225465158266718520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2903966085264281090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4edfd08fdf0b9154e8e4de5d841ba0f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
