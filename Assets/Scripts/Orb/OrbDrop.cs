@@ -10,6 +10,9 @@ public class OrbDrop : GameBehaviour
     public GameObject leafOrb;
     public GameObject seaOrb;
 
+    public Cinemachine.CinemachineVirtualCamera seaCamera;
+    public Cinemachine.CinemachineVirtualCamera leafCamera;
+
     private PlayerController playerLeafController;
     private PlayerController playerSeaController;
 
@@ -58,9 +61,10 @@ public class OrbDrop : GameBehaviour
                 {
 
                     print("Drop Orb Sea");
+                    AnimateSeaOrb();
                     playerLeafController.ToggleHasSeaOrb();
                     //New orb is set as the sea orb in Orb Manager Script as old one would be disabled.
-                    _OM.orbSea = Instantiate(seaOrb, dropZone.transform.position, transform.rotation);
+                    //_OM.orbSea = Instantiate(seaOrb, dropZone.transform.position, transform.rotation);
                     if (playerLeafController.hasLeafOrb != true)
                         _OM.orbPanelLeaf.SetActive(false);
                 }
@@ -72,7 +76,7 @@ public class OrbDrop : GameBehaviour
                     AnimateLeafOrb();
                     playerSeaController.ToggleHasLeafOrb();
                     //Same as previous line but for leaf orb.
-                    _OM.orbLeaf = Instantiate(leafOrb, dropZone.transform.position, transform.rotation);
+                    //_OM.orbLeaf = Instantiate(leafOrb, dropZone.transform.position, transform.rotation);
                     if (playerSeaController.hasSeaOrb != true)
                         _OM.orbPanelSea.SetActive(false);
                 }
@@ -83,7 +87,12 @@ public class OrbDrop : GameBehaviour
     {
 
         orb1.SetActive(true);
+
+        //seaCamera.Follow = orb1.transform;
+        //seaCamera.LookAt = orb1.transform;
+
         animator.SetTrigger("LeafOrbTransition");
+        print("leaf animation play");
 
     }
 
@@ -91,6 +100,7 @@ public class OrbDrop : GameBehaviour
     {
         orb2.SetActive(true);
         animator.SetTrigger("SeaOrbTransition");
+        print("sea animation play");
     }
 
     
