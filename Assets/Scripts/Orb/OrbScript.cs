@@ -6,12 +6,14 @@ public class OrbScript : MonoBehaviour
 {
     public OrbManager orbManager;
     public bool isLeafOrb;
+    public OrbDrop orbDrop;
 
 
 
     private void Start()
     {
         orbManager = FindObjectOfType<OrbManager>();
+        orbDrop = GameObject.Find("DropZone").GetComponent<OrbDrop>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -39,6 +41,17 @@ public class OrbScript : MonoBehaviour
                 orbManager.SeaSeaOrbCollision();
             }
         }
+    }
+
+    public void AfterLeafAnimationTrigger()
+    {
+        orbDrop.AfterLeafAnimation();
+    }
+
+    public void AfterSeaAnimationTrigger()
+    {
+        orbDrop.AfterSeaAnimation();
+        print("afterseaAnimation");
     }
 
 
