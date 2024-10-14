@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6986748315676894712}
   m_Layer: 0
   m_Name: FishPatrol
-  m_TagString: Untagged
+  m_TagString: EnemyPatrol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

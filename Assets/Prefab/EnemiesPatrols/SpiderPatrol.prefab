@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3623876828456699949}
   m_Layer: 7
   m_Name: SpiderPatrol
-  m_TagString: Untagged
+  m_TagString: EnemyPatrol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

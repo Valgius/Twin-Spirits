@@ -6,7 +6,7 @@ using UnityEngine;
 public class GeyserProjectile : GameBehaviour
 {
     [SerializeField] private float timer = 1.2f;
-    [SerializeField] private float force = 4;
+    //[SerializeField] private float force = 4;
 
     WaterGeyser geyser;
     
