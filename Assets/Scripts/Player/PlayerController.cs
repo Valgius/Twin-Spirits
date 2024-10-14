@@ -132,7 +132,7 @@ public class PlayerController : GameBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") && !isSwimming)
         {
             isGrounded = true;
         }
@@ -402,7 +402,7 @@ public class PlayerController : GameBehaviour
         // Climb up or down when climbing
         if (isClimbing)
         {
-            playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxis("Vertical") * climbSpeed); ;
+            playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxis("Vertical") * climbSpeed);
         }
 
         // Wall sliding
