@@ -15,6 +15,8 @@ public class PlayerSwitch : MonoBehaviour
     public Rigidbody2D seaRb;
     public Rigidbody2D leafRb;
 
+    public Cinemachine.CinemachineVirtualCamera seaCamera;
+
     public bool isLeafActive;
     void Start()
     {
@@ -50,6 +52,7 @@ public class PlayerSwitch : MonoBehaviour
         playerSea.GetComponent<PlayerController>().enabled = false;
         playerSeaUI.SetActive(false);
         playerSeaCamera.SetActive(false);
+        seaCamera.Priority = 5;
 
         isLeafActive = true;
 
@@ -69,6 +72,7 @@ public class PlayerSwitch : MonoBehaviour
         playerSea.GetComponent<PlayerController>().enabled = true;
         playerSeaUI.SetActive(true);
         playerSeaCamera.SetActive(true);
+        seaCamera.Priority = 11;
 
         isLeafActive = false;
 
@@ -77,4 +81,6 @@ public class PlayerSwitch : MonoBehaviour
         seaRb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
     }
+
+   
 }
