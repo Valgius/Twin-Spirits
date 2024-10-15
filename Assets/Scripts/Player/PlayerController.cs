@@ -18,7 +18,7 @@ public class PlayerController : GameBehaviour
     public bool hasSeaOrb;
 
     [Header("- Movement -")]
-    private float movement = 0f;
+    [SerializeField] private float movement = 0f;
     [SerializeField] private bool doubleJump;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpForce = 0f;
@@ -81,6 +81,7 @@ public class PlayerController : GameBehaviour
         this.gameObject.GetComponent<PlayerRespawn>();
         breathTimer = maxBreathTimer;
         breathPanel.SetActive(false);
+        //moveSpeed = Mathf.Lerp(0, 1, movement);
     }
 
     // Update is called once per frame
@@ -196,13 +197,14 @@ public class PlayerController : GameBehaviour
 
     private void Movement()
     {
-        if(isSwimming == true)
+        if(isSwimming)
             return;
+
         //Moves the Player Horizontal
-        movement = Input.GetAxisRaw("Horizontal");
+        movement = Input.GetAxis("Horizontal");
         playerRb.velocity = new Vector2(movement * moveSpeed, playerRb.velocity.y);
         anim.SetFloat("Speed", Mathf.Abs(movement));
-
+        
         /*//Footstep Audio Stuff
         stepCooldown -= Time.deltaTime;
         if (stepCooldown < 0 && isGrounded && (movement != 0))
