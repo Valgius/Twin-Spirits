@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6063076475776254673}
   - component: {fileID: 5343922911425694595}
   - component: {fileID: 7796993268729218572}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FallingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff44dd11600f2e34cb5d710e4f936907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallDelay: 2
+  fallDelay: 1
   respawnDelay: 4
   rb: {fileID: 6063076475776254673}
   startingPos: {x: 0, y: 0, z: 0}

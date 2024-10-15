@@ -122,7 +122,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.45, y: -1.85, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 847948475174877395}
@@ -234,7 +234,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2755492120442977157}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -275,8 +275,8 @@ MonoBehaviour:
     m_Bits: 0
   currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
-  baseSpeed: 25
-  mySpeed: 33.5
+  baseSpeed: 22
+  mySpeed: 30
   chaseSpeed: 1
   jumpHeight: 1
   jumpCooldown: 1
