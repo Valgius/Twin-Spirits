@@ -23,13 +23,20 @@ public class AudioManager : Singleton<AudioManager>
         if (s == null)
         {
             Debug.Log("Sound Not Found");
+            return;
         }
 
-        else
+        // Check if the current clip is already playing
+        if (musicSource.isPlaying && musicSource.clip == s.clip)
         {
-            musicSource.clip = s.clip;
-            musicSource.Play();
+            Debug.Log($"{name} is already playing.");
+            return; // Don't play the song again if it's already playing
         }
+
+        // Set the clip and play it
+        musicSource.clip = s.clip;
+        musicSource.Play();
+        Debug.Log($"Playing: {name}");
     }
 
     public void PlaySFX(string name)

@@ -88,6 +88,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: acbcb75601b0082458fda8807f67c813, type: 3}
   - name: Death
     clip: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
+  - name: Boulder Fall
+    clip: {fileID: 8300000, guid: cad5741215bb9e84a94190b5b68d9752, type: 3}
   musicSource: {fileID: 5462371185516191440}
   ambienceSource: {fileID: 7328992782698800103}
   SFXSource: {fileID: 6121152529317204564}
