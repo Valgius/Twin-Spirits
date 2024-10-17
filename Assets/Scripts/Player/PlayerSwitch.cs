@@ -17,6 +17,8 @@ public class PlayerSwitch : GameBehaviour
 
     public Cinemachine.CinemachineVirtualCamera seaCamera;
 
+    public MusicTrigger[] musicTriggers;
+
     public bool isLeafActive;
     void Start()
     {
@@ -31,8 +33,6 @@ public class PlayerSwitch : GameBehaviour
         {
             SwitchCharacter();
         }
-
-
     }
 
     public void SwitchCharacter()
@@ -61,6 +61,8 @@ public class PlayerSwitch : GameBehaviour
         leafRb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         _EM.player = playerLeaf.transform;
+
+        CheckMusic();
     }
 
     private void ActivateSea()
@@ -82,7 +84,17 @@ public class PlayerSwitch : GameBehaviour
 
         _EM.player = playerSea.transform;
 
+        CheckMusic();
     }
 
-   
+    public void CheckMusic()
+    {
+        foreach(MusicTrigger trigger in musicTriggers)
+        {
+            if (isLeafActive == true)
+                trigger.ChangeMusicLeaf();
+            if (isLeafActive == false)
+                trigger.ChangeMusicSea();
+        }
+    }
 }

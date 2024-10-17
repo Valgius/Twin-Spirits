@@ -12,38 +12,63 @@ public enum AreaType
 
 public class MusicTrigger : GameBehaviour
 {
-    public PlayerSwitch playerSwitch;
-
     public AreaType myArea;
 
-    public string playerSea;
-    public string playerLeaf;
+    public bool leafInZone;
+    public bool seaInZone;
+    private bool musicStarted;
 
+    private void Start()
+    {
+        musicStarted = false;
+        StartCoroutine(MusicStart());
+    }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.name == "PlayerLeaf")
         {
-            if (playerSwitch.isLeafActive == true)
-            {
-                ChangeMusic();
-            }
-            else
-                return;
+            leafInZone = true;
+            ChangeMusicLeaf();
         }
 
         if (other.gameObject.name == "PlayerSea")
         {
-            if (playerSwitch.isLeafActive == false)
-            {
-                ChangeMusic();
-            }
-            else
-                return;
+            seaInZone = true;
+            ChangeMusicSea();
         }
     }
 
-    private void ChangeMusic()
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.name == "PlayerLeaf")
+        {
+            leafInZone = false;
+        }
+
+        if (other.gameObject.name == "PlayerSea")
+        {
+            seaInZone = false;
+        }
+    }
+
+    public void ChangeMusicLeaf()
+    {
+        if (leafInZone && musicStarted)
+        {
+            PlayMusicForArea();
+        }
+    }
+
+    public void ChangeMusicSea()
+    {
+        if (seaInZone && musicStarted)
+        {
+            PlayMusicForArea();
+        }
+    }
+
+    private void PlayMusicForArea()
     {
         switch (myArea)
         {
@@ -59,5 +84,12 @@ public class MusicTrigger : GameBehaviour
                 _AM.PlayMusic("Undercove");
                 break;
         }
+    }
+
+    public IEnumerator MusicStart()
+    {
+        yield return new WaitForSeconds(0.1f);
+        musicStarted = true;
+        ChangeMusicLeaf();
     }
 }

@@ -6,15 +6,9 @@ public class AudioManager : Singleton<AudioManager>
 {
     public Sound[] musicSounds, AmbienceSounds, SFXSounds;
 
-
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource ambienceSource;
     [SerializeField] AudioSource SFXSource;
-
-    public void Start()
-    {
-        PlayMusic("Treetops");
-    }
 
     public void PlayMusic(string name)
     {
