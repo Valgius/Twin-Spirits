@@ -6,7 +6,7 @@ public class FallingPlatform : MonoBehaviour
 {
     public float fallDelay = 1f;
     
-    private float destroyDelay = 2f;
+    //private float destroyDelay = 2f;
 
     public float respawnDelay = 2f;
 

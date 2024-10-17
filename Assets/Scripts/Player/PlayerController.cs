@@ -22,6 +22,8 @@ public class PlayerController : GameBehaviour
     [SerializeField] private bool doubleJump;
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float jumpForce = 0f;
+    [SerializeField] private float doubleJumpForce = 1f;
+    [SerializeField] private float gravity = 1f;
     public bool isGrounded;
     //public float stepRate = 0.5f;
     //float stepCooldown;
@@ -65,9 +67,9 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float wallJumpTimer = 0.5f;
 
     public bool isClimbing = false;
-    private bool isTouchingWall = false;
+    [SerializeField] private bool isTouchingWall = false;
     private bool isWallSliding = false;
-    private bool canWallJump = false;
+    [SerializeField] private bool canWallJump = false;
     private Vector2 wallNormal = Vector2.zero;
 
     private enum MovementState { idle, running, jumping, falling, swimming, climbing}
@@ -114,6 +116,7 @@ public class PlayerController : GameBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             hasSeaOrb = true;
+            hasLeafOrb = true;
         }
     }
 
@@ -124,7 +127,11 @@ public class PlayerController : GameBehaviour
 
         Swimming();
         SpriteFlipping();
-        WallDetection();
+        if(wallJumpTimer <= 0)
+        {
+            WallDetection();
+        }
+        
         if (isLeaf)
         {
             ClimbingAndWallSliding();
@@ -136,6 +143,16 @@ public class PlayerController : GameBehaviour
         if (collision.gameObject.CompareTag("Ground") && !isSwimming)
         {
             isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground") && !isSwimming)
+        {
+            isGrounded = false;
+            anim.SetFloat("Speed", 0f);
+            anim.SetBool("isJumping", true);
         }
     }
 
@@ -201,9 +218,20 @@ public class PlayerController : GameBehaviour
             return;
 
         //Moves the Player Horizontal
-        movement = Input.GetAxis("Horizontal");
+        movement = Input.GetAxisRaw("Horizontal");
         playerRb.velocity = new Vector2(movement * moveSpeed, playerRb.velocity.y);
-        anim.SetFloat("Speed", Mathf.Abs(movement));
+        if (isGrounded)
+        {
+            anim.SetFloat("Speed", Mathf.Abs(movement));
+        }
+        //if(Input.GetAxis("Horizontal") == +1)
+        //{
+        //    playerRb.velocity = new Vector2(moveSpeed, playerRb.velocity.y);
+        //}
+        //if(Input.GetAxis("Horizontal") == -1)
+        //{
+        //    playerRb.velocity = new Vector2(-moveSpeed, playerRb.velocity.y);
+        //}
         
         /*//Footstep Audio Stuff
         stepCooldown -= Time.deltaTime;
@@ -238,7 +266,7 @@ public class PlayerController : GameBehaviour
             if (doubleJump && isLeaf && hasLeafOrb && !IsGrounded())
             {
                 playerRb.velocity = new Vector2(0, 0);
-                Jump();
+                DoubleJump();
                 doubleJump = false;
             }
             else
@@ -257,6 +285,13 @@ public class PlayerController : GameBehaviour
         playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         anim.SetBool("isJumping", true);
         isGrounded = false;
+        _AM.PlaySFX("Jump");
+    }
+
+    private void DoubleJump()
+    {
+        playerRb.AddForce(new Vector2(0, doubleJumpForce), ForceMode2D.Impulse);
+        anim.SetBool("isJumping", true);
         _AM.PlaySFX("Jump");
     }
 
@@ -392,7 +427,7 @@ public class PlayerController : GameBehaviour
             return;
         
         // Check if player can wall jump
-        if (isTouchingWall && !isClimbing)
+        if (isTouchingWall)
         {
             canWallJump = true;
         }
@@ -416,10 +451,15 @@ public class PlayerController : GameBehaviour
         // Wall jump
         if (canWallJump && Input.GetButtonDown("Jump") && wallJumpTimer <=0)
         {
+            if (hasLeafOrb)
+            {
+                doubleJump = true;
+            }
             playerRb.velocity = new Vector2(-wallNormal.x * wallJumpHorizontalForce, wallJumpForce);
             isClimbing = false;
             isWallSliding = false;
             canWallJump = false;
+            isTouchingWall = false;
             anim.SetBool("isJumping", true);
             wallJumpTimer = 0.5f;
         }
@@ -438,7 +478,7 @@ public class PlayerController : GameBehaviour
         else if (!isTouchingWall || Input.GetAxis("Vertical") == 0)
         {
             isClimbing = false;
-            playerRb.gravityScale = 1f;
+            playerRb.gravityScale = gravity;
             anim.SetBool("isClimbing", false);
         }
 
@@ -455,6 +495,9 @@ public class PlayerController : GameBehaviour
 
     private void WallDetection()
     {
+        if (!isLeaf)
+            return;
+
         // Check for wall detection using raycast
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, 0.6f, LayerMask.GetMask("Climb"));
 
@@ -470,6 +513,11 @@ public class PlayerController : GameBehaviour
         }
         else
         {
+            if (!isGrounded)
+            {
+                anim.SetBool("isJumping", true);
+                anim.SetFloat("Speed", 0f);
+            }
             isTouchingWall = false;
             wallNormal = Vector2.zero;
         }
