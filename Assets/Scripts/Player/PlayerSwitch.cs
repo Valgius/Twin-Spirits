@@ -11,6 +11,8 @@ public class PlayerSwitch : MonoBehaviour
     public GameObject playerSea;
     public GameObject playerSeaUI;
     public GameObject playerSeaCamera;
+    //private float dropTimerSea = 2f;
+    //private float dropTimerLeaf = 2f;
 
     public Rigidbody2D seaRb;
     public Rigidbody2D leafRb;
@@ -32,18 +34,19 @@ public class PlayerSwitch : MonoBehaviour
             SwitchCharacter();
         }
 
+        
 
     }
 
     public void SwitchCharacter()
     {
         if (isLeafActive == true)
-            ActivateSea();
+            StartCoroutine(ActivateSea());
         else
-            ActivateLeaf();
+            StartCoroutine(ActivateLeaf());
     }
 
-    private void ActivateLeaf()
+    private IEnumerator ActivateLeaf()
     {
         playerLeaf.GetComponent<PlayerController>().enabled = true;
         playerLeafUI.SetActive(true);
@@ -59,11 +62,12 @@ public class PlayerSwitch : MonoBehaviour
         seaRb.constraints = RigidbodyConstraints2D.FreezeAll;
         leafRb.constraints = RigidbodyConstraints2D.None;
         leafRb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-
+        yield return new WaitForSeconds(2);
+        leafRb.AddForce(Vector2.down, ForceMode2D.Impulse);
+        
     }
 
-    private void ActivateSea()
+    private IEnumerator ActivateSea()
     {
         playerLeaf.GetComponent<PlayerController>().enabled = false;
         playerLeafUI.SetActive(false);
@@ -79,7 +83,9 @@ public class PlayerSwitch : MonoBehaviour
         leafRb.constraints = RigidbodyConstraints2D.FreezeAll;
         seaRb.constraints = RigidbodyConstraints2D.None;
         seaRb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
+        yield return new WaitForSeconds(2);
+        seaRb.AddForce(Vector2.down, ForceMode2D.Impulse);
+        
     }
 
    
