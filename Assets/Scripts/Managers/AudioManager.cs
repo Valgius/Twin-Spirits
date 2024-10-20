@@ -4,16 +4,11 @@ using System;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    public Sound[] musicSounds, SFXSounds;
-
+    public Sound[] musicSounds, AmbienceSounds, SFXSounds;
 
     [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource ambienceSource;
     [SerializeField] AudioSource SFXSource;
-
-    public void Start()
-    {
-        PlayMusic("Treetops");
-    }
 
     public void PlayMusic(string name)
     {
@@ -22,13 +17,20 @@ public class AudioManager : Singleton<AudioManager>
         if (s == null)
         {
             Debug.Log("Sound Not Found");
+            return;
         }
 
-        else
+        // Check if the current clip is already playing
+        if (musicSource.isPlaying && musicSource.clip == s.clip)
         {
-            musicSource.clip = s.clip;
-            musicSource.Play();
+            Debug.Log($"{name} is already playing.");
+            return; // Don't play the song again if it's already playing
         }
+
+        // Set the clip and play it
+        musicSource.clip = s.clip;
+        musicSource.Play();
+        Debug.Log($"Playing: {name}");
     }
 
     public void PlaySFX(string name)
@@ -46,6 +48,21 @@ public class AudioManager : Singleton<AudioManager>
 
         }
     }
+    public void PlayAmbience(string name)
+    {
+        Sound s = Array.Find(AmbienceSounds, x => x.name == name);
+
+        if (s == null)
+        {
+            Debug.Log("Sound Not Found");
+        }
+
+        else
+        {
+            ambienceSource.clip = s.clip;
+            ambienceSource.Play();
+        }
+    }
 
     public void ToggleMusic()
     {
@@ -56,6 +73,10 @@ public class AudioManager : Singleton<AudioManager>
     {
         SFXSource.mute = !SFXSource.mute;
     }
+    public void ToggleAmbience()
+    {
+        ambienceSource.mute = !ambienceSource.mute;
+    }
 
     public void MusicVolume(float volume)
     {
@@ -65,5 +86,10 @@ public class AudioManager : Singleton<AudioManager>
     public void SFXVolume(float volume)
     {
         SFXSource.volume = volume;
+    }
+
+    public void AmbienceVolume(float volume)
+    {
+        ambienceSource.volume = volume;
     }
 }

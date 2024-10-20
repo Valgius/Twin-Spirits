@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSwitch : MonoBehaviour
+public class PlayerSwitch : GameBehaviour
 {
     public GameObject playerLeaf;
     public GameObject playerLeafUI;
@@ -11,13 +11,13 @@ public class PlayerSwitch : MonoBehaviour
     public GameObject playerSea;
     public GameObject playerSeaUI;
     public GameObject playerSeaCamera;
-    //private float dropTimerSea = 2f;
-    //private float dropTimerLeaf = 2f;
 
     public Rigidbody2D seaRb;
     public Rigidbody2D leafRb;
 
     public Cinemachine.CinemachineVirtualCamera seaCamera;
+
+    public MusicTrigger[] musicTriggers;
 
     public bool isLeafActive;
     void Start()
@@ -33,20 +33,17 @@ public class PlayerSwitch : MonoBehaviour
         {
             SwitchCharacter();
         }
-
-        
-
     }
 
     public void SwitchCharacter()
     {
         if (isLeafActive == true)
-            StartCoroutine(ActivateSea());
+            ActivateSea();
         else
-            StartCoroutine(ActivateLeaf());
+            ActivateLeaf();
     }
 
-    private IEnumerator ActivateLeaf()
+    private void ActivateLeaf()
     {
         playerLeaf.GetComponent<PlayerController>().enabled = true;
         playerLeafUI.SetActive(true);
@@ -62,12 +59,13 @@ public class PlayerSwitch : MonoBehaviour
         seaRb.constraints = RigidbodyConstraints2D.FreezeAll;
         leafRb.constraints = RigidbodyConstraints2D.None;
         leafRb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        yield return new WaitForSeconds(2);
-        leafRb.AddForce(Vector2.down, ForceMode2D.Impulse);
-        
+
+        _EM.player = playerLeaf.transform;
+
+        CheckMusic();
     }
 
-    private IEnumerator ActivateSea()
+    private void ActivateSea()
     {
         playerLeaf.GetComponent<PlayerController>().enabled = false;
         playerLeafUI.SetActive(false);
@@ -83,10 +81,20 @@ public class PlayerSwitch : MonoBehaviour
         leafRb.constraints = RigidbodyConstraints2D.FreezeAll;
         seaRb.constraints = RigidbodyConstraints2D.None;
         seaRb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        yield return new WaitForSeconds(2);
-        seaRb.AddForce(Vector2.down, ForceMode2D.Impulse);
-        
+
+        _EM.player = playerSea.transform;
+
+        CheckMusic();
     }
 
-   
+    public void CheckMusic()
+    {
+        foreach(MusicTrigger trigger in musicTriggers)
+        {
+            if (isLeafActive == true)
+                trigger.ChangeMusicLeaf();
+            if (isLeafActive == false)
+                trigger.ChangeMusicSea();
+        }
+    }
 }

@@ -1,12 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BoulderEvent : MonoBehaviour
+
+public class BoulderEvent : GameBehaviour
 {
     private float fallDelay = 1f;
     private float destroyDelay = 2f;
     private Rigidbody2D boulderRb;
+    
 
     [SerializeField] private GameObject boulder;
     [SerializeField] private GameObject stalacitestart;
@@ -30,10 +31,12 @@ public class BoulderEvent : MonoBehaviour
 
     private IEnumerator BoulderFall()
     {
+        _AM.PlaySFX("Boulder Fall");
         yield return new WaitForSeconds(fallDelay);
         boulderRb.bodyType = RigidbodyType2D.Dynamic;
         Destroy(boulder, destroyDelay);
         stalacitestart.SetActive(false);
         stalaciteEnd.SetActive(true);
     }
+
 }
