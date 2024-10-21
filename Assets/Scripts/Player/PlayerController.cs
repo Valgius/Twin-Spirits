@@ -12,6 +12,7 @@ public class PlayerController : GameBehaviour
     private BoxCollider2D playerCollider;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask climbLayer;
+    public GameObject pausePanel;
 
     public bool isLeaf;
     public bool hasLeafOrb;
@@ -89,7 +90,7 @@ public class PlayerController : GameBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isDashing)
+        if (isDashing || pausePanel.activeSelf)
             return;
 
         Movement();
@@ -122,7 +123,7 @@ public class PlayerController : GameBehaviour
 
     void FixedUpdate()
     {
-        if (isDashing)
+        if (isDashing || pausePanel.activeSelf)
             return;
 
         Swimming();
@@ -199,6 +200,7 @@ public class PlayerController : GameBehaviour
         if (other.CompareTag("Water"))
         {
             ExitWater();
+            
         }
         flow = null;
     }
@@ -340,7 +342,7 @@ public class PlayerController : GameBehaviour
                 knockbackTimer -= Time.deltaTime;
             
 
-            if (Input.GetKey(KeyCode.Space)) //When holding Space, the player will swim upwards.
+            if (Input.GetButton("Jump")) //When holding Space, the player will swim upwards.
             {
                 playerRb.velocity = Vector2.up * swimSpeedUp;
             }

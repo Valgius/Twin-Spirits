@@ -16,6 +16,11 @@ public class OrbScript : MonoBehaviour
         orbDrop = GameObject.Find("DropZone").GetComponent<OrbDrop>();
     }
 
+    private void Update()
+    {
+        this.GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject == orbManager.playerLeaf)
