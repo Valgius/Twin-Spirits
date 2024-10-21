@@ -88,7 +88,7 @@ public class EnemyPatrol : GameBehaviour
         }
     }
 
-    private void Patrol()
+    public void Patrol()
     {
         // Calculate distance to current waypoint
         float distanceToWaypoint = Vector2.Distance(transform.position, currentPoint.position);
@@ -203,7 +203,7 @@ public class EnemyPatrol : GameBehaviour
         UpdateSpriteAndCollider(movementDirection);
     }
 
-    private void FrogMove()
+    public void FrogMove()
     {
         // Calculate the direction to the current point
         Vector2 movementDirection = (currentPoint.position - transform.position).normalized;

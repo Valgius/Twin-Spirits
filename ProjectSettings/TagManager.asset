@@ -13,6 +13,7 @@ TagManager:
   - GeyserProjectile
   - backtrackStopper
   - EnemyPatrol
+  - Fish
   layers:
   - Default
   - TransparentFX

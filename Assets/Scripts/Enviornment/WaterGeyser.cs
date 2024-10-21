@@ -7,7 +7,7 @@ public class WaterGeyser : GameBehaviour
     [SerializeField] private GameObject geyserProjectile;
 
     public float projectileForce = 1f;
-    [SerializeField] private float setWaterTimer = 1f;
+    //[SerializeField] private float setWaterTimer = 1f;
     [SerializeField] private float defaultWaterTimer = 3f;
     [SerializeField] private float waterTimer = 3f;
 
