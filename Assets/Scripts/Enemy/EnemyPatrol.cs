@@ -161,17 +161,17 @@ public class EnemyPatrol : GameBehaviour
             switch (myEnemy)
             {
                 case EnemyType.Fish:
-                    FreezeContraints();
+                    FreezeConstraints();
                     StartCoroutine(enemyAttack.FishAttack());
-                    UnFreezeContraints();
+                    UnFreezeConstraints();
                     break;
 
                 case EnemyType.Frog:
                     if (IsGrounded())
                     {
-                        FreezeContraints();
+                        FreezeConstraints();
                         StartCoroutine(enemyAttack.FrogAttack());
-                        UnFreezeContraints();
+                        UnFreezeConstraints();
                     }
                     break;
             }
@@ -258,32 +258,34 @@ public class EnemyPatrol : GameBehaviour
         if (myEnemy == EnemyType.Fish)
         {
             BoxCollider2D boxCollider = enemyAttack.fishAttackBox.GetComponent<BoxCollider2D>();
-            Vector2 newOffset = new Vector2(movementDirection.x > 0 ? 1.0f : -1.0f, 0f);
+            Vector2 newOffset = new Vector2(movementDirection.x > 0 ? 1.5f : -1.5f, 0f);
             boxCollider.offset = newOffset;
         }
     }
 
-    public void ComponentsOff()
+    public void ToggleComponents(bool isActive)
     {
-        FreezeContraints();
-        spriteRenderer.enabled = false;
-        enemyCollider.enabled = false;
-        myPatrol = PatrolType.Patrol;
+        if (isActive)
+        {
+            UnFreezeConstraints();
+            spriteRenderer.enabled = true;
+            enemyCollider.enabled = true;
+            myPatrol = PatrolType.Patrol;
+        }
+        else
+        {
+            FreezeConstraints();
+            spriteRenderer.enabled = false;
+            enemyCollider.enabled = false;
+        }
     }
 
-    public void ComponentsOn()
-    {
-        UnFreezeContraints();
-        spriteRenderer.enabled = true;
-        enemyCollider.enabled = true;
-    }
-
-    private void FreezeContraints()
+    private void FreezeConstraints()
     {
         rb.constraints = RigidbodyConstraints2D.FreezePosition;
     }
 
-    private void UnFreezeContraints()
+    private void UnFreezeConstraints()
     {
         rb.constraints = RigidbodyConstraints2D.None;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;

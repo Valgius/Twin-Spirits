@@ -50,10 +50,10 @@ public class EnemyManager : Singleton<EnemyManager>
                     //child.gameObject.SetActive(distance <= activationDistance);
 
                     if (distance > activationDistance)
-                        enemyPatrol.ComponentsOff();
+                        enemyPatrol.ToggleComponents(false);
 
                     else
-                        enemyPatrol.ComponentsOn();
+                        enemyPatrol.ToggleComponents(true);
                 }
                 else
                 {
