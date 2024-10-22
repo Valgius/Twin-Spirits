@@ -25,10 +25,6 @@ public class OrbDrop : GameBehaviour
     public GameObject orb1;
     public GameObject orb2;
 
-
-
-
-
     [SerializeField] enum PlayerCharacter { Leaf, Sea }
 
     [SerializeField] PlayerCharacter playerCharacter;

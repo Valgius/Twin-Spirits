@@ -6,14 +6,18 @@ public class PlayerRespawn : GameBehaviour
 {
     public Vector3 respawnPoint;
     private PlayerHealth playerHealth;
+    FadeOut fadeOut;
 
     void Start()
     {
         playerHealth = this.gameObject.GetComponent<PlayerHealth>();
+        fadeOut = FindObjectOfType<FadeOut>();
     }
 
     public void Respawn()
     {
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        fadeOut.playerDie = false;
         transform.position = respawnPoint;
         playerHealth.MaxHealth();
         _AM.PlaySFX("Revive");
@@ -23,7 +27,8 @@ public class PlayerRespawn : GameBehaviour
     {
         if (collision.gameObject.tag == "Death")
         {
-            Respawn();
+            fadeOut.playerDie = true;
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 }

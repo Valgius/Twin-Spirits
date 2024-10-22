@@ -31,8 +31,6 @@ public class SceneSwitchTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         StartCoroutine(SwitchDelay());
-        
-
     }
 
     private IEnumerator SwitchDelay()

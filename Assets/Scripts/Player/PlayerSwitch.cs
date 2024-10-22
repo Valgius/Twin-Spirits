@@ -23,7 +23,7 @@ public class PlayerSwitch : GameBehaviour
     void Start()
     {
         isLeafActive = true;
-        ActivateLeaf();
+        StartCoroutine(ActivateLeaf());
         Physics2D.IgnoreCollision(playerSea.GetComponent<BoxCollider2D>(), playerLeaf.GetComponent<BoxCollider2D>());
     }
 
@@ -38,18 +38,20 @@ public class PlayerSwitch : GameBehaviour
     public void SwitchCharacter()
     {
         if (isLeafActive == true)
-            ActivateSea();
+            StartCoroutine(ActivateSea());
         else
-            ActivateLeaf();
+            StartCoroutine(ActivateLeaf());
     }
 
-    private void ActivateLeaf()
+    private IEnumerator ActivateLeaf()
     {
         playerLeaf.GetComponent<PlayerController>().enabled = true;
+        playerLeaf.GetComponent<PlayerRespawn>().enabled = true;
         playerLeafUI.SetActive(true);
         playerLeafCamera.SetActive(true);
 
         playerSea.GetComponent<PlayerController>().enabled = false;
+        playerSea.GetComponent<PlayerRespawn>().enabled = false;
         playerSeaUI.SetActive(false);
         playerSeaCamera.SetActive(false);
         seaCamera.Priority = 5;
@@ -59,19 +61,22 @@ public class PlayerSwitch : GameBehaviour
         seaRb.constraints = RigidbodyConstraints2D.FreezeAll;
         leafRb.constraints = RigidbodyConstraints2D.None;
         leafRb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
+        yield return new WaitForSeconds(2);
+        leafRb.AddForce(Vector2.down, ForceMode2D.Impulse);
         _EM.player = playerLeaf.transform;
 
         CheckMusic();
     }
 
-    private void ActivateSea()
+    private IEnumerator ActivateSea()
     {
         playerLeaf.GetComponent<PlayerController>().enabled = false;
+        playerLeaf.GetComponent<PlayerRespawn>().enabled = false;
         playerLeafUI.SetActive(false);
         playerLeafCamera.SetActive(false);
 
         playerSea.GetComponent<PlayerController>().enabled = true;
+        playerSea.GetComponent<PlayerRespawn>().enabled = true;
         playerSeaUI.SetActive(true);
         playerSeaCamera.SetActive(true);
         seaCamera.Priority = 11;
@@ -81,7 +86,8 @@ public class PlayerSwitch : GameBehaviour
         leafRb.constraints = RigidbodyConstraints2D.FreezeAll;
         seaRb.constraints = RigidbodyConstraints2D.None;
         seaRb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
+        yield return new WaitForSeconds(2);
+        seaRb.AddForce(Vector2.down, ForceMode2D.Impulse);
         _EM.player = playerSea.transform;
 
         CheckMusic();
