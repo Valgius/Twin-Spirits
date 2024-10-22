@@ -88,7 +88,7 @@ public class EnemyPatrol : GameBehaviour
         }
     }
 
-    private void Patrol()
+    public void Patrol()
     {
         // Calculate distance to current waypoint
         float distanceToWaypoint = Vector2.Distance(transform.position, currentPoint.position);
@@ -161,19 +161,17 @@ public class EnemyPatrol : GameBehaviour
             switch (myEnemy)
             {
                 case EnemyType.Fish:
-                    rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                    FreezeContraints();
                     StartCoroutine(enemyAttack.FishAttack());
-                    rb.constraints = RigidbodyConstraints2D.None;
-                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    UnFreezeContraints();
                     break;
 
                 case EnemyType.Frog:
                     if (IsGrounded())
                     {
-                        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                        FreezeContraints();
                         StartCoroutine(enemyAttack.FrogAttack());
-                        rb.constraints = RigidbodyConstraints2D.None;
-                        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                        UnFreezeContraints();
                     }
                     break;
             }
@@ -203,7 +201,7 @@ public class EnemyPatrol : GameBehaviour
         UpdateSpriteAndCollider(movementDirection);
     }
 
-    private void FrogMove()
+    public void FrogMove()
     {
         // Calculate the direction to the current point
         Vector2 movementDirection = (currentPoint.position - transform.position).normalized;
@@ -263,5 +261,31 @@ public class EnemyPatrol : GameBehaviour
             Vector2 newOffset = new Vector2(movementDirection.x > 0 ? 1.0f : -1.0f, 0f);
             boxCollider.offset = newOffset;
         }
+    }
+
+    public void ComponentsOff()
+    {
+        FreezeContraints();
+        spriteRenderer.enabled = false;
+        enemyCollider.enabled = false;
+        myPatrol = PatrolType.Patrol;
+    }
+
+    public void ComponentsOn()
+    {
+        UnFreezeContraints();
+        spriteRenderer.enabled = true;
+        enemyCollider.enabled = true;
+    }
+
+    private void FreezeContraints()
+    {
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+    }
+
+    private void UnFreezeContraints()
+    {
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }
