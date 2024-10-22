@@ -46,10 +46,12 @@ public class PlayerSwitch : GameBehaviour
     private IEnumerator ActivateLeaf()
     {
         playerLeaf.GetComponent<PlayerController>().enabled = true;
+        playerLeaf.GetComponent<PlayerRespawn>().enabled = true;
         playerLeafUI.SetActive(true);
         playerLeafCamera.SetActive(true);
 
         playerSea.GetComponent<PlayerController>().enabled = false;
+        playerSea.GetComponent<PlayerRespawn>().enabled = false;
         playerSeaUI.SetActive(false);
         playerSeaCamera.SetActive(false);
         seaCamera.Priority = 5;
@@ -69,10 +71,12 @@ public class PlayerSwitch : GameBehaviour
     private IEnumerator ActivateSea()
     {
         playerLeaf.GetComponent<PlayerController>().enabled = false;
+        playerLeaf.GetComponent<PlayerRespawn>().enabled = false;
         playerLeafUI.SetActive(false);
         playerLeafCamera.SetActive(false);
 
         playerSea.GetComponent<PlayerController>().enabled = true;
+        playerSea.GetComponent<PlayerRespawn>().enabled = true;
         playerSeaUI.SetActive(true);
         playerSeaCamera.SetActive(true);
         seaCamera.Priority = 11;

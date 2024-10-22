@@ -19,6 +19,8 @@ public class PauseController : GameBehaviour
         pausePanel.SetActive(paused);
         Time.timeScale = 1;
         eventPause = EventSystem.current;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -38,12 +40,20 @@ public class PauseController : GameBehaviour
         if (!paused)
         {
             EventSystem.current.SetSelectedGameObject(pauseButton);
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
         else
+        {
             EventSystem.current.SetSelectedGameObject(null);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+            
 
         paused = !paused;
         pausePanel.SetActive(paused);
         Time.timeScale = paused ? 0 : 1; 
+
     }
 }

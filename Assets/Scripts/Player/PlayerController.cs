@@ -73,6 +73,9 @@ public class PlayerController : GameBehaviour
     [SerializeField] private bool canWallJump = false;
     private Vector2 wallNormal = Vector2.zero;
 
+    [Header("Death")]
+    FadeOut fadeOut;
+
     private enum MovementState { idle, running, jumping, falling, swimming, climbing}
 
     // Start is called before the first frame update
@@ -85,12 +88,16 @@ public class PlayerController : GameBehaviour
         breathTimer = maxBreathTimer;
         breathPanel.SetActive(false);
         //moveSpeed = Mathf.Lerp(0, 1, movement);
+        fadeOut = FindObjectOfType<FadeOut>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isDashing || pausePanel.activeSelf)
+        if (fadeOut.playerDie)
+            playerRb.velocity = new Vector2(0f,0f);
+
+        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
             return;
 
         Movement();
@@ -123,7 +130,7 @@ public class PlayerController : GameBehaviour
 
     void FixedUpdate()
     {
-        if (isDashing || pausePanel.activeSelf)
+        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
             return;
 
         Swimming();

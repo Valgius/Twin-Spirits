@@ -13,11 +13,12 @@ public class PlayerHealth : GameBehaviour
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
+    FadeOut fadeOut;
 
     void Start()
     {
         playerRespawn = this.gameObject.GetComponent<PlayerRespawn>();
-        
+        fadeOut = FindObjectOfType<FadeOut>();
     }
 
     private void Update()
@@ -61,9 +62,11 @@ public class PlayerHealth : GameBehaviour
         health -= 1;
         if (health <= 0)
         {
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            fadeOut.playerDie = true;
             _AM.PlaySFX("Player Die");
-            playerRespawn.Respawn();
-            MaxHealth();
+            
+            
         }
     }
 
