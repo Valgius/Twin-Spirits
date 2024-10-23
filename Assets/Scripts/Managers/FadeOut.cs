@@ -8,12 +8,11 @@ public class FadeOut : GameBehaviour
     [SerializeField] private GameObject fadeOutObject;
     public bool playerDie;
 
-    public Animator fadeOutAni;
-    public PlayerController playerControllerLeaf;
-    public PlayerController playerControllerSea;
+    [SerializeField] private Animator fadeOutAni;
+    [SerializeField] private PlayerController playerControllerLeaf;
+    [SerializeField] private PlayerController playerControllerSea;
     private bool isLeaf;
-    PlayerRespawn playerRespawn;
-    public GameObject deathPanel;
+    private PlayerRespawn playerRespawn;
 
     void Start()
     {
@@ -35,12 +34,6 @@ public class FadeOut : GameBehaviour
         }
     }
 
-    public void DisplayDeathScreen()
-    {
-        deathPanel.SetActive(true);
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-    }
 
     public void GetCurrentPlayer()
     {
@@ -58,8 +51,6 @@ public class FadeOut : GameBehaviour
     {
         GetCurrentPlayer();
         playerRespawn.Respawn();
-        deathPanel.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        
     }
 }
