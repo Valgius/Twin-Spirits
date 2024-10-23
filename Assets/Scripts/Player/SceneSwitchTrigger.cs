@@ -20,10 +20,11 @@ public class SceneSwitchTrigger : MonoBehaviour
         if (hasSwitched == true)
         {
             gameObject.SetActive(false);
+            gameObject.GetComponent<SpriteRenderer>().color = Color.green;
         }
         else
         {
-            gameObject.SetActive(true);
+             gameObject.SetActive(true);
         }
     }
 

@@ -1,0 +1,422 @@
+fileFormatVersion: 2
+guid: c44a3d5e7d06d46488aef012d5c1697a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1025
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6052fe9749909cf4f87799f56f4060ed
+      internalID: -48312945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_1
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 1025
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 745b0969e55aff54b87f4fbac800bbf5
+      internalID: -2051475314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_2
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 1025
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64b399a321430d24b92ea41a2088f179
+      internalID: 1331965577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_3
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 1025
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11448d85ab4d71541bdf25411090165d
+      internalID: -2057200125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_4
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 1025
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 606cc3e2e46da854abe76a964828b9aa
+      internalID: 1511634422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_5
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 514
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcc31cbeadae7444a820c8c7f212ef84
+      internalID: -1787898282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_6
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 514
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c0aa6d2256548e499b6ee954b09e199
+      internalID: -1518624119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_7
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 505
+        width: 500
+        height: 522
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e53893b8fc9ff4c43a5538d2c6882c8b
+      internalID: 1432404018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_8
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 514
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a139bea53a7702349a831e9b187d85fa
+      internalID: 777959301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_9
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 514
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c48b17e7d231ef44a43f469d7bd2888
+      internalID: -1747669809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74d13723360636645be9d1a218ca9c8e
+      internalID: 2147006408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_11
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 0
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13fca62d976d98f4dab20c6bad3999e3
+      internalID: -1709434337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_12
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 4
+        width: 500
+        height: 505
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e92ca722c81eda444811319e894ea688
+      internalID: -1576629162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: climbing_sprite_sheet_1_13
+      rect:
+        serializedVersion: 2
+        x: 1502
+        y: 5
+        width: 500
+        height: 511
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 506da9f35ec203642ab648c3bb031a87
+      internalID: 1764172101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      climbing_sprite_sheet_1_0: -48312945
+      climbing_sprite_sheet_1_1: -2051475314
+      climbing_sprite_sheet_1_10: 2147006408
+      climbing_sprite_sheet_1_11: -1709434337
+      climbing_sprite_sheet_1_12: -1576629162
+      climbing_sprite_sheet_1_13: 1764172101
+      climbing_sprite_sheet_1_2: 1331965577
+      climbing_sprite_sheet_1_3: -2057200125
+      climbing_sprite_sheet_1_4: 1511634422
+      climbing_sprite_sheet_1_5: -1787898282
+      climbing_sprite_sheet_1_6: -1518624119
+      climbing_sprite_sheet_1_7: 1432404018
+      climbing_sprite_sheet_1_8: 777959301
+      climbing_sprite_sheet_1_9: -1747669809
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
