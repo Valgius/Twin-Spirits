@@ -205,16 +205,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1462116508895900863}
     - target: {fileID: 226807470164166178, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
-      propertyPath: mySpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 226807470164166178, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
-      propertyPath: baseSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 226807470164166178, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
       propertyPath: jumpHeight
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 226807470164166178, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
+      propertyPath: attackDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2755492120442977157, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
       propertyPath: m_Name
@@ -258,26 +254,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3516890887614811783, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348861279939885388, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348861279939885388, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348861279939885388, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348861279939885388, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348861279939885388, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
-      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

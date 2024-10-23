@@ -270,7 +270,6 @@ public class EnemyPatrol : GameBehaviour
             UnFreezeConstraints();
             spriteRenderer.enabled = true;
             enemyCollider.enabled = true;
-            myPatrol = PatrolType.Patrol;
         }
         else
         {
