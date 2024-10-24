@@ -56,7 +56,7 @@ public class PlayerController : GameBehaviour
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
     public WaterFlow flow;
-    private bool isKnockback = false;
+    [SerializeField] private bool isKnockback = false;
     [SerializeField] private float knockbackTimer = 0f;
     public float force = 30f;
     [SerializeField] private float dashingPushback;
@@ -100,7 +100,16 @@ public class PlayerController : GameBehaviour
         {
             playerRb.velocity = new Vector2(0f, 0f);
             anim.SetBool("isJumping", false);
+            playerRb.GetComponent<BoxCollider2D>().enabled = false;
+            playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
+        else
+        {
+            playerRb.GetComponent<BoxCollider2D>().enabled = true;
+            playerRb.constraints = RigidbodyConstraints2D.None;
+            playerRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+            
             
 
         if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
@@ -127,7 +136,7 @@ public class PlayerController : GameBehaviour
         ClimbingAndWallJumping();
         UpdateBreathBar();
 
-        if(isLeaf && knockbackTimer > 0)
+        if(knockbackTimer > 0)
         {
             knockbackTimer -= Time.deltaTime;
         }
@@ -226,6 +235,20 @@ public class PlayerController : GameBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy") && playerHealth.hitCooldown <= 0)
+        {
+            //Assign knockback values
+            Vector2 knockback = new Vector2(transform.position.x - other.transform.position.x, transform.position.y - other.transform.position.y);
+            Vector2 knockbackForce = knockback * force;
+
+            playerRb.velocity = knockbackForce;
+            isKnockback = true;
+            knockbackTimer = 0.5f;
+        }
+    }
+
     void OnTriggerExit2D(Collider2D other)
     {
         // Check if the player exits water
@@ -248,7 +271,7 @@ public class PlayerController : GameBehaviour
 
     private void Movement()
     {
-        if(isSwimming || isKnockback)
+        if(isKnockback)
             return;
 
         //Moves the Player Horizontal
@@ -314,6 +337,9 @@ public class PlayerController : GameBehaviour
         }
     }
 
+    /// <summary>
+    /// Applies force upwards, plays jumping animation and sets isGrounded off.
+    /// </summary>
     private void Jump()
     {
         playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
@@ -321,7 +347,9 @@ public class PlayerController : GameBehaviour
         isGrounded = false;
         _AM.PlaySFX("Jump");
     }
-
+    /// <summary>
+    /// Same as Jump function except using doubleJumpForce.
+    /// </summary>
     private void DoubleJump()
     {
         playerRb.AddForce(new Vector2(0, doubleJumpForce), ForceMode2D.Impulse);
@@ -338,6 +366,9 @@ public class PlayerController : GameBehaviour
         }
     }
 
+    /// <summary>
+    /// Determines swimming state functions.
+    /// </summary>
     private void Swimming()
     {
         if (!isSwimming)
@@ -370,8 +401,6 @@ public class PlayerController : GameBehaviour
                 movement = Input.GetAxisRaw("Horizontal");
                 anim.SetFloat("Speed", Mathf.Abs(movement));
             }
-            else
-                knockbackTimer -= Time.deltaTime;
             
 
             if (Input.GetButton("Jump")) //When holding Space, the player will swim upwards.
