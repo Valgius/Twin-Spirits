@@ -25,12 +25,10 @@ public class FadeOut : GameBehaviour
         if (playerDie)
         {
             fadeOutAni.SetBool("Die", true);
-            fadeOutAni.SetBool("Respawn", false);
         }
         else
         {
             fadeOutAni.SetBool("Die", false);
-            fadeOutAni.SetBool("Respawn", true);
         }
     }
 
@@ -52,5 +50,18 @@ public class FadeOut : GameBehaviour
         GetCurrentPlayer();
         playerRespawn.Respawn();
         
+    }
+
+    public void ReactivatePlayer()
+    {
+        playerDie = false;
+        if(playerControllerLeaf.isActiveAndEnabled)
+        {
+            playerControllerLeaf.GetComponent<PlayerController>().isGrounded = true;
+        }
+        else if (playerControllerSea.isActiveAndEnabled)
+        {
+            playerControllerSea.GetComponent<PlayerController>().isGrounded = true;
+        }
     }
 }

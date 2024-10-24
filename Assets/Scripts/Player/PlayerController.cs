@@ -10,6 +10,7 @@ public class PlayerController : GameBehaviour
     public Animator anim;
     private Rigidbody2D playerRb;
     private BoxCollider2D playerCollider;
+    private PlayerHealth playerHealth;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask climbLayer;
     public GameObject pausePanel;
@@ -85,6 +86,7 @@ public class PlayerController : GameBehaviour
         playerRb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         this.gameObject.GetComponent<PlayerRespawn>();
+        playerHealth = this.gameObject.GetComponent<PlayerHealth>();
         breathTimer = maxBreathTimer;
         breathPanel.SetActive(false);
         //moveSpeed = Mathf.Lerp(0, 1, movement);
@@ -95,7 +97,11 @@ public class PlayerController : GameBehaviour
     void Update()
     {
         if (fadeOut.playerDie)
-            playerRb.velocity = new Vector2(0f,0f);
+        {
+            playerRb.velocity = new Vector2(0f, 0f);
+            anim.SetBool("isJumping", false);
+        }
+            
 
         if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
             return;
@@ -120,6 +126,11 @@ public class PlayerController : GameBehaviour
 
         ClimbingAndWallJumping();
         UpdateBreathBar();
+
+        if(isLeaf && knockbackTimer > 0)
+        {
+            knockbackTimer -= Time.deltaTime;
+        }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -151,6 +162,20 @@ public class PlayerController : GameBehaviour
         if (collision.gameObject.CompareTag("Ground") && !isSwimming)
         {
             isGrounded = true;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") && playerHealth.hitCooldown <= 0)
+        {
+            //Assign knockback values
+            Vector2 knockback = new Vector2(transform.position.x - collision.transform.position.x, transform.position.y - collision.transform.position.y);
+            Vector2 knockbackForce = knockback * force;
+
+            playerRb.velocity = knockbackForce;
+            isKnockback = true;
+            knockbackTimer = 0.5f;
         }
     }
 
@@ -223,7 +248,7 @@ public class PlayerController : GameBehaviour
 
     private void Movement()
     {
-        if(isSwimming)
+        if(isSwimming || isKnockback)
             return;
 
         //Moves the Player Horizontal
