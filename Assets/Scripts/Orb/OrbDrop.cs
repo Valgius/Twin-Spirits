@@ -83,19 +83,21 @@ public class OrbDrop : GameBehaviour
     }
     public void AnimateLeafOrb()
     {
-
+        orb1.transform.position = this.transform.position;
         orb1.SetActive(true);
+        orb1.GetComponent<CircleCollider2D>().enabled = false;
 
         leafOrbCamera.Priority = 15;
 
         animator.SetTrigger("LeafOrbTransition");
         print("leaf animation play");
-
     }
 
     public void AnimateSeaOrb()
     {
+        orb2.transform.position = this.transform.position;
         orb2.SetActive(true);
+        orb2.GetComponent<CircleCollider2D>().enabled = false;
 
         seaOrbCamera.Priority = 15;
 
@@ -105,6 +107,7 @@ public class OrbDrop : GameBehaviour
 
     public void AfterLeafAnimation()
     {
+        orb1.GetComponent<CircleCollider2D>().enabled = true;
         print("afterleafAnimation");
         leafOrbCamera.Priority = 0;
         playerSwitch.isLeafActive = false;
@@ -113,10 +116,10 @@ public class OrbDrop : GameBehaviour
 
     public void AfterSeaAnimation()
     {
+        orb2.GetComponent<CircleCollider2D>().enabled = true;
         print("afterseaAnimation");
         seaOrbCamera.Priority = 0;
         playerSwitch.isLeafActive = true;
         playerSwitch.SwitchCharacter();
     }
-
 }

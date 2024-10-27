@@ -59,7 +59,6 @@ public class PlayerController : GameBehaviour
     [SerializeField] private bool isKnockback = false;
     [SerializeField] private float knockbackTimer = 0f;
     public float force = 30f;
-    [SerializeField] private float dashingPushback;
 
     [Header("- Climb -")]
     public float climbSpeed = 0f;                      
@@ -299,6 +298,10 @@ public class PlayerController : GameBehaviour
         }*/
     }
 
+    /// <summary>
+    /// Underwater Dash function.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Dash()
     {
         LimitSwimmingSpeed();

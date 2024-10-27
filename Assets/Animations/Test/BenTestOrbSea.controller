@@ -35,7 +35,7 @@ AnimatorController:
   m_Name: BenTestOrbSea
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: SeaTestOrb
+  - m_Name: SeaOrbTransition
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -63,7 +63,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SeaTestOrb
+    m_ConditionEvent: SeaOrbTransition
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5609056223527988979}
