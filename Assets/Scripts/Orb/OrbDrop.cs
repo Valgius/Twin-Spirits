@@ -83,7 +83,6 @@ public class OrbDrop : GameBehaviour
                     }
                     break;
             }
-            playerSwitch.switchCount++;
         }
         else
             return;

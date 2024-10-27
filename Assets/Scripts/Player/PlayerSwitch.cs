@@ -47,6 +47,8 @@ public class PlayerSwitch : GameBehaviour
             StartCoroutine(ActivateSea());
         else
             StartCoroutine(ActivateLeaf());
+
+        switchCount++;
     }
 
     private IEnumerator ActivateLeaf()

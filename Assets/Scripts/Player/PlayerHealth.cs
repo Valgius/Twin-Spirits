@@ -71,7 +71,7 @@ public class PlayerHealth : GameBehaviour
         if (collision.gameObject.tag == "Enemy" && collision.gameObject.GetComponent<EnemyPatrol>().myEnemy != EnemyType.Fish)
         {
             EnemyHit();
-            screenShake = 0.5f;
+            
         }
     }
 
@@ -93,6 +93,7 @@ public class PlayerHealth : GameBehaviour
             _AM.PlaySFX("Player Hit");
             health -= 1;
             hitCooldown = 1;
+            screenShake = 0.5f;
             damage.SetTrigger("Damage");
         }
         

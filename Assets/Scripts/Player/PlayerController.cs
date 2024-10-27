@@ -386,7 +386,7 @@ public class PlayerController : GameBehaviour
         }
         else
         {
-            if (isLeaf == true)
+            if (isLeaf)
                 return;
 
             //Get move direction using Input keys.
