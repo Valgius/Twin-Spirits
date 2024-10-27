@@ -38,5 +38,4 @@ public class BoulderEvent : GameBehaviour
         stalacitestart.SetActive(false);
         stalaciteEnd.SetActive(true);
     }
-
 }

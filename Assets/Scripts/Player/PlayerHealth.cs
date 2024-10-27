@@ -102,6 +102,7 @@ public class PlayerHealth : GameBehaviour
             fadeOut.playerDie = true;
             DisableAnimations();
             _AM.PlaySFX("Player Die");
+            _AM.PlaySFX("Death"); 
         }
     }
 

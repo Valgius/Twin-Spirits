@@ -17,14 +17,20 @@ public class PlayerSwitch : GameBehaviour
 
     public Cinemachine.CinemachineVirtualCamera seaCamera;
 
-    public MusicTrigger[] musicTriggers;
+    public GameObject musicTriggerObj;
+    private MusicTrigger[] musicTriggers;
 
     public bool isLeafActive;
+
+    public int switchCount = 1;
+
     void Start()
     {
         isLeafActive = true;
         StartCoroutine(ActivateLeaf());
         Physics2D.IgnoreCollision(playerSea.GetComponent<BoxCollider2D>(), playerLeaf.GetComponent<BoxCollider2D>());
+
+        musicTriggers = musicTriggerObj.GetComponentsInChildren<MusicTrigger>();
     }
 
     void Update()

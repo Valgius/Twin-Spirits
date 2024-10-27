@@ -171,6 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88fd7d5b0eab97749b6d4eef5c728d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 0.5
-  force: 500
+  timer: 0.1
   projectileDirection: {x: 0, y: 0, z: 0, w: 0}
