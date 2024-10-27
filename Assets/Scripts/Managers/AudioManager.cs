@@ -42,12 +42,9 @@ public class AudioManager : Singleton<AudioManager>
             Debug.Log("Sound Not Found");
         }
 
-        else
-        {
-            SFXSource.PlayOneShot(s.clip);
-
-        }
+        SFXSource.PlayOneShot(s.clip);
     }
+
     public void PlayAmbience(string name)
     {
         Sound s = Array.Find(AmbienceSounds, x => x.name == name);

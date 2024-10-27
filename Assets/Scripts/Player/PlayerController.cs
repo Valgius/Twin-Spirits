@@ -26,8 +26,8 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float doubleJumpForce = 1f;
     [SerializeField] private float gravity = 1f;
     public bool isGrounded;
-    //public float stepRate = 0.5f;
-    //float stepCooldown;
+    public float stepRate = 0.5f;
+    float stepCooldown;
 
     [Header("- Dash -")]
     public bool isFacingRight;
@@ -233,6 +233,7 @@ public class PlayerController : GameBehaviour
         {
             anim.SetFloat("Speed", Mathf.Abs(movement));
         }
+
         //if(Input.GetAxis("Horizontal") == +1)
         //{
         //    playerRb.velocity = new Vector2(moveSpeed, playerRb.velocity.y);
@@ -241,14 +242,14 @@ public class PlayerController : GameBehaviour
         //{
         //    playerRb.velocity = new Vector2(-moveSpeed, playerRb.velocity.y);
         //}
-        
-        /*//Footstep Audio Stuff
+
+        //Footstep Audio
         stepCooldown -= Time.deltaTime;
         if (stepCooldown < 0 && isGrounded && (movement != 0))
         {
             stepCooldown = stepRate;
             _AM.PlaySFX("Player Run");
-        }*/
+        }
     }
 
     private IEnumerator Dash()
@@ -258,7 +259,8 @@ public class PlayerController : GameBehaviour
         canDash = false; isDashing = true; anim.SetBool("isDashing", true); //_AM.PlaySFX("Player Dash");
         //Set new player velocity to speed the player up and emit a trail.
         trailRenderer.emitting = true;
-        playerRb.velocity *= dashingPower; 
+        playerRb.velocity *= dashingPower;
+        _AM.PlaySFX("Player Dash");
         //After waiting a set amount of time, reset the player back to original swimming state.
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
@@ -356,6 +358,14 @@ public class PlayerController : GameBehaviour
             LimitSwimmingSpeed();
             BreathTimer();
             ApplyWaterDragAndBuoyancy();
+
+            //Swim Audio
+            stepCooldown -= Time.deltaTime;
+            if (stepCooldown < 0 && (movement != 0))
+            {
+                stepCooldown = stepRate;
+                _AM.PlaySFX("Player Swim");
+            }
         }
     }
 
@@ -471,6 +481,7 @@ public class PlayerController : GameBehaviour
             isTouchingWall = false;
             anim.SetBool("isJumping", true);
             wallJumpTimer = 0.5f;
+            _AM.PlaySFX("Player Jump");
         }
     }
 
@@ -495,6 +506,7 @@ public class PlayerController : GameBehaviour
         if (isTouchingWall && !isClimbing && playerRb.velocity.y <= 0)
         {
             isWallSliding = true;
+
         }
         else
         {

@@ -19,6 +19,7 @@ public class OrbDrop : GameBehaviour
     private PlayerController playerSeaController;
 
     public PlayerSwitch playerSwitch;
+    public int switchNumber;
 
     public Animator animator;
 
@@ -51,35 +52,41 @@ public class OrbDrop : GameBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (playerCharacter)
+        if (switchNumber == playerSwitch.switchCount)
         {
-            case PlayerCharacter.Leaf:
-                //When Player hits the trigger zone and has the corresponding orb, drop the orb to set location.
-                if (collision.gameObject.CompareTag("Player") && playerLeafController.hasSeaOrb)
-                {
+            switch (playerCharacter)
+            {
+                case PlayerCharacter.Leaf:
+                    //When Player hits the trigger zone and has the corresponding orb, drop the orb to set location.
+                    if (collision.gameObject.CompareTag("Player") && playerLeafController.hasSeaOrb)
+                    {
 
-                    print("Drop Orb Sea");
-                    AnimateSeaOrb();
-                    playerLeafController.ToggleHasSeaOrb();
-                    //New orb is set as the sea orb in Orb Manager Script as old one would be disabled.
-                    //_OM.orbSea = Instantiate(seaOrb, dropZone.transform.position, transform.rotation);
-                    if (playerLeafController.hasLeafOrb != true)
-                        _OM.orbPanelLeaf.SetActive(false);
-                }
-                break;
-            case PlayerCharacter.Sea:
-                if (collision.gameObject.CompareTag("Player") && playerSeaController.hasLeafOrb)
-                {
-                    print("Drop Orb Leaf");
-                    AnimateLeafOrb();
-                    playerSeaController.ToggleHasLeafOrb();
-                    //Same as previous line but for leaf orb.
-                    //_OM.orbLeaf = Instantiate(leafOrb, dropZone.transform.position, transform.rotation);
-                    if (playerSeaController.hasSeaOrb != true)
-                        _OM.orbPanelSea.SetActive(false);
-                }
-                break;
+                        print("Drop Orb Sea");
+                        AnimateSeaOrb();
+                        playerLeafController.ToggleHasSeaOrb();
+                        //New orb is set as the sea orb in Orb Manager Script as old one would be disabled.
+                        //_OM.orbSea = Instantiate(seaOrb, dropZone.transform.position, transform.rotation);
+                        if (playerLeafController.hasLeafOrb != true)
+                            _OM.orbPanelLeaf.SetActive(false);
+                    }
+                    break;
+                case PlayerCharacter.Sea:
+                    if (collision.gameObject.CompareTag("Player") && playerSeaController.hasLeafOrb)
+                    {
+                        print("Drop Orb Leaf");
+                        AnimateLeafOrb();
+                        playerSeaController.ToggleHasLeafOrb();
+                        //Same as previous line but for leaf orb.
+                        //_OM.orbLeaf = Instantiate(leafOrb, dropZone.transform.position, transform.rotation);
+                        if (playerSeaController.hasSeaOrb != true)
+                            _OM.orbPanelSea.SetActive(false);
+                    }
+                    break;
+            }
+            playerSwitch.switchCount++;
         }
+        else
+            return;
     }
     public void AnimateLeafOrb()
     {
@@ -118,5 +125,4 @@ public class OrbDrop : GameBehaviour
         playerSwitch.isLeafActive = true;
         playerSwitch.SwitchCharacter();
     }
-
 }
