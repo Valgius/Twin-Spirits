@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -4564880121283493928}
   - component: {fileID: 4441063017514351321}
   - component: {fileID: -5363931461165616302}
+  - component: {fileID: 1471437498055225142}
   m_Layer: 7
   m_Name: Spider
   m_TagString: Enemy
@@ -212,6 +213,27 @@ MonoBehaviour:
   fishAttackBox: {fileID: 0}
   playerTransform: {fileID: 0}
   attackTimer: 0
+--- !u!95 &1471437498055225142
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755492120442977157}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a021eb93401ab4146b606d836e8ef62a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5257714660153568331
 GameObject:
   m_ObjectHideFlags: 0
