@@ -129,6 +129,10 @@ public class EnemyPatrol : GameBehaviour
                 case EnemyType.Spider:
                     StartCoroutine(enemyAttack.SpiderAttack());
                     break;
+                    case EnemyType.Fish:
+                    this.transform.LookAt(closestPlayer.transform);
+                    rb.constraints = RigidbodyConstraints2D.None;
+                    break;
             }
             detectCountdown = detectTime;
         }
@@ -161,9 +165,9 @@ public class EnemyPatrol : GameBehaviour
             switch (myEnemy)
             {
                 case EnemyType.Fish:
-                    FreezeConstraints();
+                    //FreezeConstraints();
                     StartCoroutine(enemyAttack.FishAttack());
-                    UnFreezeConstraints();
+                    rb.constraints = RigidbodyConstraints2D.None;
                     break;
 
                 case EnemyType.Frog:
@@ -190,6 +194,9 @@ public class EnemyPatrol : GameBehaviour
 
     private void Move()
     {
+        if(myEnemy != EnemyType.Fish)
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
         // Move towards the current waypoint
         Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
         rb.MovePosition(targetPosition);
@@ -267,13 +274,21 @@ public class EnemyPatrol : GameBehaviour
     {
         if (isActive)
         {
-            UnFreezeConstraints();
+            if(myEnemy != EnemyType.Fish)
+            {
+                UnFreezeConstraints();
+            }
+            
             spriteRenderer.enabled = true;
             enemyCollider.enabled = true;
         }
         else
         {
-            FreezeConstraints();
+            if(myEnemy != EnemyType.Fish)
+            {
+                FreezeConstraints();
+            }
+            
             spriteRenderer.enabled = false;
             enemyCollider.enabled = false;
         }

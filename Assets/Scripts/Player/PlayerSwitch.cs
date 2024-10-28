@@ -38,6 +38,7 @@ public class PlayerSwitch : GameBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             SwitchCharacter();
+            switchCount--;
         }
     }
 
