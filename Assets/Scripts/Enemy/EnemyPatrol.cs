@@ -21,7 +21,7 @@ public class EnemyPatrol : GameBehaviour
     public bool isMoving;
 
     SpriteRenderer spriteRenderer;
-    public Animator spiderAnim;
+    public Animator enemyAnim;
 
     [Header("AI")]
     public float baseSpeed = 1f;
@@ -47,8 +47,6 @@ public class EnemyPatrol : GameBehaviour
         currentPoint = pointB.transform;
         mySpeed = baseSpeed;
         detectCountdown = detectTime;
-        spiderAnim = GameObject.Find("Spider").GetComponent<Animator>();
-        
     }
 
     // Update is called once per frame
@@ -101,7 +99,7 @@ public class EnemyPatrol : GameBehaviour
         switch (myEnemy)
         {
             case EnemyType.Fish:
-                Move();
+                FishMove();
                 break;
 
             case EnemyType.Frog:
@@ -110,7 +108,7 @@ public class EnemyPatrol : GameBehaviour
 
             case EnemyType.Spider:
 
-                Move();
+                SpiderMove();
                 break;
         }
 
@@ -135,7 +133,7 @@ public class EnemyPatrol : GameBehaviour
             {
                 case EnemyType.Spider:
                     StartCoroutine(enemyAttack.SpiderAttack());
-                    spiderAnim.SetBool("IsWalking", false);
+                    enemyAnim.SetBool("IsMoving", false);
                     break;
             }
             detectCountdown = detectTime;
@@ -151,7 +149,7 @@ public class EnemyPatrol : GameBehaviour
     }
     public void StopShootAnim()
     {
-        spiderAnim.SetBool("IsWalking", true);
+        enemyAnim.SetBool("IsMoving", true);
     }
 
     private void Chase(float distToClosest)
@@ -159,7 +157,7 @@ public class EnemyPatrol : GameBehaviour
         switch (myEnemy)
         {
             case EnemyType.Fish:
-                Move();
+                FishMove();
 
                 break;
             case EnemyType.Frog:
@@ -202,11 +200,26 @@ public class EnemyPatrol : GameBehaviour
         return Physics2D.BoxCast(enemyCollider.bounds.center, enemyCollider.bounds.size, 0f, Vector2.down, .1f, groundLayer);
     }
 
-    private void Move()
+    private void FishMove()
     {
         // Move towards the current waypoint
         Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
-     
+        rb.MovePosition(targetPosition);
+
+        // Determine the direction of movement
+        Vector2 movementDirection = (targetPosition - (Vector2)transform.position).normalized;
+
+        // Flip the sprite based on movement direction
+        UpdateSpriteAndCollider(movementDirection);
+
+        MoveAnimationTrigger();
+    }
+
+    private void SpiderMove()
+    {
+        // Move towards the current waypoint
+        Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
+
 
         rb.MovePosition(targetPosition);
 
@@ -232,16 +245,7 @@ public class EnemyPatrol : GameBehaviour
         //sets is moving true for animation
         isMoving = true;
 
-        //play spider idle when false
-        if (isMoving == false)
-        {
-            spiderAnim.SetBool("IsWalking", false);
-        }
-        //play spider walk when true
-        if(isMoving && _EM.isActive)
-        {
-            spiderAnim.SetBool("IsWalking", true);
-        }
+        MoveAnimationTrigger();
     }
 
     public void FrogMove()
@@ -265,6 +269,8 @@ public class EnemyPatrol : GameBehaviour
             // While in the air, maintain the horizontal velocity
             rb.velocity = new Vector2(jumpDirection.x * mySpeed, rb.velocity.y);
         }
+
+        MoveAnimationTrigger();
     }
 
     public void CalculateClosestPlayer()
@@ -295,7 +301,7 @@ public class EnemyPatrol : GameBehaviour
     private void UpdateSpriteAndCollider(Vector2 movementDirection)
     {
         // Flip the sprite based on movement direction
-        //spriteRenderer.flipX = movementDirection.x < 0;
+        spriteRenderer.flipX = movementDirection.x < 0;
 
         // Adjust collider offset for Fish type
         if (myEnemy == EnemyType.Fish)
@@ -344,4 +350,17 @@ public class EnemyPatrol : GameBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
+    void MoveAnimationTrigger()
+    {
+        //play Enemy idle when false
+        if (isMoving == false)
+        {
+            enemyAnim.SetBool("IsMoving", false);
+        }
+        //play Enemy Move when true
+        if (isMoving && _EM.isActive)
+        {
+            enemyAnim.SetBool("IsMoving", true);
+        }
+    }
 }

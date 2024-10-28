@@ -104,25 +104,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3623876828456699949}
     m_Modifications:
-    - target: {fileID: -4564880121283493928, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
-      propertyPath: m_BodyType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2755492120442977157, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
       propertyPath: m_Name
       value: Spider
-      objectReference: {fileID: 0}
-    - target: {fileID: 3516890887614811783, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3516890887614811783, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3516890887614811783, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3516890887614811783, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
       propertyPath: m_LocalPosition.x
@@ -172,6 +156,14 @@ PrefabInstance:
       propertyPath: pointB
       value: 
       objectReference: {fileID: 4656635626666211234}
+    - target: {fileID: 5967097492324351397, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.5575
+      objectReference: {fileID: 0}
+    - target: {fileID: 5967097492324351397, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.49625
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

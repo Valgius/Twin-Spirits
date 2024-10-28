@@ -62,20 +62,18 @@ public class EnemyAttack : GameBehaviour
     {
 
         enemyPatrol.isMoving = false;
+        enemyPatrol.enemyAnim.SetBool("IsAttacking", true);
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Spider Attack");
         enemyPatrol.ChangeSpeed(0);
         
-        //enemyPatrol.spiderAnim.SetBool("IsShooting", true);
-        //enemyPatrol.spiderAnim.SetBool("IsWalking", false);
         Fire(playerTransform.position);
         _AM.PlaySFX("Spider Attack");
-       
+        enemyPatrol.enemyAnim.SetBool("IsAttacking", false);
+
         yield return new WaitForSeconds(spiderFireRate);
         enemyPatrol.myPatrol = PatrolType.Detect;
         enemyPatrol.isMoving = true;
-        //enemyPatrol.spiderAnim.SetBool("IsShooting", false);
-        //enemyPatrol.spiderAnim.SetBool("IsWalking", true);
     }
 
     void Fire(Vector2 targetPosition)

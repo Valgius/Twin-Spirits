@@ -12,6 +12,10 @@ public class Projectile : MonoBehaviour
     {
         // Calculate the direction from the projectile's position to the target position
         direction = (targetPosition - (Vector2)transform.position).normalized;
+
+        // Calculate the angle for rotation
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     private void Start()
@@ -22,8 +26,8 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        //Moves projectile
-        transform.Translate(direction * speed * Time.deltaTime);
+        // Move the projectile
+        transform.Translate(direction * speed * Time.deltaTime, Space.World);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

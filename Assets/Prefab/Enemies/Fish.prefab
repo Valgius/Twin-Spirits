@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: -1309635625031969661}
   - component: {fileID: 1651881864610817181}
   - component: {fileID: -8774944650780396100}
+  - component: {fileID: 2486874727186751933}
   m_Layer: 7
   m_Name: Fish
   m_TagString: Enemy
@@ -275,7 +276,7 @@ MonoBehaviour:
   currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
   isMoving: 0
-  spiderAnim: {fileID: 1471437498055225142, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
+  enemyAnim: {fileID: 2486874727186751933}
   baseSpeed: 22
   mySpeed: 30
   chaseSpeed: 1
@@ -305,3 +306,24 @@ MonoBehaviour:
   fishAttackBox: {fileID: 977786722818313546}
   playerTransform: {fileID: 0}
   attackTimer: 0
+--- !u!95 &2486874727186751933
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755492120442977157}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 339c93a579253334b8d9e56d2e94b8ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
