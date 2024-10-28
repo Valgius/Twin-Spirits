@@ -183,6 +183,8 @@ MonoBehaviour:
     m_Bits: 8
   currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
+  isMoving: 0
+  spiderAnim: {fileID: 1471437498055225142, guid: 1cc6fb2467963a845bc6d1dde6c4c016, type: 3}
   baseSpeed: 2
   mySpeed: 2
   chaseSpeed: 1

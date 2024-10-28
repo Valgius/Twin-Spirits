@@ -60,14 +60,22 @@ public class EnemyAttack : GameBehaviour
 
     public IEnumerator SpiderAttack()
     {
+
+        enemyPatrol.isMoving = false;
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Spider Attack");
         enemyPatrol.ChangeSpeed(0);
+        
+        //enemyPatrol.spiderAnim.SetBool("IsShooting", true);
+        //enemyPatrol.spiderAnim.SetBool("IsWalking", false);
         Fire(playerTransform.position);
         _AM.PlaySFX("Spider Attack");
-        //PlayAnimation("Attack");
+       
         yield return new WaitForSeconds(spiderFireRate);
         enemyPatrol.myPatrol = PatrolType.Detect;
+        enemyPatrol.isMoving = true;
+        //enemyPatrol.spiderAnim.SetBool("IsShooting", false);
+        //enemyPatrol.spiderAnim.SetBool("IsWalking", true);
     }
 
     void Fire(Vector2 targetPosition)
@@ -78,6 +86,7 @@ public class EnemyAttack : GameBehaviour
             GameObject projectile = Instantiate(projectilePrefab, spiderFirePoint.position, Quaternion.identity);
             // Initialize the projectile with the target position
             projectile.GetComponent<Projectile>()?.Initialize(targetPosition);
+
         }
     }
 

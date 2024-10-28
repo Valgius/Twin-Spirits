@@ -21,6 +21,7 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     public Transform player;
     public float activationDistance = 0f;
+    public bool isActive;
 
     public GameObject[] patrols;
 
@@ -50,10 +51,17 @@ public class EnemyManager : Singleton<EnemyManager>
                     //child.gameObject.SetActive(distance <= activationDistance);
 
                     if (distance > activationDistance)
+                    {
                         enemyPatrol.ToggleComponents(false);
-
+                        isActive = false;
+                    }
+                 
                     else
+                    {
                         enemyPatrol.ToggleComponents(true);
+                        isActive = true;
+                    }
+                        
                 }
                 else
                 {
