@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 904486249383562163}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.23138, z: 0}
+  m_LocalScale: {x: 0.80555, y: 0.80555, z: 0.80555}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8f4a44dc7ecaf1f46a9d667226b76bcb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,18 +118,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.020579219, y: 3.6055727}
+  m_Offset: {x: -0.020579219, y: 1.7403812}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 10.24, y: 10.24}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2502136, y: 7.788478}
+  m_Size: {x: 2.2502136, y: 12.416916}
   m_EdgeRadius: 0
 --- !u!114 &5358973359699374762
 MonoBehaviour:
@@ -145,5 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   geyserProjectile: {fileID: 1984686329679054962, guid: 257942c6e8455c4418474e252917dd23, type: 3}
   projectileForce: 25
-  setWaterTimer: 0.1
+  defaultWaterTimer: 3
+  waterTimer: 3
   direction: 2

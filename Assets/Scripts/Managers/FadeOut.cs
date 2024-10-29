@@ -17,6 +17,7 @@ public class FadeOut : GameBehaviour
     void Start()
     {
         fadeOutAni = GetComponent<Animator>();
+
     }
 
     
