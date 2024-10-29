@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/ClosingCutscene.unity
     guid: 473648a9a65039a41987299069ae79cd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tests/MechanicsTest.unity
     guid: 8d4f5df8c49f61c43ba3b6d9bb56b7c0
   m_configObjects: {}

@@ -102,7 +102,6 @@ public class PlayerHealth : GameBehaviour
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             fadeOut.playerDie = true;
             DisableAnimations();
-            _AM.PlaySFX("Player Die");
             _AM.PlaySFX("Death"); 
         }
     }

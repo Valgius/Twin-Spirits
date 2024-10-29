@@ -540,7 +540,7 @@ public class PlayerController : GameBehaviour
             isTouchingWall = false;
             anim.SetBool("isJumping", true);
             wallJumpTimer = 0.5f;
-            _AM.PlaySFX("Player Jump");
+            _AM.PlaySFX("Jump");
         }
     }
 
@@ -553,6 +553,11 @@ public class PlayerController : GameBehaviour
             playerRb.gravityScale = 0f;
             playerRb.velocity = Vector2.zero;
             anim.SetBool("isClimbing", true);
+
+            //Climbing Audio
+            stepCooldown -= Time.deltaTime;
+            stepCooldown = stepRate;
+            _AM.PlaySFX("Player Climb");
         }
         else if (!isTouchingWall || Input.GetAxis("Vertical") == 0)
         {
@@ -565,7 +570,6 @@ public class PlayerController : GameBehaviour
         if (isTouchingWall && !isClimbing && playerRb.velocity.y <= 0)
         {
             isWallSliding = true;
-
         }
         else
         {

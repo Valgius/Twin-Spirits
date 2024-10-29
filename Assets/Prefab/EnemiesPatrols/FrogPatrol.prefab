@@ -205,12 +205,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1462116508895900863}
     - target: {fileID: 226807470164166178, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
+      propertyPath: enemyAnim
+      value: 
+      objectReference: {fileID: 5434294815600508887}
+    - target: {fileID: 226807470164166178, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
       propertyPath: jumpHeight
       value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 226807470164166178, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
-      propertyPath: attackDistance
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2755492120442977157, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
       propertyPath: m_Name
@@ -264,6 +264,11 @@ PrefabInstance:
 --- !u!1 &4953493598989751767 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2755492120442977157, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
+  m_PrefabInstance: {fileID: 7098554086631452242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5434294815600508887 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3020049490411114885, guid: 16a9d21c360e9f943a19dc2df226bb64, type: 3}
   m_PrefabInstance: {fileID: 7098554086631452242}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &5930573254258745557 stripped

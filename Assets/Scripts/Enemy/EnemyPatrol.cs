@@ -18,9 +18,10 @@ public class EnemyPatrol : GameBehaviour
     private Transform playerSea;
     private Transform playerLeaf;
     public Transform closestPlayer;
+    public bool isMoving;
 
     SpriteRenderer spriteRenderer;
-    //Animator anim;
+    public Animator enemyAnim;
 
     [Header("AI")]
     public float baseSpeed = 1f;
@@ -86,6 +87,8 @@ public class EnemyPatrol : GameBehaviour
                 Chase(distToClosest);
                 break;
         }
+
+
     }
 
     public void Patrol()
@@ -96,7 +99,7 @@ public class EnemyPatrol : GameBehaviour
         switch (myEnemy)
         {
             case EnemyType.Fish:
-                Move();
+                FishMove();
                 break;
 
             case EnemyType.Frog:
@@ -104,7 +107,8 @@ public class EnemyPatrol : GameBehaviour
                 break;
 
             case EnemyType.Spider:
-                Move();
+
+                SpiderMove();
                 break;
         }
 
@@ -124,10 +128,12 @@ public class EnemyPatrol : GameBehaviour
 
         if (distToClosest <= detectDistance)
         {
+
             switch (myEnemy)
             {
                 case EnemyType.Spider:
                     StartCoroutine(enemyAttack.SpiderAttack());
+                    enemyAnim.SetBool("IsMoving", false);
                     break;
                     case EnemyType.Fish:
                     rb.constraints = RigidbodyConstraints2D.None;
@@ -136,11 +142,17 @@ public class EnemyPatrol : GameBehaviour
             detectCountdown = detectTime;
         }
 
+
         if (detectCountdown <= 0)
         {
             ChangeSpeed(baseSpeed);
             myPatrol = PatrolType.Patrol;
+
         }
+    }
+    public void StopShootAnim()
+    {
+        enemyAnim.SetBool("IsMoving", true);
     }
 
     private void Chase(float distToClosest)
@@ -148,7 +160,7 @@ public class EnemyPatrol : GameBehaviour
         switch (myEnemy)
         {
             case EnemyType.Fish:
-                Move();
+                FishMove();
 
                 break;
             case EnemyType.Frog:
@@ -191,7 +203,7 @@ public class EnemyPatrol : GameBehaviour
         return Physics2D.BoxCast(enemyCollider.bounds.center, enemyCollider.bounds.size, 0f, Vector2.down, .1f, groundLayer);
     }
 
-    private void Move()
+    private void FishMove()
     {
         if(myEnemy != EnemyType.Fish)
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -209,6 +221,41 @@ public class EnemyPatrol : GameBehaviour
 
         // Flip the sprite based on movement direction
         UpdateSpriteAndCollider(movementDirection);
+
+        MoveAnimationTrigger();
+    }
+
+    private void SpiderMove()
+    {
+        // Move towards the current waypoint
+        Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
+
+
+        rb.MovePosition(targetPosition);
+
+        RotateTowardsWaypoints();
+
+        if (rb.rotation >= 0f) 
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            gameObject.GetComponent<SpriteRenderer>().flipY = true;
+        }
+         else
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipY = false;
+        }
+
+
+        // Determine the direction of movement
+        Vector2 movementDirection = (targetPosition - (Vector2)transform.position).normalized;
+
+        // Flip the sprite based on movement direction
+        UpdateSpriteAndCollider(movementDirection);
+
+        //sets is moving true for animation
+        isMoving = true;
+
+        MoveAnimationTrigger();
     }
 
     public void FrogMove()
@@ -232,6 +279,8 @@ public class EnemyPatrol : GameBehaviour
             // While in the air, maintain the horizontal velocity
             rb.velocity = new Vector2(jumpDirection.x * mySpeed, rb.velocity.y);
         }
+
+        MoveAnimationTrigger();
     }
 
     public void CalculateClosestPlayer()
@@ -306,5 +355,30 @@ public class EnemyPatrol : GameBehaviour
     {
         rb.constraints = RigidbodyConstraints2D.None;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    void RotateTowardsWaypoints()
+    {
+        // Get the direction vector between waypoints
+        Vector2 direction = (currentPoint.position - transform.position).normalized;
+        // Calculate the angle in degrees from the direction vector
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Set the rotation of the spider
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    void MoveAnimationTrigger()
+    {
+        //play Enemy idle when false
+        if (isMoving == false)
+        {
+            enemyAnim.SetBool("IsMoving", false);
+        }
+        //play Enemy Move when true
+        if (isMoving && _EM.isActive)
+        {
+            enemyAnim.SetBool("IsMoving", true);
+        }
     }
 }
