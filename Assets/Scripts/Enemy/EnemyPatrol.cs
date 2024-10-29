@@ -56,12 +56,12 @@ public class EnemyPatrol : GameBehaviour
             return; //cancels anything after this line
 
         //Always get the distance between the players and this object and assign the closest player.
-        float distToSea = Vector3.Distance(transform.position, playerSea.transform.position);
-        float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
+        float distToSea = Vector2.Distance(transform.position, playerSea.transform.position);
+        float distToLeaf = Vector2.Distance(transform.position, playerLeaf.transform.position);
 
         closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
 
-        float distToClosest = Vector3.Distance(transform.position, closestPlayer.transform.position);
+        float distToClosest = Vector2.Distance(transform.position, closestPlayer.transform.position);
 
 
         if (distToClosest <= detectDistance && myPatrol != PatrolType.Attack)
@@ -88,7 +88,7 @@ public class EnemyPatrol : GameBehaviour
                 break;
         }
 
-
+        
     }
 
     public void Patrol()
@@ -205,23 +205,33 @@ public class EnemyPatrol : GameBehaviour
 
     private void FishMove()
     {
-        if(myEnemy != EnemyType.Fish)
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
         // Move towards the current waypoint
         Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
         rb.MovePosition(targetPosition);
-        if(myEnemy == EnemyType.Fish)
+
+        if (myPatrol != PatrolType.Patrol)
         {
-            transform.rotation.SetLookRotation(targetPosition);
+            var direction = currentPoint.transform.position - transform.position;
+            var angle = Mathf.Atan2(direction.y, direction.x)*Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            //transform.right = currentPoint.transform.position - transform.position;
+            spriteRenderer.flipX = false;
+
+        }
+        else if (myPatrol == PatrolType.Patrol)
+        {
+            transform.right = new Vector3(0, 0, 0);
         }
 
         // Determine the direction of movement
         Vector2 movementDirection = (targetPosition - (Vector2)transform.position).normalized;
 
         // Flip the sprite based on movement direction
-        UpdateSpriteAndCollider(movementDirection);
-
+        if(myPatrol == PatrolType.Patrol)
+        {
+            UpdateSpriteAndCollider(movementDirection);
+        }
+        
         MoveAnimationTrigger();
     }
 
@@ -286,8 +296,8 @@ public class EnemyPatrol : GameBehaviour
     public void CalculateClosestPlayer()
     {
         //Always get the distance between the players and this object and assign the closest player.
-        float distToSea = Vector3.Distance(transform.position, playerSea.transform.position);
-        float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
+        float distToSea = Vector2.Distance(transform.position, playerSea.transform.position);
+        float distToLeaf = Vector2.Distance(transform.position, playerLeaf.transform.position);
 
         closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
     }
@@ -312,14 +322,6 @@ public class EnemyPatrol : GameBehaviour
     {
         // Flip the sprite based on movement direction
         spriteRenderer.flipX = movementDirection.x < 0;
-
-        // Adjust collider offset for Fish type
-        if (myEnemy == EnemyType.Fish)
-        {
-            BoxCollider2D boxCollider = enemyAttack.fishAttackBox.GetComponent<BoxCollider2D>();
-            Vector2 newOffset = new Vector2(movementDirection.x > 0 ? 1.5f : -1.5f, 0f);
-            boxCollider.offset = newOffset;
-        }
     }
 
     public void ToggleComponents(bool isActive)
