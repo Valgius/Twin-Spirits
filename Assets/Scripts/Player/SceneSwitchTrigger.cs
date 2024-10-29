@@ -21,7 +21,7 @@ public class SceneSwitchTrigger : MonoBehaviour
         if (hasSwitched == true)
         {
             gameObject.SetActive(false);
-            gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+           
         }
         else
         {
@@ -32,11 +32,13 @@ public class SceneSwitchTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         CheckSwitchNumber();
+        
         //StartCoroutine(SwitchDelay());
     }
 
     private IEnumerator SwitchDelay()
     {
+        print("sceneswitch triggered");
         yield return new WaitForSeconds(sceneDelay);
         playerSwitch.SwitchCharacter();
         playerSwitch.switchCount++;
