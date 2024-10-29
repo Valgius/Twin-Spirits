@@ -109,8 +109,6 @@ public class PlayerController : GameBehaviour
             playerRb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
             
-            
-
         if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
             return;
 

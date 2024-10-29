@@ -32,8 +32,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.45, y: -1.85, z: 0}
-  m_LocalScale: {x: -4.5, y: 4.5, z: 4.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7348861279939885388}
   m_Father: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ff734bb6f82ecfe418804c5dd6285c71, type: 3}
+  m_Sprite: {fileID: -1977027267, guid: 8bcf63bbb493f7c4782e863d7577b872, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,7 +126,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.93, y: 1.0275}
+    oldSize: {x: 2.5575, y: 2.49625}
     newSize: {x: 0.93, y: 1.0275}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -184,7 +184,6 @@ MonoBehaviour:
     m_Bits: 8
   currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
-  isMoving: 0
   enemyAnim: {fileID: 3020049490411114885}
   baseSpeed: 2
   mySpeed: 2
@@ -225,7 +224,7 @@ Animator:
   m_GameObject: {fileID: 2755492120442977157}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3f8f8d62a5a1f81478507eb5aed76d01, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5c9f8bc435899cd4084f7f7aacb79d13, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

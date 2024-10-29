@@ -60,8 +60,6 @@ public class EnemyAttack : GameBehaviour
 
     public IEnumerator SpiderAttack()
     {
-
-        enemyPatrol.isMoving = false;
         enemyPatrol.enemyAnim.SetBool("IsAttacking", true);
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Spider Attack");
@@ -73,7 +71,6 @@ public class EnemyAttack : GameBehaviour
 
         yield return new WaitForSeconds(spiderFireRate);
         enemyPatrol.myPatrol = PatrolType.Detect;
-        enemyPatrol.isMoving = true;
     }
 
     void Fire(Vector2 targetPosition)

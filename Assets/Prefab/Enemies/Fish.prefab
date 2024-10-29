@@ -78,7 +78,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.5, y: 0}
+  m_Offset: {x: 0.77018416, y: -0.4726786}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -89,7 +89,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6142943, y: 0.7050482}
   m_EdgeRadius: 0
 --- !u!1 &2755492120442977157
 GameObject:
@@ -170,12 +170,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 759d32cfef84c8143962fcac278796fa, type: 3}
+  m_Sprite: {fileID: -38614393, guid: 94430e071dbf83749a494a5473e0fa87, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.5575, y: 2.49625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -213,18 +213,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.36301714, y: -0.24957424}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3, y: 1.77}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 2.5575, y: 2.49625}
+    newSize: {x: 2.5575, y: 2.49625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.79286, y: 1.4667134}
+  m_Size: {x: 1.6584314, y: 1.2247019}
   m_EdgeRadius: 0
 --- !u!50 &-1309635625031969661
 Rigidbody2D:
@@ -275,7 +275,6 @@ MonoBehaviour:
     m_Bits: 0
   currentPoint: {fileID: 0}
   closestPlayer: {fileID: 0}
-  isMoving: 0
   enemyAnim: {fileID: 2486874727186751933}
   baseSpeed: 22
   mySpeed: 30
@@ -316,7 +315,7 @@ Animator:
   m_GameObject: {fileID: 2755492120442977157}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 339c93a579253334b8d9e56d2e94b8ae, type: 2}
+  m_Controller: {fileID: 9100000, guid: 66d6b53676154d549b2711855948006c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
