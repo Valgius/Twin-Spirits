@@ -130,7 +130,6 @@ public class EnemyPatrol : GameBehaviour
                     StartCoroutine(enemyAttack.SpiderAttack());
                     break;
                     case EnemyType.Fish:
-                    this.transform.LookAt(closestPlayer.transform);
                     rb.constraints = RigidbodyConstraints2D.None;
                     break;
             }
@@ -200,6 +199,10 @@ public class EnemyPatrol : GameBehaviour
         // Move towards the current waypoint
         Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
         rb.MovePosition(targetPosition);
+        if(myEnemy == EnemyType.Fish)
+        {
+            transform.rotation.SetLookRotation(targetPosition);
+        }
 
         // Determine the direction of movement
         Vector2 movementDirection = (targetPosition - (Vector2)transform.position).normalized;

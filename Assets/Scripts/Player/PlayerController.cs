@@ -254,7 +254,6 @@ public class PlayerController : GameBehaviour
         if (other.CompareTag("Water"))
         {
             ExitWater();
-            
         }
         flow = null;
     }
