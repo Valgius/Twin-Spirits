@@ -33,7 +33,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FishIdle
-  m_Speed: 1
+  m_Speed: 0.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 9152157897315177511}
@@ -175,20 +175,20 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1744175596671223049}
-    m_Position: {x: 90, y: 220, z: 0}
+    m_Position: {x: 170, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4072461197242303879}
-    m_Position: {x: 380, y: 220, z: 0}
+    m_Position: {x: 420, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7244689236178210250}
-    m_Position: {x: 680, y: 220, z: 0}
+    m_Position: {x: 700, y: 200, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 20, y: 10, z: 0}
-  m_EntryPosition: {x: 400, y: 20, z: 0}
+  m_EntryPosition: {x: 460, y: 70, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -4072461197242303879}
