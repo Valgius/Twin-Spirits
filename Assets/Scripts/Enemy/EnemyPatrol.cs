@@ -34,6 +34,7 @@ public class EnemyPatrol : GameBehaviour
     private float detectCountdown = 5f;
     public float detectTime = 5f;
     public float detectDistance = 10f;
+    public bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -92,8 +93,10 @@ public class EnemyPatrol : GameBehaviour
             case EnemyType.Frog:
                 //Set the yVelocity in the Animator
                 enemyAnim.SetFloat("yVelocity", rb.velocity.y);
-                if (IsGrounded())
+                if (isGrounded)
+                {
                     enemyAnim.SetBool("isJumping", false);
+                }
                 break;
         }
     }
@@ -252,7 +255,8 @@ public class EnemyPatrol : GameBehaviour
             // Set the jump direction only if grounded
             jumpDirection = movementDirection;
             rb.velocity = new Vector2(jumpDirection.x * mySpeed, jumpHeight);
-            enemyAnim.SetBool("IsJumping", true);
+            enemyAnim.SetBool("isJumping", true);
+            isGrounded = false;
 
             // Start the cooldown coroutine
             StartCoroutine(JumpCooldownCoroutine());
@@ -343,4 +347,13 @@ public class EnemyPatrol : GameBehaviour
         // Set the rotation of the spider
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
 }

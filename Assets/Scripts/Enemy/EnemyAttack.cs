@@ -33,11 +33,12 @@ public class EnemyAttack : GameBehaviour
         {
             enemyPatrol.myPatrol = PatrolType.Attack;
             print("Fish Attack");
+            enemyPatrol.enemyAnim.SetBool("IsAttacking", true);
             fishAttackBox.SetActive(true);
-            //PlayAnimation("Attack");
             _AM.PlaySFX("Fish Attack");
             yield return new WaitForSeconds(0.5f);
             fishAttackBox.SetActive(false);
+            enemyPatrol.enemyAnim.SetBool("IsAttacking", false);
             attackTimer = 1.5f;
         }
 
@@ -50,9 +51,10 @@ public class EnemyAttack : GameBehaviour
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Frog Attack");
         enemyPatrol.ChangeSpeed(0);
+        enemyPatrol.enemyAnim.SetBool("IsAttacking", true);
         yield return new WaitForSeconds(1);
         GasAttack();
-        //PlayAnimation("Attack");
+        enemyPatrol.enemyAnim.SetBool("IsAttacking", false);
         yield return new WaitForSeconds(3);
         enemyPatrol.ChangeSpeed(enemyPatrol.mySpeed);
         enemyPatrol.myPatrol = PatrolType.Chase;
@@ -60,16 +62,17 @@ public class EnemyAttack : GameBehaviour
 
     public IEnumerator SpiderAttack()
     {
-        enemyPatrol.enemyAnim.SetBool("IsAttacking", true);
         enemyPatrol.myPatrol = PatrolType.Attack;
         print("Spider Attack");
         enemyPatrol.ChangeSpeed(0);
-        
+        enemyPatrol.enemyAnim.SetBool("IsAttacking", true);
+
+        yield return new WaitForSeconds(0.1f);
         Fire(playerTransform.position);
         _AM.PlaySFX("Spider Attack");
-        enemyPatrol.enemyAnim.SetBool("IsAttacking", false);
 
         yield return new WaitForSeconds(spiderFireRate);
+        enemyPatrol.enemyAnim.SetBool("IsAttacking", false);
         enemyPatrol.myPatrol = PatrolType.Detect;
     }
 
