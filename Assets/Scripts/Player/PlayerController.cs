@@ -143,6 +143,9 @@ public class PlayerController : GameBehaviour
             hasSeaOrb = true;
             hasLeafOrb = true;
         }
+
+        //Set the yVelocity in the Animator
+        anim.SetFloat("yVelocity", playerRb.velocity.y);
     }
 
     void FixedUpdate()
@@ -423,8 +426,6 @@ public class PlayerController : GameBehaviour
             }
         }
     }
-
-    
 
     private void LimitSwimmingSpeed()
     {

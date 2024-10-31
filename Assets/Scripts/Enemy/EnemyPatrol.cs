@@ -87,7 +87,15 @@ public class EnemyPatrol : GameBehaviour
                 break;
         }
 
-
+        switch (myEnemy)
+        {
+            case EnemyType.Frog:
+                //Set the yVelocity in the Animator
+                enemyAnim.SetFloat("yVelocity", rb.velocity.y);
+                if (IsGrounded())
+                    enemyAnim.SetBool("isJumping", false);
+                break;
+        }
     }
 
     public void Patrol()
@@ -244,11 +252,13 @@ public class EnemyPatrol : GameBehaviour
             // Set the jump direction only if grounded
             jumpDirection = movementDirection;
             rb.velocity = new Vector2(jumpDirection.x * mySpeed, jumpHeight);
+            enemyAnim.SetBool("IsJumping", true);
 
             // Start the cooldown coroutine
             StartCoroutine(JumpCooldownCoroutine());
 
             UpdateSpriteAndCollider(movementDirection);
+
         }
         else if (!IsGrounded())
         {
