@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class EnemyPatrol : GameBehaviour
 {
@@ -52,9 +53,6 @@ public class EnemyPatrol : GameBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myPatrol == PatrolType.Die)
-            return; //cancels anything after this line
-
         //Always get the distance between the players and this object and assign the closest player.
         float distToSea = Vector2.Distance(transform.position, playerSea.transform.position);
         float distToLeaf = Vector2.Distance(transform.position, playerLeaf.transform.position);
@@ -87,8 +85,6 @@ public class EnemyPatrol : GameBehaviour
                 Chase(distToClosest);
                 break;
         }
-
-        
     }
 
     public void Patrol()
@@ -107,7 +103,6 @@ public class EnemyPatrol : GameBehaviour
                 break;
 
             case EnemyType.Spider:
-
                 SpiderMove();
                 break;
         }
@@ -142,12 +137,10 @@ public class EnemyPatrol : GameBehaviour
             detectCountdown = detectTime;
         }
 
-
         if (detectCountdown <= 0)
         {
             ChangeSpeed(baseSpeed);
             myPatrol = PatrolType.Patrol;
-
         }
     }
     public void StopShootAnim()
@@ -161,7 +154,6 @@ public class EnemyPatrol : GameBehaviour
         {
             case EnemyType.Fish:
                 FishMove();
-
                 break;
             case EnemyType.Frog:
                 FrogMove();
@@ -178,7 +170,6 @@ public class EnemyPatrol : GameBehaviour
                 case EnemyType.Fish:
                     //FreezeConstraints();
                     StartCoroutine(enemyAttack.FishAttack());
-                    rb.constraints = RigidbodyConstraints2D.None;
                     break;
 
                 case EnemyType.Frog:
@@ -209,20 +200,6 @@ public class EnemyPatrol : GameBehaviour
         Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
         rb.MovePosition(targetPosition);
 
-        if (myPatrol != PatrolType.Patrol)
-        {
-            var direction = currentPoint.transform.position - transform.position;
-            var angle = Mathf.Atan2(direction.y, direction.x)*Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            //transform.right = currentPoint.transform.position - transform.position;
-            spriteRenderer.flipX = false;
-
-        }
-        else if (myPatrol == PatrolType.Patrol)
-        {
-            transform.right = new Vector3(0, 0, 0);
-        }
-
         // Determine the direction of movement
         Vector2 movementDirection = (targetPosition - (Vector2)transform.position).normalized;
 
@@ -231,7 +208,17 @@ public class EnemyPatrol : GameBehaviour
         {
             UpdateSpriteAndCollider(movementDirection);
         }
-        
+
+        if (myPatrol != PatrolType.Patrol)
+        {
+            transform.right = currentPoint.position - transform.position;
+            spriteRenderer.flipX = false;
+        }
+        else if (myPatrol == PatrolType.Patrol)
+        {
+            transform.right = new Vector3(0, 0, 0);
+        }
+
         MoveAnimationTrigger();
     }
 
@@ -239,8 +226,6 @@ public class EnemyPatrol : GameBehaviour
     {
         // Move towards the current waypoint
         Vector2 targetPosition = Vector2.MoveTowards(transform.position, currentPoint.position, mySpeed * Time.deltaTime);
-
-
         rb.MovePosition(targetPosition);
 
         RotateTowardsWaypoints();
