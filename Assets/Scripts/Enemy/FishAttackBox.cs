@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FishAttackBox : MonoBehaviour
 {
-    public EnemyAttack enemyAttack;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
