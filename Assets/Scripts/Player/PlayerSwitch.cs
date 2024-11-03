@@ -20,6 +20,8 @@ public class PlayerSwitch : GameBehaviour
     public GameObject musicTriggerObj;
     private MusicTrigger[] musicTriggers;
 
+    FadeOut fadeOut;
+
     public bool isLeafActive;
 
     public int switchCount = 0;
@@ -33,6 +35,7 @@ public class PlayerSwitch : GameBehaviour
         isLeafActive = true;
         StartCoroutine(ActivateLeaf());
         Physics2D.IgnoreCollision(playerSea.GetComponent<BoxCollider2D>(), playerLeaf.GetComponent<BoxCollider2D>());
+        fadeOut = FindObjectOfType<FadeOut>();
 
         musicTriggers = musicTriggerObj.GetComponentsInChildren<MusicTrigger>();
         
@@ -43,12 +46,13 @@ public class PlayerSwitch : GameBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             SwitchCharacter();
-           
         }
     }
 
     public void SwitchCharacter()
     {
+        fadeOut.playerSwitch = true;
+
         if (isLeafActive == true)
             StartCoroutine(ActivateSea());
         else
@@ -118,5 +122,7 @@ public class PlayerSwitch : GameBehaviour
             if (isLeafActive == false)
                 trigger.ChangeMusicSea();
         }
+
+        fadeOut.playerSwitch = false;
     }
 }
