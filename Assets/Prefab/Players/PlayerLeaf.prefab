@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -943349926, guid: 50d8a2f096e761140ad635c8d7f0bd2f, type: 3}
-  m_Color: {r: 0.061901804, g: 0.9339623, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -183,13 +183,18 @@ MonoBehaviour:
   climbLayer:
     serializedVersion: 2
     m_Bits: 64
+  pausePanel: {fileID: 0}
   isLeaf: 1
   hasLeafOrb: 0
   hasSeaOrb: 0
+  movement: 0
   doubleJump: 0
   moveSpeed: 5
   jumpForce: 5
+  doubleJumpForce: 1
+  gravity: 1
   isGrounded: 0
+  stepRate: 0.5
   isFacingRight: 1
   isDashing: 0
   dashingPower: 10
@@ -210,13 +215,17 @@ MonoBehaviour:
   swimDeceleration: 0
   isSwimming: 0
   flow: {fileID: 0}
+  isKnockback: 0
   knockbackTimer: 0
   force: 30
   climbSpeed: 3
   wallSlideSpeed: 1
   wallJumpForce: 5
   wallJumpHorizontalForce: 5
+  wallJumpTimer: 0.5
   isClimbing: 0
+  isTouchingWall: 0
+  canWallJump: 0
 --- !u!96 &2546723653339653019
 TrailRenderer:
   serializedVersion: 3
@@ -306,7 +315,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -376,6 +385,10 @@ MonoBehaviour:
   - {fileID: 0}
   fullHeart: {fileID: 415042345, guid: 31e223ac060d09f4ba84318685962973, type: 3}
   emptyHeart: {fileID: -1563445261, guid: 31e223ac060d09f4ba84318685962973, type: 3}
+  damage: {fileID: 0}
+  hitCooldown: 0
+  virtualCamera: {fileID: 0}
+  screenShake: 0
 --- !u!1 &4051442694817073956
 GameObject:
   m_ObjectHideFlags: 0
