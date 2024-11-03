@@ -17,7 +17,7 @@ public class PlayerRespawn : GameBehaviour
     public void Respawn()
     {
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         transform.position = respawnPoint;/* + new Vector3(0,0,10);*/
         playerHealth.MaxHealth();
         _AM.PlaySFX("Revive");

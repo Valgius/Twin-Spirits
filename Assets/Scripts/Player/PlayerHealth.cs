@@ -100,6 +100,7 @@ public class PlayerHealth : GameBehaviour
         if (health <= 0)
         {
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             fadeOut.playerDie = true;
             DisableAnimations();
             _AM.PlaySFX("Death"); 

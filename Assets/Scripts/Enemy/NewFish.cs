@@ -17,6 +17,10 @@ public class NewFish : GameBehaviour
     private Transform playerSea;
 
     SpriteRenderer spriteRenderer;
+    PlayerHealth playerHealth;
+    NewEnemyChase newEnemyChase;
+
+    public GameObject patrolArea;
 
     [Header("AI")]
     public float startSpeed = 20f;
@@ -27,9 +31,7 @@ public class NewFish : GameBehaviour
     public float detectTime = 5f;
     public float detectDistance;
     public float attackTimer = 0;
-    public bool hasAttacked;
-
-    public GameObject fishAttackBox;
+    public bool isAttacking;
 
 
     void Start()
@@ -40,19 +42,21 @@ public class NewFish : GameBehaviour
         currentPoint = pointB.transform;
         detectCountdown = detectTime;
         newFishAttack = GetComponent<NewFishAttack>();
+        playerHealth = playerSea.GetComponent<PlayerHealth>();
+        newEnemyChase = patrolArea.GetComponent<NewEnemyChase>();
         attackTimer = 0;
-        hasAttacked = false;
+        isAttacking = false;
     }
 
     void Update()
     {
         float disToPlayer = Vector2.Distance(transform.position, playerSea.transform.position);
 
-        if (disToPlayer < detectDistance && myPatrol == PatrolType.Patrol)
+        if (disToPlayer < detectDistance && myPatrol == PatrolType.Patrol && newEnemyChase.canFollow)
         {
             myPatrol = PatrolType.Detect;
         }
-        else if(disToPlayer > detectDistance)
+        else if (disToPlayer > detectDistance)
             transform.right = currentPoint.position - transform.position;
 
         switch (myPatrol)
@@ -70,20 +74,38 @@ public class NewFish : GameBehaviour
                 Attack();
                 break;
         }
-        
-        if (currentPoint.position.x > transform.position.x && myPatrol != PatrolType.Detect)
+
+        if (currentPoint.position.x > transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
         {
             transform.right = currentPoint.position - transform.position;
         }
-        else if(currentPoint.position.x < transform.position.x && myPatrol != PatrolType.Detect)
+        else if (currentPoint.position.x < transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
         {
             transform.right = transform.position - currentPoint.position;
-            
+
         }
-        if(myPatrol != PatrolType.Detect)
+        if (myPatrol != PatrolType.Detect)
             FlipSprite();
         else
             spriteRenderer.flipX = false;
+
+        if (Vector2.Distance(transform.position, playerSea.position) <= attackDistance)
+        {
+            myPatrol = PatrolType.Attack;
+        }
+
+        if (attackTimer > 0)
+        {
+            movementSpeed = 0f;
+            attackTimer -= Time.deltaTime;
+        }
+
+        if (playerHealth.health <= 0)
+        {
+            myPatrol = PatrolType.Patrol;
+            currentPoint = pointA.transform;
+        }
+
     }
 
     public void Patrol()
@@ -110,63 +132,59 @@ public class NewFish : GameBehaviour
     {
         transform.right = playerSea.position - transform.position;
 
-
         movementSpeed = 0f;
         detectTime -= Time.deltaTime;
-        if(detectTime <= 0)
+        if (detectTime <= 0)
         {
             myPatrol = PatrolType.Chase;
-            
+
         }
         if (Vector2.Distance(transform.position, playerSea.transform.position) > detectDistance && detectCountdown > 0)
         {
             myPatrol = PatrolType.Patrol;
 
         }
-        
+
     }
 
     void Chase()
     {
+        //if (newEnemyChase.canFollow == false)
+        //{
+        //    myPatrol = PatrolType.Patrol;
+        //    currentPoint = pointA.transform;
+        //    return;
+        //}
+
+
         currentPoint = playerSea.transform;
         Move();
         movementSpeed = chaseSpeed;
 
-        if(Vector2.Distance(transform.position, playerSea.transform.position) > detectDistance)
+        if (Vector2.Distance(transform.position, playerSea.transform.position) > detectDistance || newEnemyChase.canFollow == false)
         {
             currentPoint = pointA.transform;
             myPatrol = PatrolType.Patrol;
-        }
-
-        if(Vector2.Distance(transform.position, playerSea.position) < attackDistance)
-        {
-            myPatrol = PatrolType.Attack;
         }
     }
 
     void Attack()
     {
-        if (!hasAttacked && attackTimer <= 0)
+        if(attackTimer <= 0 && playerHealth.health > 0)
         {
-            attackTimer = 2f;
-
-        }
-
-        if(attackTimer > 0)
-        {
-            attackTimer -= Time.deltaTime;
-            fishAttackBox.SetActive(true);
-        }
-        else
-        {
-            fishAttackBox.SetActive(false);
+            print("hit");
+            _AM.PlaySFX("Fish Attack");
+            attackTimer = 1f;
+            playerHealth.EnemyHit();
         }
         
-        if(Vector2.Distance(transform.position, playerSea.position) > attackDistance && !hasAttacked)
+
+        if(Vector2.Distance(transform.position, playerSea.position) > attackDistance && !isAttacking)
         {
             myPatrol = PatrolType.Chase;
         }
     }
+
 
     void FlipSprite()
     {
@@ -178,7 +196,5 @@ public class NewFish : GameBehaviour
         {
             spriteRenderer.flipX = false;
         }
-
-
     }
 }
