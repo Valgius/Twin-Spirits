@@ -62,11 +62,13 @@ public class PlayerSwitch : GameBehaviour
        
         playerLeaf.GetComponent<PlayerController>().enabled = true;
         playerLeaf.GetComponent<PlayerRespawn>().enabled = true;
+        playerLeaf.GetComponent<BoxCollider2D>().enabled = true;
         playerLeafUI.SetActive(true);
         playerLeafCamera.SetActive(true);
 
         playerSea.GetComponent<PlayerController>().enabled = false;
         playerSea.GetComponent<PlayerRespawn>().enabled = false;
+        playerSea.GetComponent<BoxCollider2D>().enabled = false;
         playerSeaUI.SetActive(false);
         playerSeaCamera.SetActive(false);
         
@@ -89,11 +91,13 @@ public class PlayerSwitch : GameBehaviour
         
         playerLeaf.GetComponent<PlayerController>().enabled = false;
         playerLeaf.GetComponent<PlayerRespawn>().enabled = false;
+        playerLeaf.GetComponent<BoxCollider2D>().enabled = false;
         playerLeafUI.SetActive(false);
         playerLeafCamera.SetActive(false);
 
         playerSea.GetComponent<PlayerController>().enabled = true;
         playerSea.GetComponent<PlayerRespawn>().enabled = true;
+        playerSea.GetComponent<BoxCollider2D>().enabled = true;
         playerSeaUI.SetActive(true);
         playerSeaCamera.SetActive(true);
     
