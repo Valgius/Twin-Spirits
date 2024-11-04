@@ -11,13 +11,18 @@ public class NewFish : GameBehaviour
     public GameObject pointA;
     public GameObject pointB;
 
+    public CircleCollider2D patrolZoneCollider;
+
+    //Idle Point
+    private Transform travelPoint;
+
     [Header("Transforms")]
-    public Transform currentPoint;
+    public Transform targetPoint;
     private Transform playerSea;
 
     SpriteRenderer spriteRenderer;
     PlayerHealth playerHealth;
-    NewEnemyChase newEnemyChase;
+    NewEnemyChaseZone newEnemyChaseZone;
 
     public GameObject patrolArea;
 
@@ -42,10 +47,11 @@ public class NewFish : GameBehaviour
         playerSea = GameObject.Find("PlayerSea").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         fishCollider = GetComponent<BoxCollider2D>();
-        currentPoint = pointB.transform;
-        detectCountdown = detectTime;
         playerHealth = playerSea.GetComponent<PlayerHealth>();
-        newEnemyChase = patrolArea.GetComponent<NewEnemyChase>();
+        newEnemyChaseZone = patrolArea.GetComponent<NewEnemyChaseZone>();
+        patrolZoneCollider = patrolArea.GetComponent<CircleCollider2D>();
+        targetPoint = pointB.transform;
+        detectCountdown = detectTime;
         attackTimer = 0;
     }
 
@@ -53,12 +59,12 @@ public class NewFish : GameBehaviour
     {
         //Distance declaration for update
         float disToPlayer = Vector2.Distance(transform.position, playerSea.transform.position);
-        if (disToPlayer < detectDistance && myPatrol == PatrolType.Patrol && newEnemyChase.canFollow)
+        if (disToPlayer < detectDistance && myPatrol == PatrolType.Patrol && newEnemyChaseZone.canFollow)
         {
             myPatrol = PatrolType.Detect;
         }
         else if (disToPlayer > detectDistance)
-            transform.right = currentPoint.position - transform.position;
+            transform.right = targetPoint.position - transform.position;
 
         //Switch cases for patrol types
         switch (myPatrol)
@@ -78,20 +84,17 @@ public class NewFish : GameBehaviour
         }
 
         //Look at currentPoint at most times.
-        if (currentPoint.position.x > transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
+        if (targetPoint.position.x > transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
         {
-            transform.right = currentPoint.position - transform.position;
+            transform.right = targetPoint.position - transform.position;
         }
-        else if (currentPoint.position.x < transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
+        else if (targetPoint.position.x < transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
         {
-            transform.right = transform.position - currentPoint.position;
+            transform.right = transform.position - targetPoint.position;
 
         }
         //Flip sprites
-        if (myPatrol != PatrolType.Detect)
-            FlipSprite();
-        else
-            spriteRenderer.flipX = false;
+        FlipSprite();
 
         //When within a certain distance, attack.
         if (Vector2.Distance(transform.position, playerSea.position) <= attackDistance)
@@ -106,13 +109,24 @@ public class NewFish : GameBehaviour
             attackTimer -= Time.deltaTime;
         }
 
+        ReturnToPatrol();
+
+    }
+
+    void ReturnToPatrol()
+    {
         //When player dies return to patrol.
         if (playerHealth.health <= 0)
         {
             myPatrol = PatrolType.Patrol;
-            currentPoint = pointA.transform;
+            targetPoint = pointA.transform;
         }
+    }
 
+    void Move()
+    {
+        //Move to currentPoint using movement speed.
+        transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, movementSpeed * Time.deltaTime);
     }
 
     public void Patrol()
@@ -122,19 +136,21 @@ public class NewFish : GameBehaviour
         detectTime = detectCountdown;
         Move();
 
+        //Get the area of the chase zone
+        //Get two random numbers, throw them into vector2
+
         //Distance declaration for patrol function.
-        float disToWaypoint = Vector2.Distance(transform.position, currentPoint.position);
+        float disToWaypoint = Vector2.Distance(transform.position, targetPoint.position);
         if (disToWaypoint < 1.5f)
         {
-            currentPoint = (currentPoint == pointB.transform) ? pointA.transform : pointB.transform;
+            float radius = patrolZoneCollider.radius;
+            Vector2 center = patrolZoneCollider.transform.position;
+            targetPoint.position = new Vector3(center.x + Random.Range(-radius, radius), center.y + Random.Range(-radius, radius), transform.position.z);
+            print(targetPoint.position);
+
+            //targetPoint = (targetPoint == pointB.transform) ? pointA.transform : pointB.transform;
         }
 
-    }
-
-    void Move()
-    {
-        //Move to currentPoint using movement speed.
-        transform.position = Vector2.MoveTowards(transform.position, currentPoint.position, movementSpeed * Time.deltaTime);
     }
 
     void Detect()
@@ -163,14 +179,14 @@ public class NewFish : GameBehaviour
     void Chase()
     {
         //Chase the player using chaseSpeed as movement speed
-        currentPoint = playerSea.transform;
+        targetPoint = playerSea.transform;
         Move();
         movementSpeed = chaseSpeed;
 
         //Return to patrol if the player leaves detect distance or patrol zone.
-        if (Vector2.Distance(transform.position, playerSea.transform.position) > detectDistance || newEnemyChase.canFollow == false)
+        if (Vector2.Distance(transform.position, playerSea.transform.position) > detectDistance || newEnemyChaseZone.canFollow == false)
         {
-            currentPoint = pointA.transform;
+            targetPoint = pointA.transform;
             myPatrol = PatrolType.Patrol;
         }
     }
@@ -195,15 +211,19 @@ public class NewFish : GameBehaviour
 
     void FlipSprite()
     {
-        //Flip sprite on x axis.
-        if(currentPoint.position.x < transform.position.x)
+        if(myPatrol != PatrolType.Detect)
         {
-            spriteRenderer.flipX = true;
+            //Flip sprite on x axis.
+            if (targetPoint.position.x < transform.position.x)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+            }
         }
-        else
-        {
-            spriteRenderer.flipX = false;
-        }
+        
     }
 
     public void CullEnemy(bool isActive)

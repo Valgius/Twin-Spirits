@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewEnemyChase : GameBehaviour
+public class NewEnemyChaseZone : GameBehaviour
 {
     [SerializeField] private GameObject enemy;
     public bool canFollow;
