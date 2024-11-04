@@ -27,8 +27,8 @@ public class NewFish : GameBehaviour
     public float movementSpeed;
     public float chaseSpeed;
     public float attackDistance;
-    private float detectCountdown = 5f;
-    public float detectTime = 5f;
+    public float detectCountdown = 2f;
+    public float detectTime = 3f;
     public float detectDistance;
     public float attackTimer = 0;
     public bool isAttacking;
