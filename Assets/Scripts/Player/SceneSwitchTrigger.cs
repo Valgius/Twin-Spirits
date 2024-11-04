@@ -21,7 +21,6 @@ public class SceneSwitchTrigger : MonoBehaviour
         if (hasSwitched == true)
         {
             gameObject.SetActive(false);
-           
         }
         else
         {

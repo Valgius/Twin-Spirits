@@ -32,8 +32,8 @@ public class PlayerController : GameBehaviour
 
     [Header("- Dash -")]
     public bool isFacingRight;
-    private bool canDash = true;
-    [SerializeField] private bool isDashing;
+    [SerializeField] private bool canDash = true;
+    public bool isDashing;
     [SerializeField] private float dashingPower = 0f;
     [SerializeField] private TrailRenderer trailRenderer;
 
@@ -79,7 +79,7 @@ public class PlayerController : GameBehaviour
 
     private enum MovementState { idle, running, jumping, falling, swimming, climbing}
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         swimSpeed = maxSwimSpeed;
@@ -92,9 +92,10 @@ public class PlayerController : GameBehaviour
         fadeOut = FindObjectOfType<FadeOut>();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
+        //When the player dies, freeze player and stop jump animation, if alive, enable colliders and set constraints.
         if (fadeOut.playerDie)
         {
             playerRb.velocity = new Vector2(0f, 0f);
@@ -109,6 +110,7 @@ public class PlayerController : GameBehaviour
             playerRb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
             
+        //If the player is dashing, dying or if the player pauses, dont run anything after.
         if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
             return;
 
@@ -124,7 +126,7 @@ public class PlayerController : GameBehaviour
         //If knockbackTimer is less than or equal to 0, knockback is false, allowing movement.
         if(knockbackTimer <=0)
             isKnockback = false;
-
+        
         if(wallJumpTimer > 0)
             wallJumpTimer -= Time.deltaTime;
 
@@ -138,6 +140,7 @@ public class PlayerController : GameBehaviour
             knockbackTimer -= Time.deltaTime;
         }
 
+        //DEV TEST KEY FOR ORBS.
         if (Input.GetKeyDown(KeyCode.O))
         {
             hasSeaOrb = true;
@@ -150,16 +153,20 @@ public class PlayerController : GameBehaviour
 
     void FixedUpdate()
     {
+        //If player is dashing, dying or pausing the game, ignore the rest of code.
         if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
             return;
 
         Swimming();
         SpriteFlipping();
+
+        //If wallJumpTimer is zero, run WallDetection function.
         if(wallJumpTimer <= 0)
         {
             WallDetection();
         }
         
+        //If the player is leaf, run Climbing function.
         if (isLeaf)
         {
             ClimbingAndWallSliding();
@@ -168,6 +175,7 @@ public class PlayerController : GameBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //If touching ground, isGrounded is true.
         if (collision.gameObject.CompareTag("Ground") && !isSwimming)
         {
             isGrounded = true;
@@ -176,6 +184,7 @@ public class PlayerController : GameBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        //When the player is touching an enemy and the hit cooldown is zero, run the knockback script.
         if (collision.gameObject.CompareTag("Enemy") && playerHealth.hitCooldown <= 0)
         {
             //Assign knockback values
@@ -190,6 +199,7 @@ public class PlayerController : GameBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        //When the player leaves the ground, isGrounded is false.
         if (collision.gameObject.CompareTag("Ground") && !isSwimming)
         {
             isGrounded = false;
@@ -206,7 +216,11 @@ public class PlayerController : GameBehaviour
             EnterWater();
         }
         if (other.gameObject.GetComponent<WaterFlow>() && flow == null)
+        {
             flow = other.gameObject.GetComponent<WaterFlow>();
+            DashEnd();
+        }
+            
 
         //When the player is hit by GeyserProjectile, start knockback with timer.
         if (other.gameObject.CompareTag("GeyserProjectile") && isDashing == false)
@@ -215,7 +229,8 @@ public class PlayerController : GameBehaviour
             Vector2 knockback = new Vector2(transform.position.x - other.transform.position.x, 0f);
             Vector2 knockbackUp = new Vector2(0f, transform.position.y - other.transform.position.y);
             Vector2 knockbackForce = knockback * force;
-            switch (other.gameObject.GetComponentInParent<WaterGeyser>().direction) // Depending on projectile direction, knockback player in direction of knockback.
+            //Depending on projectile direction, knockback player in direction of knockback.
+            switch (other.gameObject.GetComponentInParent<WaterGeyser>().direction) 
             {
                 case WaterGeyser.Direction.Down:
                     playerRb.velocity = knockbackForce;
@@ -237,6 +252,7 @@ public class PlayerController : GameBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        //Consult OnCollisionStay2D for details.
         if (other.gameObject.CompareTag("Enemy") && playerHealth.hitCooldown <= 0)
         {
             //Assign knockback values
@@ -270,7 +286,7 @@ public class PlayerController : GameBehaviour
 
     private void Movement()
     {
-        if(isKnockback)
+        if(isKnockback || !isLeaf && isSwimming)
             return;
 
         //Moves the Player Horizontal
@@ -303,19 +319,21 @@ public class PlayerController : GameBehaviour
     /// Underwater Dash function.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator Dash()
+    private void Dash()
     {
         //Enables the dashing animation, changes can dash to false so the player can't dash while dashing and is dashing to true.
         canDash = false; 
         isDashing = true; 
         anim.SetBool("isDashing", true); 
-        //_AM.PlaySFX("Player Dash");
         //Set new player velocity to speed the player up
         playerRb.velocity = new Vector2(playerRb.velocity.x, playerRb.velocity.y) * dashingPower;
+        
         _AM.PlaySFX("Player Dash");
-        yield return null;
     }
 
+    /// <summary>
+    /// Dash end function to be called at animation end, or whenever we need dashing to stop.
+    /// </summary>
     public void DashEnd()
     {
         isDashing = false;
@@ -370,7 +388,7 @@ public class PlayerController : GameBehaviour
         //Allows the player to Dash
         if (Input.GetButtonDown("Dash") && canDash && !isLeaf && hasSeaOrb && isSwimming && !isKnockback)
         {
-            StartCoroutine(Dash());
+             Dash();
         }
     }
 
@@ -490,6 +508,7 @@ public class PlayerController : GameBehaviour
         playerRb.gravityScale = gravity;
         playerRb.drag = 0f;
         _AM.PlaySFX("Player Dive");
+        DashEnd();
     }
 
     public void UpdateBreathBar()
