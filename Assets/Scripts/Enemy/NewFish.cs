@@ -5,6 +5,7 @@ using UnityEngine;
 public class NewFish : GameBehaviour
 {
     public PatrolType myPatrol;
+    public BoxCollider2D fishCollider;
 
     [Header("Patrol Points")]
     public GameObject pointA;
@@ -40,6 +41,7 @@ public class NewFish : GameBehaviour
         //A whole lotta declares
         playerSea = GameObject.Find("PlayerSea").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        fishCollider = GetComponent<BoxCollider2D>();
         currentPoint = pointB.transform;
         detectCountdown = detectTime;
         playerHealth = playerSea.GetComponent<PlayerHealth>();
@@ -202,5 +204,20 @@ public class NewFish : GameBehaviour
         {
             spriteRenderer.flipX = false;
         }
+    }
+
+    public void CullEnemy(bool isActive)
+    {
+        if (isActive)
+        {
+            this.gameObject.SetActive(true);
+            spriteRenderer.enabled = true;
+        }
+        else
+        {
+            spriteRenderer.enabled = false;
+            this.gameObject.SetActive(false);
+        }
+            
     }
 }

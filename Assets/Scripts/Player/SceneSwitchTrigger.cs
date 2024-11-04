@@ -21,7 +21,6 @@ public class SceneSwitchTrigger : MonoBehaviour
         if (hasSwitched == true)
         {
             gameObject.SetActive(false);
-           
         }
         else
         {
@@ -39,7 +38,6 @@ public class SceneSwitchTrigger : MonoBehaviour
         print("sceneswitch triggered");
         yield return new WaitForSeconds(sceneDelay);
         playerSwitch.SwitchCharacter();
-        playerSwitch.switchCount++;
         hasSwitched = true;
     }
 
