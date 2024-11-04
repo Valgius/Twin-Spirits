@@ -39,7 +39,6 @@ public class SceneSwitchTrigger : MonoBehaviour
         print("sceneswitch triggered");
         yield return new WaitForSeconds(sceneDelay);
         playerSwitch.SwitchCharacter();
-        playerSwitch.switchCount++;
         hasSwitched = true;
     }
 
