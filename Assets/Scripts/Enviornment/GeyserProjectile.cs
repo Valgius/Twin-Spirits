@@ -9,10 +9,15 @@ public class GeyserProjectile : GameBehaviour
 
     [SerializeField] private Quaternion projectileDirection;
     WaterGeyser geyser;
-    
+    PlayerHealth playerHealth;
+    PlayerController playerController;
+
+    public GameObject playerSea;
     
     void Start()
     {
+        playerSea = GameObject.Find("PlayerSea");
+        playerController = playerSea.GetComponent<PlayerController>();
         geyser = transform.parent.GetComponent<WaterGeyser>();
         //this.transform.rotation = this.GetComponentInParent<Transform>().rotation;
         this.transform.rotation = transform.parent.rotation;
@@ -49,5 +54,18 @@ public class GeyserProjectile : GameBehaviour
                 break;
         }
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && playerController.isDashing != true)
+        {
+            if(collision.GetComponent<PlayerHealth>() != null)
+            {
+                playerHealth = collision.GetComponent<PlayerHealth>();
+                playerHealth.EnemyHit();
+            }
+            
+        }
     }
 }
