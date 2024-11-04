@@ -26,10 +26,6 @@ public class PlayerSwitch : GameBehaviour
 
     public int switchCount = 0;
 
-    
-
-   
-
     void Start()
     {
         isLeafActive = true;
@@ -38,7 +34,6 @@ public class PlayerSwitch : GameBehaviour
         fadeOut = FindObjectOfType<FadeOut>();
 
         musicTriggers = musicTriggerObj.GetComponentsInChildren<MusicTrigger>();
-        
     }
     
     void Update()
@@ -46,6 +41,7 @@ public class PlayerSwitch : GameBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             SwitchCharacter();
+            switchCount--;
         }
     }
 
@@ -57,6 +53,8 @@ public class PlayerSwitch : GameBehaviour
             StartCoroutine(ActivateSea());
         else
             StartCoroutine(ActivateLeaf());
+
+        switchCount++;
     }
 
     private IEnumerator ActivateLeaf()
@@ -126,7 +124,6 @@ public class PlayerSwitch : GameBehaviour
             if (isLeafActive == false)
                 trigger.ChangeMusicSea();
         }
-
         fadeOut.playerSwitch = false;
     }
 }

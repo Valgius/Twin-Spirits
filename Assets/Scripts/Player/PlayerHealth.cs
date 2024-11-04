@@ -71,7 +71,7 @@ public class PlayerHealth : GameBehaviour
         if (collision.gameObject.tag == "Enemy" && collision.gameObject.GetComponent<EnemyPatrol>().myEnemy != EnemyType.Fish)
         {
             EnemyHit();
-            screenShake = 0.5f;
+            
         }
     }
 
@@ -93,12 +93,14 @@ public class PlayerHealth : GameBehaviour
             _AM.PlaySFX("Player Hit");
             health -= 1;
             hitCooldown = 1;
+            screenShake = 0.5f;
             damage.SetTrigger("Damage");
         }
         
         if (health <= 0)
         {
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             fadeOut.playerDie = true;
             DisableAnimations();
             _AM.PlaySFX("Death"); 

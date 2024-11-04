@@ -35,8 +35,6 @@ public class PlayerController : GameBehaviour
     private bool canDash = true;
     [SerializeField] private bool isDashing;
     [SerializeField] private float dashingPower = 0f;
-    [SerializeField] private float dashingTime = 0f;
-    [SerializeField] private float dashingCooldown = 0f;
     [SerializeField] private TrailRenderer trailRenderer;
 
     [Header("- Swim -")]
@@ -56,9 +54,7 @@ public class PlayerController : GameBehaviour
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
     public WaterFlow flow;
-    [SerializeField] private bool isKnockback = false;
-    [SerializeField] private float knockbackTimer = 0f;
-    public float force = 30f;
+    
 
     [Header("- Climb -")]
     public float climbSpeed = 0f;                      
@@ -72,6 +68,11 @@ public class PlayerController : GameBehaviour
     private bool isWallSliding = false;
     [SerializeField] private bool canWallJump = false;
     private Vector2 wallNormal = Vector2.zero;
+
+    [Header("Knockback")]
+    [SerializeField] private bool isKnockback = false;
+    [SerializeField] private float knockbackTimer = 0f;
+    [SerializeField] private float force = 30f;
 
     [Header("Death")]
     FadeOut fadeOut;
@@ -88,7 +89,6 @@ public class PlayerController : GameBehaviour
         playerHealth = this.gameObject.GetComponent<PlayerHealth>();
         breathTimer = maxBreathTimer;
         breathPanel.SetActive(false);
-        //moveSpeed = Mathf.Lerp(0, 1, movement);
         fadeOut = FindObjectOfType<FadeOut>();
     }
 
@@ -255,7 +255,6 @@ public class PlayerController : GameBehaviour
         if (other.CompareTag("Water"))
         {
             ExitWater();
-            
         }
         flow = null;
     }
@@ -306,19 +305,22 @@ public class PlayerController : GameBehaviour
     /// <returns></returns>
     private IEnumerator Dash()
     {
-        LimitSwimmingSpeed();
         //Enables the dashing animation, changes can dash to false so the player can't dash while dashing and is dashing to true.
-        canDash = false; isDashing = true; anim.SetBool("isDashing", true); //_AM.PlaySFX("Player Dash");
-        //Set new player velocity to speed the player up and emit a trail.
-        trailRenderer.emitting = true;
-        playerRb.velocity *= dashingPower;
+        canDash = false; 
+        isDashing = true; 
+        anim.SetBool("isDashing", true); 
+        //_AM.PlaySFX("Player Dash");
+        //Set new player velocity to speed the player up
+        playerRb.velocity = new Vector2(playerRb.velocity.x, playerRb.velocity.y) * dashingPower;
         _AM.PlaySFX("Player Dash");
-        //After waiting a set amount of time, reset the player back to original swimming state.
-        yield return new WaitForSeconds(dashingTime);
-        trailRenderer.emitting = false;
-        isDashing = false; anim.SetBool("isDashing", false);
-        yield return new WaitForSeconds(dashingCooldown);
+        yield return null;
+    }
+
+    public void DashEnd()
+    {
+        isDashing = false;
         canDash = true;
+        anim.SetBool("isDashing", false);
     }
 
     private void Jumping()
@@ -387,7 +389,7 @@ public class PlayerController : GameBehaviour
         }
         else
         {
-            if (isLeaf == true)
+            if (isLeaf)
                 return;
 
             //Get move direction using Input keys.
@@ -404,14 +406,14 @@ public class PlayerController : GameBehaviour
             if (isKnockback != true)
             {
                 playerRb.velocity = moveDirection * swimSpeed;
-                movement = Input.GetAxisRaw("Horizontal");
+                movement = Input.GetAxis("Horizontal");
                 anim.SetFloat("Speed", Mathf.Abs(movement));
             }
-            
 
-            if (Input.GetButton("Jump")) //When holding Space, the player will swim upwards.
+            //When holding Space, the player will swim upwards.
+            if (Input.GetButton("Jump")) 
             {
-                playerRb.velocity = Vector2.up * swimSpeedUp;
+                playerRb.velocity = new Vector2(moveDirection.x, 1) * swimSpeedUp;
             }
             LimitSwimmingSpeed();
             BreathTimer();
@@ -485,7 +487,7 @@ public class PlayerController : GameBehaviour
         breathTimer = maxBreathTimer;
         breathPanel.SetActive(false);
         swimmingStateTimer = swimmingStateCooldown;
-        playerRb.gravityScale = 1;
+        playerRb.gravityScale = gravity;
         playerRb.drag = 0f;
         _AM.PlaySFX("Player Dive");
     }
