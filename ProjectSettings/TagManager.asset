@@ -15,6 +15,7 @@ TagManager:
   - EnemyPatrol
   - Fish
   - ClimbTop
+  - Gallery
   layers:
   - Default
   - TransparentFX

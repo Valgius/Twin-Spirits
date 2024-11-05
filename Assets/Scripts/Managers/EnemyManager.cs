@@ -46,7 +46,6 @@ public class EnemyManager : Singleton<EnemyManager>
 
                     //Get Enemy Patrol script
                     EnemyPatrol enemyPatrol = child.GetComponent<EnemyPatrol>();
-                    NewFish newFish = child.GetComponent<NewFish>();
 
                     //child.gameObject.SetActive(distance <= activationDistance);
 
@@ -56,29 +55,10 @@ public class EnemyManager : Singleton<EnemyManager>
                         {
                             enemyPatrol.ToggleComponents(false);
                         }
-
-                        if(newFish != null)
-                        {
-                            newFish.CullEnemy(false);
-                            
-                        }
-                        
                     }
-                 
                     else
                     {
-                        if(newFish != null)
-                        {
-                            newFish.CullEnemy(true);
-                            
-                        }
-                        if(enemyPatrol != null)
-                        {
-                            enemyPatrol.ToggleComponents(true);
-                        }
-                        
-                        
-                        
+                        enemyPatrol.ToggleComponents(true);
                     }
                         
                 }
