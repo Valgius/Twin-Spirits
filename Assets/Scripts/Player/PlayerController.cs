@@ -295,6 +295,7 @@ public class PlayerController : GameBehaviour
         if (isGrounded)
         {
             anim.SetFloat("Speed", Mathf.Abs(movement));
+            anim.SetBool("isGrounded", true);
         }
 
         //if(Input.GetAxis("Horizontal") == +1)
@@ -370,9 +371,11 @@ public class PlayerController : GameBehaviour
     {
         playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         anim.SetBool("isJumping", true);
+        anim.SetBool("isGrounded", false);
         isGrounded = false;
         _AM.PlaySFX("Jump");
     }
+
     /// <summary>
     /// Same as Jump function except using doubleJumpForce.
     /// </summary>
@@ -536,6 +539,7 @@ public class PlayerController : GameBehaviour
         if (isClimbing)
         {
             playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxis("Vertical") * climbSpeed);
+            anim.SetBool("isGrounded", false);
         }
 
         // Wall sliding
@@ -570,7 +574,6 @@ public class PlayerController : GameBehaviour
             isClimbing = true;
             playerRb.gravityScale = 0f;
             playerRb.velocity = Vector2.zero;
-            anim.SetBool("isClimbing", true);
 
             //Climbing Audio
             stepCooldown -= Time.deltaTime;
@@ -581,7 +584,6 @@ public class PlayerController : GameBehaviour
         {
             isClimbing = false;
             playerRb.gravityScale = gravity;
-            anim.SetBool("isClimbing", false);
         }
 
         // Determine if the player is climbing or wall sliding
@@ -606,6 +608,7 @@ public class PlayerController : GameBehaviour
         if (hit.collider != null)
         {
             isTouchingWall = true;
+            anim.SetBool("isClimbing", true);
             wallNormal = hit.normal;
             if(wallJumpTimer <= 0)
             {
@@ -621,6 +624,7 @@ public class PlayerController : GameBehaviour
                 anim.SetFloat("Speed", 0f);
             }
             isTouchingWall = false;
+            anim.SetBool("isClimbing", false);
             wallNormal = Vector2.zero;
         }
     }
