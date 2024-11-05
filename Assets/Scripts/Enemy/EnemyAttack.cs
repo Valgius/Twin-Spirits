@@ -52,6 +52,7 @@ public class EnemyAttack : GameBehaviour
         print("Frog Attack");
         enemyPatrol.ChangeSpeed(0);
         enemyPatrol.enemyAnim.SetBool("IsAttacking", true);
+        enemyPatrol.enemyAnim.SetBool("isJumping", false);
         yield return new WaitForSeconds(1);
         GasAttack();
         enemyPatrol.enemyAnim.SetBool("IsAttacking", false);

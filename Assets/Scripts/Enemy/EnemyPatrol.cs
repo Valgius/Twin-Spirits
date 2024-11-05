@@ -161,6 +161,9 @@ public class EnemyPatrol : GameBehaviour
 
                 break;
             case EnemyType.Frog:
+                if (isGrounded)
+                    enemyAnim.SetBool("isJumping", false);
+                Wait(0.5f);
                 FrogMove();
                 break;
         }
@@ -354,4 +357,8 @@ public class EnemyPatrol : GameBehaviour
         }
     }
 
+    private IEnumerator Wait(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+    }
 }
