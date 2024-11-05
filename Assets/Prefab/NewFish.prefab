@@ -736,7 +736,7 @@ MonoBehaviour:
   attackDistance: 1
   detectDistance: 10
   activationDistance: 50
-  detectTime: 5
+  detectTime: 2
   detectCountdown: 1
   attackTimer: 0
 --- !u!4 &1844647260514547775 stripped
