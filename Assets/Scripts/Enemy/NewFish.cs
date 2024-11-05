@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class NewFish : GameBehaviour
@@ -12,9 +13,6 @@ public class NewFish : GameBehaviour
     public GameObject pointB;
 
     public CircleCollider2D patrolZoneCollider;
-
-    //Idle Point
-    private Transform travelPoint;
 
     [Header("Transforms")]
     public Transform targetPoint;
@@ -34,6 +32,7 @@ public class NewFish : GameBehaviour
     [Header("Distance")]
     [SerializeField] private float attackDistance;
     [SerializeField] private float detectDistance;
+    [SerializeField] private float activationDistance = 50;
 
     [Header("Timers")]
     [SerializeField] private float detectTime = 5f;
@@ -57,14 +56,13 @@ public class NewFish : GameBehaviour
 
     void Update()
     {
-        //Distance declaration for update
+        //Distance declaration
         float disToPlayer = Vector2.Distance(transform.position, playerSea.transform.position);
-        if (disToPlayer < detectDistance && myPatrol == PatrolType.Patrol && newEnemyChaseZone.canFollow)
-        {
-            myPatrol = PatrolType.Detect;
-        }
-        else if (disToPlayer > detectDistance)
-            transform.right = targetPoint.position - transform.position;
+        CullEnemy(disToPlayer);
+        if (disToPlayer > activationDistance)
+            return;
+
+        GetDistance(disToPlayer);
 
         //Switch cases for patrol types
         switch (myPatrol)
@@ -113,6 +111,16 @@ public class NewFish : GameBehaviour
 
     }
 
+    void GetDistance(float disToPlayer)
+    {
+        if (disToPlayer < detectDistance && myPatrol == PatrolType.Patrol && newEnemyChaseZone.canFollow)
+        {
+            myPatrol = PatrolType.Detect;
+        }
+        else if (disToPlayer > detectDistance)
+            transform.right = targetPoint.position - transform.position;
+    }
+
     void ReturnToPatrol()
     {
         //When player dies return to patrol.
@@ -136,9 +144,6 @@ public class NewFish : GameBehaviour
         detectTime = detectCountdown;
         Move();
 
-        //Get the area of the chase zone
-        //Get two random numbers, throw them into vector2
-
         //Distance declaration for patrol function.
         float disToWaypoint = Vector2.Distance(transform.position, targetPoint.position);
         if (disToWaypoint < 1.5f)
@@ -156,7 +161,17 @@ public class NewFish : GameBehaviour
     void Detect()
     {
         //Look at player when detecting
-        transform.right = playerSea.position - transform.position;
+        transform.right = playerSea.transform.position - transform.position;
+
+        if(playerSea.transform.position.x < transform.position.x)
+            spriteRenderer.flipY = true;
+        else
+            spriteRenderer.flipY = false;
+
+        if (spriteRenderer.flipX)
+        {
+            spriteRenderer.flipX = false;
+        }
 
         //Stay still for a few seconds before chasing.
         movementSpeed = 0f;
@@ -226,17 +241,22 @@ public class NewFish : GameBehaviour
         
     }
 
-    public void CullEnemy(bool isActive)
+    public void CullEnemy(float disToPlayer)
     {
-        if (isActive)
+        if (disToPlayer > activationDistance)
         {
-            this.gameObject.SetActive(true);
-            spriteRenderer.enabled = true;
+            fishCollider.enabled = false;
+            spriteRenderer.enabled = false;
         }
         else
         {
-            spriteRenderer.enabled = false;
-            this.gameObject.SetActive(false);
+            spriteRenderer.enabled = true;
+            fishCollider.enabled = true;
+        }
+
+        if(myPatrol != PatrolType.Detect)
+        {
+            spriteRenderer.flipY = false;
         }
             
     }
