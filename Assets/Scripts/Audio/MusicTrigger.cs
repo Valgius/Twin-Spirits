@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static System.TimeZoneInfo;
 
 public enum AreaType
 {
@@ -14,13 +15,6 @@ public class MusicTrigger : GameBehaviour
 
     public bool leafInZone;
     public bool seaInZone;
-    private bool musicStarted;
-
-    private void Start()
-    {
-        musicStarted = false;
-        StartCoroutine(MusicStart());
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -52,7 +46,7 @@ public class MusicTrigger : GameBehaviour
 
     public void ChangeMusicLeaf()
     {
-        if (leafInZone && musicStarted)
+        if (leafInZone)
         {
             PlayMusicForArea();
         }
@@ -60,7 +54,7 @@ public class MusicTrigger : GameBehaviour
 
     public void ChangeMusicSea()
     {
-        if (seaInZone && musicStarted)
+        if (seaInZone)
         {
             PlayMusicForArea();
         }
@@ -71,15 +65,18 @@ public class MusicTrigger : GameBehaviour
         switch (myArea)
         {
             case AreaType.Treetops:
-                _AM.PlayMusic("Treetops");
+                _AM.TransitionToSnapshot("Treetops", 1);
+                //_AM.PlayMusic("Treetops");
                 break;
 
             case AreaType.Grasslands:
-                _AM.PlayMusic("Grasslands");
+                _AM.TransitionToSnapshot("Grasslands", 1);
+                //_AM.PlayMusic("Grasslands");
                 break;
 
             case AreaType.Undercove:
-                _AM.PlayMusic("Undercove");
+                _AM.TransitionToSnapshot("Undercove", 1);
+                //_AM.PlayMusic("Undercove");
                 break;
         }
     }
@@ -87,7 +84,6 @@ public class MusicTrigger : GameBehaviour
     public IEnumerator MusicStart()
     {
         yield return new WaitForSeconds(0.1f);
-        musicStarted = true;
         ChangeMusicLeaf();
     }
 }

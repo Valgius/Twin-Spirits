@@ -194,10 +194,6 @@ PrefabInstance:
       propertyPath: pointB
       value: 
       objectReference: {fileID: 4175292395173204630}
-    - target: {fileID: 1651881864610817181, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
-      propertyPath: enemyAnim
-      value: 
-      objectReference: {fileID: 225196680724613911}
     - target: {fileID: 2755492120442977157, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
       propertyPath: m_Name
       value: Fish
@@ -247,11 +243,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
---- !u!95 &225196680724613911 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2486874727186751933, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
-  m_PrefabInstance: {fileID: 2423825363381316266}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &548965439133765935 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2755492120442977157, guid: a4d72113e8e5f584da03385013b118b1, type: 3}

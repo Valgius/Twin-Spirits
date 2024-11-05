@@ -20,46 +20,58 @@ public class PlayerSwitch : GameBehaviour
     public GameObject musicTriggerObj;
     private MusicTrigger[] musicTriggers;
 
+    FadeOut fadeOut;
+
     public bool isLeafActive;
 
-    public int switchCount = 1;
+    public int switchCount = 0;
 
     void Start()
     {
         isLeafActive = true;
         StartCoroutine(ActivateLeaf());
         Physics2D.IgnoreCollision(playerSea.GetComponent<BoxCollider2D>(), playerLeaf.GetComponent<BoxCollider2D>());
+        fadeOut = FindObjectOfType<FadeOut>();
 
         musicTriggers = musicTriggerObj.GetComponentsInChildren<MusicTrigger>();
     }
-
+    
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
             SwitchCharacter();
+            switchCount--;
         }
     }
 
     public void SwitchCharacter()
     {
+        fadeOut.playerSwitch = true;
+
         if (isLeafActive == true)
             StartCoroutine(ActivateSea());
         else
             StartCoroutine(ActivateLeaf());
+
+        switchCount++;
     }
 
     private IEnumerator ActivateLeaf()
     {
+       
         playerLeaf.GetComponent<PlayerController>().enabled = true;
         playerLeaf.GetComponent<PlayerRespawn>().enabled = true;
+        playerLeaf.GetComponent<BoxCollider2D>().enabled = true;
         playerLeafUI.SetActive(true);
         playerLeafCamera.SetActive(true);
 
         playerSea.GetComponent<PlayerController>().enabled = false;
         playerSea.GetComponent<PlayerRespawn>().enabled = false;
+        playerSea.GetComponent<BoxCollider2D>().enabled = false;
         playerSeaUI.SetActive(false);
         playerSeaCamera.SetActive(false);
+        
         seaCamera.Priority = 5;
 
         isLeafActive = true;
@@ -76,15 +88,19 @@ public class PlayerSwitch : GameBehaviour
 
     private IEnumerator ActivateSea()
     {
+        
         playerLeaf.GetComponent<PlayerController>().enabled = false;
         playerLeaf.GetComponent<PlayerRespawn>().enabled = false;
+        playerLeaf.GetComponent<BoxCollider2D>().enabled = false;
         playerLeafUI.SetActive(false);
         playerLeafCamera.SetActive(false);
 
         playerSea.GetComponent<PlayerController>().enabled = true;
         playerSea.GetComponent<PlayerRespawn>().enabled = true;
+        playerSea.GetComponent<BoxCollider2D>().enabled = true;
         playerSeaUI.SetActive(true);
         playerSeaCamera.SetActive(true);
+    
         seaCamera.Priority = 11;
 
         isLeafActive = false;
@@ -108,5 +124,6 @@ public class PlayerSwitch : GameBehaviour
             if (isLeafActive == false)
                 trigger.ChangeMusicSea();
         }
+        fadeOut.playerSwitch = false;
     }
 }

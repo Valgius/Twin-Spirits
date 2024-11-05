@@ -18,7 +18,6 @@ public class EnemyPatrol : GameBehaviour
     private Transform playerSea;
     private Transform playerLeaf;
     public Transform closestPlayer;
-    public bool isMoving;
 
     SpriteRenderer spriteRenderer;
     public Animator enemyAnim;
@@ -35,6 +34,7 @@ public class EnemyPatrol : GameBehaviour
     private float detectCountdown = 5f;
     public float detectTime = 5f;
     public float detectDistance = 10f;
+    public bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -88,7 +88,17 @@ public class EnemyPatrol : GameBehaviour
                 break;
         }
 
-
+        switch (myEnemy)
+        {
+            case EnemyType.Frog:
+                //Set the yVelocity in the Animator
+                enemyAnim.SetFloat("yVelocity", rb.velocity.y);
+                if (isGrounded)
+                {
+                    enemyAnim.SetBool("isJumping", false);
+                }
+                break;
+        }
     }
 
     public void Patrol()
@@ -107,7 +117,6 @@ public class EnemyPatrol : GameBehaviour
                 break;
 
             case EnemyType.Spider:
-
                 SpiderMove();
                 break;
         }
@@ -133,23 +142,16 @@ public class EnemyPatrol : GameBehaviour
             {
                 case EnemyType.Spider:
                     StartCoroutine(enemyAttack.SpiderAttack());
-                    enemyAnim.SetBool("IsMoving", false);
                     break;
             }
             detectCountdown = detectTime;
         }
 
-
         if (detectCountdown <= 0)
         {
             ChangeSpeed(baseSpeed);
             myPatrol = PatrolType.Patrol;
-
         }
-    }
-    public void StopShootAnim()
-    {
-        enemyAnim.SetBool("IsMoving", true);
     }
 
     private void Chase(float distToClosest)
@@ -161,6 +163,9 @@ public class EnemyPatrol : GameBehaviour
 
                 break;
             case EnemyType.Frog:
+                if (isGrounded)
+                    enemyAnim.SetBool("isJumping", false);
+                Wait(0.5f);
                 FrogMove();
                 break;
         }
@@ -192,6 +197,7 @@ public class EnemyPatrol : GameBehaviour
     public void ChangeSpeed(float _speed)
     {
         mySpeed = _speed;
+        enemyAnim.SetFloat("Speed", Mathf.Abs(mySpeed));
     }
 
     private bool IsGrounded()
@@ -211,8 +217,6 @@ public class EnemyPatrol : GameBehaviour
 
         // Flip the sprite based on movement direction
         UpdateSpriteAndCollider(movementDirection);
-
-        MoveAnimationTrigger();
     }
 
     private void SpiderMove()
@@ -235,17 +239,13 @@ public class EnemyPatrol : GameBehaviour
             gameObject.GetComponent<SpriteRenderer>().flipY = false;
         }
 
-
         // Determine the direction of movement
         Vector2 movementDirection = (targetPosition - (Vector2)transform.position).normalized;
 
         // Flip the sprite based on movement direction
         UpdateSpriteAndCollider(movementDirection);
 
-        //sets is moving true for animation
-        isMoving = true;
-
-        MoveAnimationTrigger();
+        enemyAnim.SetFloat("Speed", Mathf.Abs(mySpeed));
     }
 
     public void FrogMove()
@@ -258,19 +258,20 @@ public class EnemyPatrol : GameBehaviour
             // Set the jump direction only if grounded
             jumpDirection = movementDirection;
             rb.velocity = new Vector2(jumpDirection.x * mySpeed, jumpHeight);
+            enemyAnim.SetBool("isJumping", true);
+            isGrounded = false;
 
             // Start the cooldown coroutine
             StartCoroutine(JumpCooldownCoroutine());
 
             UpdateSpriteAndCollider(movementDirection);
+
         }
         else if (!IsGrounded())
         {
             // While in the air, maintain the horizontal velocity
             rb.velocity = new Vector2(jumpDirection.x * mySpeed, rb.velocity.y);
         }
-
-        MoveAnimationTrigger();
     }
 
     public void CalculateClosestPlayer()
@@ -350,17 +351,16 @@ public class EnemyPatrol : GameBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    void MoveAnimationTrigger()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        //play Enemy idle when false
-        if (isMoving == false)
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            enemyAnim.SetBool("IsMoving", false);
+            isGrounded = true;
         }
-        //play Enemy Move when true
-        if (isMoving && _EM.isActive)
-        {
-            enemyAnim.SetBool("IsMoving", true);
-        }
+    }
+
+    private IEnumerator Wait(float sec)
+    {
+        yield return new WaitForSeconds(sec);
     }
 }

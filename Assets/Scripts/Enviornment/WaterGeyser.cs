@@ -41,6 +41,7 @@ public class WaterGeyser : GameBehaviour
         {
             ShootProjectile();
             waterTimer = 0.15f;
+
         }
     }
 

@@ -7,6 +7,7 @@ public class FadeOut : GameBehaviour
 {
     [SerializeField] private GameObject fadeOutObject;
     public bool playerDie;
+    public bool playerSwitch;
 
     [SerializeField] private Animator fadeOutAni;
     [SerializeField] private PlayerController playerControllerLeaf;
@@ -17,6 +18,7 @@ public class FadeOut : GameBehaviour
     void Start()
     {
         fadeOutAni = GetComponent<Animator>();
+
     }
 
     
@@ -29,6 +31,15 @@ public class FadeOut : GameBehaviour
         else
         {
             fadeOutAni.SetBool("Die", false);
+        }
+
+        if (playerSwitch)
+        {
+            fadeOutAni.SetBool("Switch", true);
+        }
+        else
+        {
+            fadeOutAni.SetBool("Switch", false);
         }
     }
 

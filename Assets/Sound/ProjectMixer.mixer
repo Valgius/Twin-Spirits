@@ -9,7 +9,10 @@ AudioMixerGroupController:
   m_Name: Music
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 60fe8669e0f134d49862286a1afaca99
-  m_Children: []
+  m_Children:
+  - {fileID: 802602036873684365}
+  - {fileID: -4875218282573479673}
+  - {fileID: 6853557909125773581}
   m_Volume: aa6f2de0419c0ba48b6a55502084f71b
   m_Pitch: bd32ec741bc700e4e9eaf96a4c71ea91
   m_Send: 00000000000000000000000000000000
@@ -19,6 +22,34 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-7208336033743222575
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 84ca7944a1ecd6e42a3dac2d18f5421f
+  m_EffectName: Attenuation
+  m_MixLevel: 7e3d553c84e50874fb1cbad9868096ba
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!245 &-6459760277432726472
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Treetops
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 7c70be41d2055164ab1f73804c6ffb91
+  m_FloatValues:
+    aa6f2de0419c0ba48b6a55502084f71b: -0.08374829
+    b7c665d87ef133f478ddae7e660c1dc6: -80
+    9c5586aa70712c446a3b14826d6d9753: -80
+  m_TransitionOverrides: {}
 --- !u!243 &-5716306725783821905
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -38,6 +69,71 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &-4875218282573479673
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Grasslands
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 145e0b843d9d8524c9d5c8db417e4405
+  m_Children: []
+  m_Volume: 9c5586aa70712c446a3b14826d6d9753
+  m_Pitch: e8fb75fed81ec6941b34f7c43a862770
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -7208336033743222575}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!245 &-4105958729767475592
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Start
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: bed907e41a6ba304c9a37ac73556a806
+  m_FloatValues:
+    aa6f2de0419c0ba48b6a55502084f71b: -80
+    b7c665d87ef133f478ddae7e660c1dc6: -80
+    ebeb6ad8ec4c6d0468e825c2c8becda6: -80
+    9c5586aa70712c446a3b14826d6d9753: -80
+    5b6a612dc26b96d40a95f534f556567a: -80
+    d504fc5dfdce5c2419f6a3937bb21ec3: -80
+    9409aced29556a94eb5247b50ce2309b: -80
+  m_TransitionOverrides: {}
+--- !u!245 &-1466209407476181266
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Undercove
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 54a5b85a20c4478419f67c4df1b80560
+  m_FloatValues:
+    aa6f2de0419c0ba48b6a55502084f71b: -0.08374829
+    9c5586aa70712c446a3b14826d6d9753: -80
+    5b6a612dc26b96d40a95f534f556567a: -80
+  m_TransitionOverrides: {}
+--- !u!244 &-781244251785310322
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 75af8bb974c43934fa121a0f9b187405
+  m_EffectName: Attenuation
+  m_MixLevel: 532225c854944e4408166758a32d2842
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-677141712686098738
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -62,8 +158,11 @@ AudioMixerController:
   m_OutputGroup: {fileID: 0}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
+  - {fileID: -6459760277432726472}
   - {fileID: 24500006}
-  m_StartSnapshot: {fileID: 24500006}
+  - {fileID: -1466209407476181266}
+  - {fileID: -4105958729767475592}
+  m_StartSnapshot: {fileID: -4105958729767475592}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
@@ -80,6 +179,9 @@ AudioMixerController:
     - 60fe8669e0f134d49862286a1afaca99
     - b4b8d2377cab86a469267142c75bf595
     - 80fa20bcb798f3946b5ec9a9d1697a51
+    - 9a11598ebcb02b94a9326a99009aceb2
+    - 145e0b843d9d8524c9d5c8db417e4405
+    - a44d18889d507c14bb10fc408c650328
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -125,12 +227,33 @@ AudioMixerSnapshotController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Snapshot
+  m_Name: Grasslands
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 165f07342374e5f4da817247dc076f94
   m_FloatValues:
     aa6f2de0419c0ba48b6a55502084f71b: -0.08374829
+    b7c665d87ef133f478ddae7e660c1dc6: -80
+    5b6a612dc26b96d40a95f534f556567a: -80
   m_TransitionOverrides: {}
+--- !u!243 &802602036873684365
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Treetops
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 9a11598ebcb02b94a9326a99009aceb2
+  m_Children: []
+  m_Volume: 5b6a612dc26b96d40a95f534f556567a
+  m_Pitch: c58506cf728dc9b4a97abff42f5f3ac9
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -781244251785310322}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &1417912397489890489
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -174,6 +297,39 @@ AudioMixerEffectController:
   m_EffectID: c31155b1e39f8f440bcd096ac9419449
   m_EffectName: Attenuation
   m_MixLevel: e0bf4c135b94be443a90c210608b0db0
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &6853557909125773581
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Undercove
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: a44d18889d507c14bb10fc408c650328
+  m_Children: []
+  m_Volume: b7c665d87ef133f478ddae7e660c1dc6
+  m_Pitch: f11f84c022ce1224ea231c6282e4cfe0
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 8703933523549484059}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &8703933523549484059
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: d58ae983d2e18fe4581c24c2ff5f5e18
+  m_EffectName: Attenuation
+  m_MixLevel: ae29ea550d12f554694c5eb78139edac
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
