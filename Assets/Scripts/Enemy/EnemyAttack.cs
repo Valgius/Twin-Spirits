@@ -48,15 +48,19 @@ public class EnemyAttack : GameBehaviour
 
     public IEnumerator FrogAttack()
     {
-        enemyPatrol.myPatrol = PatrolType.Attack;
-        print("Frog Attack");
-        enemyPatrol.ChangeSpeed(0);
-        enemyPatrol.enemyAnim.SetBool("IsAttacking", true);
-        enemyPatrol.enemyAnim.SetBool("isJumping", false);
-        yield return new WaitForSeconds(1);
-        GasAttack();
-        enemyPatrol.enemyAnim.SetBool("IsAttacking", false);
-        yield return new WaitForSeconds(3);
+        if(attackTimer < 0)
+        {
+            enemyPatrol.myPatrol = PatrolType.Attack;
+            print("Frog Attack");
+            enemyPatrol.ChangeSpeed(0);
+            enemyPatrol.enemyAnim.SetBool("IsAttacking", true);
+            enemyPatrol.enemyAnim.SetBool("isJumping", false);
+            yield return new WaitForSeconds(0.5f);
+            GasAttack();
+            enemyPatrol.enemyAnim.SetBool("IsAttacking", false);
+            attackTimer = 1.5f;
+        }
+
         enemyPatrol.ChangeSpeed(enemyPatrol.mySpeed);
         enemyPatrol.myPatrol = PatrolType.Chase;
     }
