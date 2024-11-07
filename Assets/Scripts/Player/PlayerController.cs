@@ -328,6 +328,7 @@ public class PlayerController : GameBehaviour
         anim.SetBool("isDashing", true); 
         //Set new player velocity to speed the player up
         playerRb.velocity = new Vector2(playerRb.velocity.x, playerRb.velocity.y) * dashingPower;
+        breathTimer -= 5;
         
         _AM.PlaySFX("Player Dash");
     }
