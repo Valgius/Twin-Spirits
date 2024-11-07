@@ -12,6 +12,8 @@ public class CheckPoint : GameBehaviour
     public bool usedCheckPoint;
     [SerializeField] private bool leafCheckPoint;
 
+    public Vector2 respawnPoint;
+
     CheckpointManager checkpointManager;
 
     void Start()
@@ -19,18 +21,19 @@ public class CheckPoint : GameBehaviour
         playerLeafRespawn = GameObject.Find("PlayerLeaf").GetComponent<PlayerRespawn>();
         playerSeaRespawn = GameObject.Find("PlayerSea").GetComponent<PlayerRespawn>();
         checkpointManager = FindObjectOfType<CheckpointManager>();
+        respawnPoint = transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (usedCheckPoint == false && (collision.gameObject.name == "PlayerLeaf"))
         {
-            playerLeafRespawn.respawnPoint = transform.position;
+            respawnPoint = playerLeafRespawn.respawnPoint = transform.position;
             UpdateFlag();
         }
         if(usedCheckPoint == false && (collision.gameObject.name == "PlayerSea"))
         {
-            playerSeaRespawn.respawnPoint = transform.position;
+            respawnPoint = playerSeaRespawn.respawnPoint = transform.position;
             UpdateFlag();
         }
     }
@@ -44,11 +47,13 @@ public class CheckPoint : GameBehaviour
         {
             checkpointManager.activeCheckPointsLeaf.Add(gameObject);
             checkpointManager.checkPointsLeaf.Remove(gameObject);
+            checkpointManager.AddButton(isLeaf: true);
         }
         else
         {
             checkpointManager.activeCheckPointsSea.Add(gameObject);
             checkpointManager.checkPointsSea.Remove(gameObject);
+            checkpointManager.AddButton(isLeaf: false);
         }
             
         
