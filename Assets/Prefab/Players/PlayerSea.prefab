@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7913727253926534067}
   - component: {fileID: 8607824650935340329}
   - component: {fileID: 2005596024619392511}
+  - component: {fileID: 1518383322994459211}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3093086119399704232}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -377.35822, y: 47.16998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42,7 +43,7 @@ Camera:
   m_GameObject: {fileID: 3093086119399704232}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -66,9 +67,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 34
-  orthographic: 1
-  orthographic size: 5
+  field of view: 90
+  orthographic: 0
+  orthographic size: 11
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -78,7 +79,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 0
   m_HDR: 1
-  m_AllowMSAA: 0
+  m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 0
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
+  m_CameraType: 1
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -128,6 +129,40 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &1518383322994459211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3093086119399704232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 4
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3185086201695122656
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,8 +244,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -943349926, guid: 50d8a2f096e761140ad635c8d7f0bd2f, type: 3}
-  m_Color: {r: 0, g: 0.9542651, b: 1, a: 1}
+  m_Sprite: {fileID: -1024889819, guid: 0f10d45811ff5c7449d69201b5401e6e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -235,7 +270,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 991b1c28c3446d745b0048706e144440, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -279,18 +314,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.15199414, y: 0.007237971}
+  m_Offset: {x: -0.029823303, y: 0.047958374}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 2.295, y: 1.68}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.79923195, y: 2.0730882}
+  m_Size: {x: 2.4009552, y: 1.665863}
   m_EdgeRadius: 0
 --- !u!114 &2872918865855090263
 MonoBehaviour:
@@ -311,40 +346,48 @@ MonoBehaviour:
   climbLayer:
     serializedVersion: 2
     m_Bits: 64
+  pausePanel: {fileID: 0}
   isLeaf: 0
   hasLeafOrb: 0
   hasSeaOrb: 0
-  doubleJump: 0
+  movement: 0
+  doubleJump: 1
   moveSpeed: 5
-  jumpForce: 5
+  jumpForce: 15
+  doubleJumpForce: 1
+  gravity: 1
   isGrounded: 0
+  stepRate: 0.5
   isFacingRight: 1
+  canDash: 1
   isDashing: 0
-  dashingPower: 10
-  dashingTime: 0.5
-  dashingCooldown: 0.2
+  dashingPower: 3
   trailRenderer: {fileID: 6170460103742773646}
-  swimSpeed: 5
-  swimSpeedUp: 0
-  maxSwimSpeed: 0
-  waterDrag: 2
-  buoyancyForce: 2
+  swimSpeed: 22
+  swimSpeedUp: 13
+  maxSwimSpeed: 13
+  waterDrag: 0
+  buoyancyForce: 2.5
   maxBuoyancyVelocity: 2
   breathTimer: 0
-  maxBreathTimer: 0
+  maxBreathTimer: 40
   breathFill: {fileID: 0}
   breathPanel: {fileID: 0}
   swimmingStateCooldown: 0.5
   swimDeceleration: 0
   isSwimming: 0
   flow: {fileID: 0}
-  knockbackTimer: 0
-  force: 30
   climbSpeed: 0
   wallSlideSpeed: 0
   wallJumpForce: 0
   wallJumpHorizontalForce: 0
+  wallJumpTimer: 0.5
   isClimbing: 0
+  isTouchingWall: 0
+  canWallJump: 0
+  isKnockback: 0
+  knockbackTimer: 0
+  force: 30
 --- !u!96 &6170460103742773646
 TrailRenderer:
   serializedVersion: 3
@@ -482,7 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a526235eb67432d46a47fa0aa90a73cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPoint: {x: 0, y: 0, z: 0}
+  respawnPoint: {x: 245.6, y: -36.3, z: 0}
 --- !u!114 &2796351916790204687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,5 +545,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  fullHeart: {fileID: 415042345, guid: 31e223ac060d09f4ba84318685962973, type: 3}
-  emptyHeart: {fileID: -1563445261, guid: 31e223ac060d09f4ba84318685962973, type: 3}
+  fullHeart: {fileID: 21300000, guid: 1d60df54a5eabec47b0bf157800e5559, type: 3}
+  emptyHeart: {fileID: -1701674382, guid: bd79e276db5dd774c805a4c68977b795, type: 3}
+  damage: {fileID: 7989770772916158184}
+  hitCooldown: 0
+  virtualCamera: {fileID: 0}
+  screenShake: 0
