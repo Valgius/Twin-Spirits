@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 642124308983438090}
   - component: {fileID: 6427952455444643543}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stalactite
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -434,9 +434,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7587137527475406801}
   - component: {fileID: 3517856440318122634}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stalactite
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
