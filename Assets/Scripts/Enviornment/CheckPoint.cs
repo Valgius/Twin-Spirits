@@ -29,13 +29,15 @@ public class CheckPoint : GameBehaviour
         if (collision.gameObject.name == "PlayerLeaf")
         {
             playerLeafRespawn.respawnPoint = transform.position;
+            print("hit checkpoint leaf");
         }
         if(collision.gameObject.name == "PlayerSea")
         {
             playerSeaRespawn.respawnPoint = transform.position;
+            print("hit checkpoint sea");
         }
 
-        if (!usedCheckPoint)
+        if (collision.gameObject.CompareTag("Player") && !usedCheckPoint)
             UpdateFlag();
     }
 

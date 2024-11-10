@@ -7,13 +7,13 @@ public class NewFish : GameBehaviour
 {
     public PatrolType myPatrol;
     public BoxCollider2D fishCollider;
+    LayerMask mask;
 
     [Header("Patrol Points")]
     public GameObject pointA;
     public GameObject pointB;
 
     public CircleCollider2D patrolZoneCollider;
-    public CircleCollider2D landDetect;
 
     [Header("Transforms")]
     public Transform targetPoint;
@@ -34,6 +34,7 @@ public class NewFish : GameBehaviour
     [SerializeField] private float attackDistance;
     [SerializeField] private float detectDistance;
     [SerializeField] private float activationDistance = 50;
+    [SerializeField] private float raycastDistance;
 
     [Header("Timers")]
     [SerializeField] private float detectTime = 5f;
@@ -44,13 +45,13 @@ public class NewFish : GameBehaviour
     void Start()
     {
         //A whole lotta declares
+        mask = LayerMask.GetMask("Ground");
         playerSea = GameObject.Find("PlayerSea").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         fishCollider = GetComponent<BoxCollider2D>();
         playerHealth = playerSea.GetComponent<PlayerHealth>();
         newEnemyChaseZone = patrolArea.GetComponent<NewEnemyChaseZone>();
         patrolZoneCollider = patrolArea.GetComponent<CircleCollider2D>();
-        landDetect = GetComponent<CircleCollider2D>();
         targetPoint = pointB.transform;
         detectCountdown = detectTime;
         attackTimer = 0;
@@ -113,9 +114,23 @@ public class NewFish : GameBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void FixedUpdate()
     {
-        if (collision.CompareTag("Ground"))
+        Raycast();
+    }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        NewTarget();
+    //    }
+    //}
+
+    void Raycast()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, Vector2.left, out hit, raycastDistance, mask))
         {
             NewTarget();
         }
