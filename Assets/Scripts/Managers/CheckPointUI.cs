@@ -5,55 +5,25 @@ using TMPro;
 
 public class CheckPointUI : GameBehaviour
 {
-    public int count;
-    CheckpointManager manager;
-    TMP_Text text;
-
     PlayerRespawn respawn;
     public Vector2 respawnPosition;
+    [SerializeField] private GameObject checkPoint;
 
     PlayerController playerControllerLeaf;
     PlayerController playerControllerSea;
+    CheckpointManager manager;
 
-    CheckPoint checkPoint;
-
-    void Start()
+    void Awake()
     {
         playerControllerLeaf = GameObject.Find("PlayerLeaf").GetComponent<PlayerController>();
         playerControllerSea = GameObject.Find("PlayerSea").GetComponent<PlayerController>();
+        respawnPosition = checkPoint.transform.position;
         manager = FindObjectOfType<CheckpointManager>();
-        text = GetComponentInChildren<TMP_Text>();
-
-        
-        if (manager.checkpointLeaf)
-        {
-            LeafCheckpoint();
-        }
-        else
-            SeaCheckpoint();
-           
     }
 
-
-    void Update()
-    {
-        
-    }
-
-    public void LeafCheckpoint()
-    {
-        count = manager.activeCheckPointsLeaf.Count;
-        respawnPosition = playerControllerLeaf.transform.position;
-        text.text = "Checkpoint " + count;
-    }
-
-    void SeaCheckpoint()
-    {
-        count = manager.activeCheckPointsSea.Count;
-        respawnPosition = playerControllerSea.transform.position;
-        text.text = "Checkpoint " + count;
-    }
-
+    /// <summary>
+    /// When button is pressed, teleport player to connceted checkpoint.
+    /// </summary>
     public void Teleport()
     {
         if (playerControllerLeaf.isActiveAndEnabled)
@@ -65,6 +35,9 @@ public class CheckPointUI : GameBehaviour
         {
             respawn = playerControllerSea.GetComponent<PlayerRespawn>();
         }
+        manager.leafMenu.SetActive(false);
+        manager.seaMenu.SetActive(false);
         respawn.gameObject.transform.position = respawnPosition;
+        Time.timeScale = 1;
     }
 }

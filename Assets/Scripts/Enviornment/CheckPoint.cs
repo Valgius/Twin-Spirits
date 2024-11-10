@@ -10,32 +10,33 @@ public class CheckPoint : GameBehaviour
     public GameObject inActive;
 
     public bool usedCheckPoint;
-    [SerializeField] private bool leafCheckPoint;
+    public GameObject button;
 
+    CheckpointManager manager;
     public Vector2 respawnPoint;
 
-    CheckpointManager checkpointManager;
 
     void Start()
     {
         playerLeafRespawn = GameObject.Find("PlayerLeaf").GetComponent<PlayerRespawn>();
         playerSeaRespawn = GameObject.Find("PlayerSea").GetComponent<PlayerRespawn>();
-        checkpointManager = FindObjectOfType<CheckpointManager>();
+        manager = FindObjectOfType<CheckpointManager>();
         respawnPoint = transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (usedCheckPoint == false && (collision.gameObject.name == "PlayerLeaf"))
+        if (collision.gameObject.name == "PlayerLeaf")
         {
-            respawnPoint = playerLeafRespawn.respawnPoint = transform.position;
-            UpdateFlag();
+            playerLeafRespawn.respawnPoint = transform.position;
         }
-        if(usedCheckPoint == false && (collision.gameObject.name == "PlayerSea"))
+        if(collision.gameObject.name == "PlayerSea")
         {
-            respawnPoint = playerSeaRespawn.respawnPoint = transform.position;
-            UpdateFlag();
+            playerSeaRespawn.respawnPoint = transform.position;
         }
+
+        if (!usedCheckPoint)
+            UpdateFlag();
     }
 
     private void UpdateFlag()
@@ -43,20 +44,7 @@ public class CheckPoint : GameBehaviour
         inActive.SetActive(false);
         active.SetActive(true);
         usedCheckPoint = true;
-        if (leafCheckPoint)
-        {
-            checkpointManager.activeCheckPointsLeaf.Add(gameObject);
-            checkpointManager.checkPointsLeaf.Remove(gameObject);
-            checkpointManager.AddButton(isLeaf: true);
-        }
-        else
-        {
-            checkpointManager.activeCheckPointsSea.Add(gameObject);
-            checkpointManager.checkPointsSea.Remove(gameObject);
-            checkpointManager.AddButton(isLeaf: false);
-        }
-            
-        
         _AM.PlaySFX("Checkpoint Active");
+        manager.CheckpointActivate();
     }
 }

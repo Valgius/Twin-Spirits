@@ -13,6 +13,7 @@ public class NewFish : GameBehaviour
     public GameObject pointB;
 
     public CircleCollider2D patrolZoneCollider;
+    public CircleCollider2D landDetect;
 
     [Header("Transforms")]
     public Transform targetPoint;
@@ -49,6 +50,7 @@ public class NewFish : GameBehaviour
         playerHealth = playerSea.GetComponent<PlayerHealth>();
         newEnemyChaseZone = patrolArea.GetComponent<NewEnemyChaseZone>();
         patrolZoneCollider = patrolArea.GetComponent<CircleCollider2D>();
+        landDetect = GetComponent<CircleCollider2D>();
         targetPoint = pointB.transform;
         detectCountdown = detectTime;
         attackTimer = 0;
@@ -111,6 +113,14 @@ public class NewFish : GameBehaviour
 
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ground"))
+        {
+            NewTarget();
+        }
+    }
+
     void GetDistance(float disToPlayer)
     {
         if (disToPlayer < detectDistance && myPatrol == PatrolType.Patrol && newEnemyChaseZone.canFollow)
@@ -137,6 +147,41 @@ public class NewFish : GameBehaviour
         transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, movementSpeed * Time.deltaTime);
     }
 
+    void NewTarget()
+    {
+        //Distance declaration for patrol function.
+        float disToWaypoint = Vector2.Distance(transform.position, targetPoint.position);
+        if (disToWaypoint < 1.5f)
+        {
+            //float radius = patrolZoneCollider.radius;
+            //Vector2 center = patrolZoneCollider.transform.position;
+            targetPoint.position = GetRandomPointInCircle();
+            print(targetPoint.localPosition);
+
+            //targetPoint = (targetPoint == pointB.transform) ? pointA.transform : pointB.transform;
+        }
+    }
+
+    Vector2 GetRandomPointInCircle()
+    {
+        // Get the radius of the circle
+        float radius = patrolZoneCollider.radius;
+        // Get the center position of the circle in world space
+        Vector2 center = patrolZoneCollider.transform.position;
+
+        // Generate a random angle between 0 and 2 * PI radians
+        float angle = Random.Range(0f, Mathf.PI * 2);
+
+        // Generate a random distance from the center (square root distribution keeps points uniformly distributed)
+        float distance = Mathf.Sqrt(Random.Range(0f, 1f)) * radius;
+
+        // Convert polar coordinates (angle and distance) to Cartesian coordinates
+        float x = center.x + distance * Mathf.Cos(angle);
+        float y = center.y + distance * Mathf.Sin(angle);
+
+        return new Vector2(x, y);
+    }
+
     public void Patrol()
     {
         //Set speed to default speed and detect time.
@@ -144,17 +189,7 @@ public class NewFish : GameBehaviour
         detectTime = detectCountdown;
         Move();
 
-        //Distance declaration for patrol function.
-        float disToWaypoint = Vector2.Distance(transform.position, targetPoint.position);
-        if (disToWaypoint < 1.5f)
-        {
-            float radius = patrolZoneCollider.radius;
-            Vector2 center = patrolZoneCollider.transform.position;
-            targetPoint.position = new Vector3(center.x + Random.Range(-radius, radius), center.y + Random.Range(-radius, radius), transform.position.z);
-            print(targetPoint.position);
-
-            //targetPoint = (targetPoint == pointB.transform) ? pointA.transform : pointB.transform;
-        }
+        NewTarget();
 
     }
 

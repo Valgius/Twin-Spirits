@@ -5,20 +5,11 @@ using TMPro;
 
 public class CheckpointManager : GameBehaviour
 {
-    //I am so so sorry for how shitty this code is.
-
     public List<GameObject> checkPointsLeaf;
     public List<GameObject> checkPointsSea;
-    public List<GameObject> activeCheckPointsLeaf;
-    public List<GameObject> activeCheckPointsSea;
-    public List<GameObject> checkPointButtons = new List<GameObject>();
 
-    public GameObject button;
-
-    [SerializeField] private GameObject leafMenu;
-    [SerializeField] private GameObject seaMenu;
-
-    public bool checkpointLeaf;
+    public GameObject leafMenu;
+    public GameObject seaMenu;
 
     public Vector2 checkpointPosition;
 
@@ -35,64 +26,45 @@ public class CheckpointManager : GameBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            //GetCheckPoints();
-            //GetUI();
             CheckpointSelect();
         }
     }
-
-    public void AddButton(bool isLeaf)
+    
+    /// <summary>
+    /// Checks to see if each checkpoint has been used, if it has, then show button in checkpoint menu. If not, hide button.
+    /// </summary>
+    public void CheckpointActivate()
     {
-        if (isLeaf)
+        foreach (GameObject checkPoint in checkPointsLeaf)
         {
-            Instantiate(button, leafMenu.transform);
-            checkpointPosition = playerControllerLeaf.transform.position;
-            checkpointLeaf = true;
+            CheckPoint _C = checkPoint.GetComponent<CheckPoint>();
+            if (_C.usedCheckPoint == false)
+            {
+                _C.button.SetActive(false);
+            }
+            else
+                _C.button.SetActive(true);
         }
-        else
+        foreach (GameObject checkPoint in checkPointsSea)
         {
-            Instantiate(button, seaMenu.transform);
-            checkpointPosition = playerControllerSea.transform.position;
-            checkpointLeaf = false;
-        }
-        
-    }
-
-    void GetCheckPoints()
-    {
-        foreach (GameObject checkPoint in activeCheckPointsLeaf)
-        {
-            if (checkPoint == null)
-                return;
-
-
-            print(checkPoint.name);
-        }
-
-        foreach (GameObject checkPoint in activeCheckPointsSea)
-        {
-            if (checkPoint == null)
-                return;
-
-            print(checkPoint.name);
+            CheckPoint _C = checkPoint.GetComponent<CheckPoint>();
+            if(_C.usedCheckPoint == false)
+            {
+                _C.button.SetActive(false);
+            }
+            else
+                _C.button.SetActive(true);
         }
     }
 
-    void GetUI()
-    {
-        foreach (Transform buttons in leafMenu.GetComponentInChildren<Transform>())
-        {
-            checkPointButtons.Add(buttons.gameObject);
-            //CheckPointUI buttonUI = buttons.GetComponent<CheckPointUI>();
-            //TMP_Text buttonText = buttons.GetComponentInChildren<TMP_Text>();
-            //buttonText.text = "Checkpoint " + buttonUI.count;
-        }
-    }
-
+    /// <summary>
+    /// Check which character is being used and display corresponding menu.
+    /// </summary>
     void CheckpointSelect()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+        Time.timeScale = 0;
 
         if (leafMenu.activeSelf || seaMenu.activeSelf)
         {
@@ -100,6 +72,7 @@ public class CheckpointManager : GameBehaviour
             seaMenu.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            Time.timeScale = 1;
             return;
         }
             
