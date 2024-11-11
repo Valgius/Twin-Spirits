@@ -109,4 +109,8 @@ public class AudioManager : Singleton<AudioManager>
         musicSource.volume = startVolume;
     }
 
+    public void StopSFX()
+    {
+        SFXSource.Stop();
+    }
 }
