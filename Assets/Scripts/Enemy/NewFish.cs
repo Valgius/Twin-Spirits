@@ -7,10 +7,11 @@ public class NewFish : GameBehaviour
 {
     public PatrolType myPatrol;
     public BoxCollider2D fishCollider;
+    LayerMask mask;
 
     [Header("Patrol Points")]
-    public GameObject pointA;
-    public GameObject pointB;
+    public Transform[] patrolPoints;
+    public GameObject startPoint;
 
     public CircleCollider2D patrolZoneCollider;
 
@@ -33,6 +34,7 @@ public class NewFish : GameBehaviour
     [SerializeField] private float attackDistance;
     [SerializeField] private float detectDistance;
     [SerializeField] private float activationDistance = 50;
+    [SerializeField] private float raycastDistance;
 
     [Header("Timers")]
     [SerializeField] private float detectTime = 5f;
@@ -43,13 +45,13 @@ public class NewFish : GameBehaviour
     void Start()
     {
         //A whole lotta declares
+        mask = LayerMask.GetMask("Ground");
         playerSea = GameObject.Find("PlayerSea").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         fishCollider = GetComponent<BoxCollider2D>();
         playerHealth = playerSea.GetComponent<PlayerHealth>();
         newEnemyChaseZone = patrolArea.GetComponent<NewEnemyChaseZone>();
         patrolZoneCollider = patrolArea.GetComponent<CircleCollider2D>();
-        targetPoint = pointB.transform;
         detectCountdown = detectTime;
         attackTimer = 0;
     }
@@ -111,14 +113,36 @@ public class NewFish : GameBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        Raycast();
+    }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        NewTarget();
+    //    }
+    //}
+
+    void Raycast()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, Vector2.left, out hit, raycastDistance, mask))
+        {
+            NewTarget();
+        }
+    }
+
     void GetDistance(float disToPlayer)
     {
         if (disToPlayer < detectDistance && myPatrol == PatrolType.Patrol && newEnemyChaseZone.canFollow)
         {
             myPatrol = PatrolType.Detect;
         }
-        else if (disToPlayer > detectDistance)
-            transform.right = targetPoint.position - transform.position;
+        else
+            return;
     }
 
     void ReturnToPatrol()
@@ -127,7 +151,7 @@ public class NewFish : GameBehaviour
         if (playerHealth.health <= 0)
         {
             myPatrol = PatrolType.Patrol;
-            targetPoint = pointA.transform;
+            targetPoint = startPoint.transform;
         }
     }
 
@@ -137,6 +161,43 @@ public class NewFish : GameBehaviour
         transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, movementSpeed * Time.deltaTime);
     }
 
+    void NewTarget()
+    {
+        //Distance declaration for patrol function.
+        float disToWaypoint = Vector2.Distance(transform.position, targetPoint.position);
+        if (disToWaypoint < 1.5f)
+        {
+            //float radius = patrolZoneCollider.radius;
+            //Vector2 center = patrolZoneCollider.transform.position;
+            int rndPoint = Random.Range(0, patrolPoints.Length);
+            targetPoint = patrolPoints[rndPoint];
+            //targetPoint.position = GetRandomPointInCircle();
+            print(targetPoint.localPosition);
+
+            //targetPoint = (targetPoint == pointB.transform) ? pointA.transform : pointB.transform;
+        }
+    }
+
+    Vector2 GetRandomPointInCircle()
+    {
+        // Get the radius of the circle
+        float radius = patrolZoneCollider.radius;
+        // Get the center position of the circle in world space
+        Vector2 center = patrolZoneCollider.transform.position;
+
+        // Generate a random angle between 0 and 2 * PI radians
+        float angle = Random.Range(0f, Mathf.PI * 2);
+
+        // Generate a random distance from the center (square root distribution keeps points uniformly distributed)
+        float distance = Mathf.Sqrt(Random.Range(0f, 1f)) * radius;
+
+        // Convert polar coordinates (angle and distance) to Cartesian coordinates
+        float x = center.x + distance * Mathf.Cos(angle);
+        float y = center.y + distance * Mathf.Sin(angle);
+
+        return new Vector2(x, y);
+    }
+
     public void Patrol()
     {
         //Set speed to default speed and detect time.
@@ -144,17 +205,7 @@ public class NewFish : GameBehaviour
         detectTime = detectCountdown;
         Move();
 
-        //Distance declaration for patrol function.
-        float disToWaypoint = Vector2.Distance(transform.position, targetPoint.position);
-        if (disToWaypoint < 1.5f)
-        {
-            float radius = patrolZoneCollider.radius;
-            Vector2 center = patrolZoneCollider.transform.position;
-            targetPoint.position = new Vector3(center.x + Random.Range(-radius, radius), center.y + Random.Range(-radius, radius), transform.position.z);
-            print(targetPoint.position);
-
-            //targetPoint = (targetPoint == pointB.transform) ? pointA.transform : pointB.transform;
-        }
+        NewTarget();
 
     }
 
@@ -201,7 +252,7 @@ public class NewFish : GameBehaviour
         //Return to patrol if the player leaves detect distance or patrol zone.
         if (Vector2.Distance(transform.position, playerSea.transform.position) > detectDistance || newEnemyChaseZone.canFollow == false)
         {
-            targetPoint = pointA.transform;
+            targetPoint = startPoint.transform;
             myPatrol = PatrolType.Patrol;
         }
     }

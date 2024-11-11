@@ -10,24 +10,42 @@ public class CheckPoint : GameBehaviour
     public GameObject inActive;
 
     public bool usedCheckPoint;
+    public GameObject button;
+
+    CheckpointManager manager;
+    public Vector2 respawnPoint;
+
 
     void Start()
     {
         playerLeafRespawn = GameObject.Find("PlayerLeaf").GetComponent<PlayerRespawn>();
         playerSeaRespawn = GameObject.Find("PlayerSea").GetComponent<PlayerRespawn>();
+        manager = FindObjectOfType<CheckpointManager>();
+        respawnPoint = transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (usedCheckPoint == false && (collision.gameObject.name == "PlayerLeaf"))
+        if (collision.gameObject.name == "PlayerLeaf")
         {
             playerLeafRespawn.respawnPoint = transform.position;
-            UpdateFlag();
+            print("hit checkpoint leaf");
         }
-        if(usedCheckPoint == false && (collision.gameObject.name == "PlayerSea"))
+        if(collision.gameObject.name == "PlayerSea")
         {
             playerSeaRespawn.respawnPoint = transform.position;
+            print("hit checkpoint sea");
+        }
+
+        if (collision.gameObject.CompareTag("Player") && !usedCheckPoint)
             UpdateFlag();
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player") && Input.GetButtonDown("Interact"))
+        {
+            manager.CheckpointSelect();
         }
     }
 
@@ -37,5 +55,6 @@ public class CheckPoint : GameBehaviour
         active.SetActive(true);
         usedCheckPoint = true;
         _AM.PlaySFX("Checkpoint Active");
+        manager.CheckpointActivate();
     }
 }

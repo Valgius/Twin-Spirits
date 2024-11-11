@@ -36,6 +36,7 @@ public class PlayerController : GameBehaviour
     public bool isDashing;
     [SerializeField] private float dashingPower = 0f;
     [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private float dashPenalty = 2f;
 
     [Header("- Swim -")]
     [SerializeField] public float swimSpeed = 0f;
@@ -246,7 +247,7 @@ public class PlayerController : GameBehaviour
                     break;
             }
             isKnockback = true;
-            knockbackTimer = 1f;
+            knockbackTimer = 0.5f;
         }
     }
 
@@ -328,7 +329,7 @@ public class PlayerController : GameBehaviour
         anim.SetBool("isDashing", true); 
         //Set new player velocity to speed the player up
         playerRb.velocity = new Vector2(playerRb.velocity.x, playerRb.velocity.y) * dashingPower;
-        breathTimer -= 5;
+        breathTimer -= dashPenalty;
         
         _AM.PlaySFX("Player Dash");
     }
