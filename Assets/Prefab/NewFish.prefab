@@ -30,10 +30,42 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8912694812566398566}
+  - {fileID: 1844647260514547775}
+  - {fileID: 4078567307686665500}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1546387226244788524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4078567307686665500}
+  m_Layer: 0
+  m_Name: PatrolPoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4078567307686665500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546387226244788524}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.7690277, y: -8.859703, z: 0.119984396}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
   - {fileID: 2328037128093276098}
   - {fileID: 3563628979703663046}
-  - {fileID: 1844647260514547775}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 7148800789158383645}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3742425991535845631
 GameObject:
@@ -144,11 +176,11 @@ Transform:
   m_GameObject: {fileID: 4289604031254398665}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0009765625, y: -2.1397057, z: 0.119984396}
+  m_LocalPosition: {x: -7.7700043, y: 6.7199974, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7148800789158383645}
+  m_Father: {fileID: 4078567307686665500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5172652053312648147
 GameObject:
@@ -509,11 +541,11 @@ Transform:
   m_GameObject: {fileID: 9010377087749963166}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.889023, y: -7.489708, z: 0.119984396}
+  m_LocalPosition: {x: 11.119995, y: 1.3699951, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7148800789158383645}
+  m_Father: {fileID: 4078567307686665500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9146040281197830478
 GameObject:
@@ -725,10 +757,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPatrol: 0
   fishCollider: {fileID: 0}
-  pointA: {fileID: 4289604031254398665}
-  pointB: {fileID: 9010377087749963166}
+  patrolPoints:
+  - {fileID: 2328037128093276098}
+  - {fileID: 3563628979703663046}
+  startPoint: {fileID: 4289604031254398665}
   patrolZoneCollider: {fileID: 0}
-  targetPoint: {fileID: 0}
+  targetPoint: {fileID: 3563628979703663046}
   patrolArea: {fileID: 7102402889324723285}
   startSpeed: 10
   movementSpeed: 0
@@ -736,6 +770,7 @@ MonoBehaviour:
   attackDistance: 1
   detectDistance: 10
   activationDistance: 50
+  raycastDistance: 0
   detectTime: 2
   detectCountdown: 1
   attackTimer: 0
