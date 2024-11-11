@@ -21,7 +21,6 @@ public class FadeOut : GameBehaviour
 
     }
 
-    
     void Update()
     {
         if (playerDie)
@@ -60,7 +59,6 @@ public class FadeOut : GameBehaviour
     {
         GetCurrentPlayer();
         playerRespawn.Respawn();
-        
     }
 
     public void ReactivatePlayer()
