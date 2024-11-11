@@ -10,8 +10,8 @@ public class NewFish : GameBehaviour
     LayerMask mask;
 
     [Header("Patrol Points")]
-    public GameObject pointA;
-    public GameObject pointB;
+    public Transform[] patrolPoints;
+    public GameObject startPoint;
 
     public CircleCollider2D patrolZoneCollider;
 
@@ -52,7 +52,6 @@ public class NewFish : GameBehaviour
         playerHealth = playerSea.GetComponent<PlayerHealth>();
         newEnemyChaseZone = patrolArea.GetComponent<NewEnemyChaseZone>();
         patrolZoneCollider = patrolArea.GetComponent<CircleCollider2D>();
-        targetPoint = pointB.transform;
         detectCountdown = detectTime;
         attackTimer = 0;
     }
@@ -142,8 +141,8 @@ public class NewFish : GameBehaviour
         {
             myPatrol = PatrolType.Detect;
         }
-        else if (disToPlayer > detectDistance)
-            transform.right = targetPoint.position - transform.position;
+        else
+            return;
     }
 
     void ReturnToPatrol()
@@ -152,7 +151,7 @@ public class NewFish : GameBehaviour
         if (playerHealth.health <= 0)
         {
             myPatrol = PatrolType.Patrol;
-            targetPoint = pointA.transform;
+            targetPoint = startPoint.transform;
         }
     }
 
@@ -170,7 +169,9 @@ public class NewFish : GameBehaviour
         {
             //float radius = patrolZoneCollider.radius;
             //Vector2 center = patrolZoneCollider.transform.position;
-            targetPoint.position = GetRandomPointInCircle();
+            int rndPoint = Random.Range(0, patrolPoints.Length);
+            targetPoint = patrolPoints[rndPoint];
+            //targetPoint.position = GetRandomPointInCircle();
             print(targetPoint.localPosition);
 
             //targetPoint = (targetPoint == pointB.transform) ? pointA.transform : pointB.transform;
@@ -251,7 +252,7 @@ public class NewFish : GameBehaviour
         //Return to patrol if the player leaves detect distance or patrol zone.
         if (Vector2.Distance(transform.position, playerSea.transform.position) > detectDistance || newEnemyChaseZone.canFollow == false)
         {
-            targetPoint = pointA.transform;
+            targetPoint = startPoint.transform;
             myPatrol = PatrolType.Patrol;
         }
     }

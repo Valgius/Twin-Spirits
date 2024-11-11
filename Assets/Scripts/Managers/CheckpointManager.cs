@@ -60,7 +60,7 @@ public class CheckpointManager : GameBehaviour
     /// <summary>
     /// Check which character is being used and display corresponding menu.
     /// </summary>
-    void CheckpointSelect()
+    public void CheckpointSelect()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;

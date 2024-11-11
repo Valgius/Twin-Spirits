@@ -18,6 +18,11 @@ public class FlipSmallFish : GameBehaviour
     // Update is called once per frame
     void Update()
     {
+        FlipSprite();
+    }
+
+    void FlipSprite()
+    {
         if (fishSprite.flipX)
         {
             smallFishSprite.flipX = true;
@@ -27,7 +32,7 @@ public class FlipSmallFish : GameBehaviour
 
         if (fishSprite.flipY)
             smallFishSprite.flipY = true;
-        else 
+        else
             smallFishSprite.flipY = false;
 
         if (fishSprite.enabled == false)

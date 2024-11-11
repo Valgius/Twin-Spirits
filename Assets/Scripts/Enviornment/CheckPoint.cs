@@ -41,6 +41,14 @@ public class CheckPoint : GameBehaviour
             UpdateFlag();
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player") && Input.GetButtonDown("Interact"))
+        {
+            manager.CheckpointSelect();
+        }
+    }
+
     private void UpdateFlag()
     {
         inActive.SetActive(false);
