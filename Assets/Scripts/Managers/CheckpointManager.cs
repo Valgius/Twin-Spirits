@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class CheckpointManager : GameBehaviour
 {
@@ -10,6 +11,10 @@ public class CheckpointManager : GameBehaviour
 
     public GameObject leafMenu;
     public GameObject seaMenu;
+    public bool isPaused = false;
+    bool eventPause;
+    [SerializeField] private GameObject firstButtonLeaf;
+    [SerializeField] private GameObject firstButtonSea;
 
     public Vector2 checkpointPosition;
 
@@ -20,6 +25,8 @@ public class CheckpointManager : GameBehaviour
     {
         playerControllerLeaf = GameObject.Find("PlayerLeaf").GetComponent<PlayerController>();
         playerControllerSea = GameObject.Find("PlayerSea").GetComponent<PlayerController>();
+        isPaused = false;
+        eventPause = EventSystem.current;
     }
 
     void Update()
@@ -27,6 +34,17 @@ public class CheckpointManager : GameBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             CheckpointSelect();
+        }
+
+        if(isPaused && Input.GetAxis("Vertical") != 0 && !eventPause && playerControllerLeaf.isActiveAndEnabled)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(firstButtonLeaf);
+        }
+        else if (playerControllerSea.isActiveAndEnabled)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(firstButtonSea);
         }
     }
     
@@ -65,6 +83,7 @@ public class CheckpointManager : GameBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         Time.timeScale = 0;
+        isPaused = true;
 
         if (leafMenu.activeSelf || seaMenu.activeSelf)
         {
@@ -73,6 +92,7 @@ public class CheckpointManager : GameBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1;
+            isPaused = false;
             return;
         }
             

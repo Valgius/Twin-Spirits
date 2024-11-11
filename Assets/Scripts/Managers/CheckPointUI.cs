@@ -37,6 +37,7 @@ public class CheckPointUI : GameBehaviour
         }
         manager.leafMenu.SetActive(false);
         manager.seaMenu.SetActive(false);
+        manager.isPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         respawn.gameObject.transform.position = respawnPosition;

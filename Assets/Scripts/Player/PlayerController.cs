@@ -14,6 +14,7 @@ public class PlayerController : GameBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask climbLayer;
     public GameObject pausePanel;
+    CheckpointManager manager;
 
     public bool isLeaf;
     public bool hasLeafOrb;
@@ -91,6 +92,7 @@ public class PlayerController : GameBehaviour
         breathTimer = maxBreathTimer;
         breathPanel.SetActive(false);
         fadeOut = FindObjectOfType<FadeOut>();
+        manager = FindObjectOfType<CheckpointManager>();
     }
 
     
@@ -112,7 +114,7 @@ public class PlayerController : GameBehaviour
         }
             
         //If the player is dashing, dying or if the player pauses, dont run anything after.
-        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
+        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie || manager.isPaused)
             return;
 
         Movement();
@@ -155,7 +157,7 @@ public class PlayerController : GameBehaviour
     void FixedUpdate()
     {
         //If player is dashing, dying or pausing the game, ignore the rest of code.
-        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
+        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie || manager.isPaused)
             return;
 
         Swimming();
