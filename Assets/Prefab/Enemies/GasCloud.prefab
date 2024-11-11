@@ -133,5 +133,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e361022df9dded47bbeb407702c6c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
-  maxSize: {x: 10, y: 10, z: 10}
+  duration: 0.8
+  maxSize: {x: 5, y: 5, z: 5}
