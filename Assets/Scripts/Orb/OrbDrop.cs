@@ -68,6 +68,8 @@ public class OrbDrop : GameBehaviour
                         //_OM.orbSea = Instantiate(seaOrb, dropZone.transform.position, transform.rotation);
                         if (playerLeafController.hasLeafOrb != true)
                             _OM.orbPanelLeaf.SetActive(false);
+                        else
+                            _OM.SetOrbPanelActive(_OM.orbPanelLeaf, _OM.orbPanelLeafImage, _OM.orbLeafImage);
                     }
                     break;
                 case PlayerCharacter.Sea:
@@ -80,6 +82,8 @@ public class OrbDrop : GameBehaviour
                         //_OM.orbLeaf = Instantiate(leafOrb, dropZone.transform.position, transform.rotation);
                         if (playerSeaController.hasSeaOrb != true)
                             _OM.orbPanelSea.SetActive(false);
+                        else
+                            _OM.SetOrbPanelActive(_OM.orbPanelSea, _OM.orbPanelSeaImage, _OM.orbSeaImage);
                     }
                     break;
             }

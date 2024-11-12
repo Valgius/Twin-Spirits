@@ -56,7 +56,8 @@ public class PlayerController : GameBehaviour
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
     public WaterFlow flow;
-    
+    [SerializeField] private float breathCooldown = 5f;
+    private bool firstSwim = true;
 
     [Header("- Climb -")]
     public float climbSpeed = 0f;                      
@@ -141,6 +142,10 @@ public class PlayerController : GameBehaviour
         if(knockbackTimer > 0)
         {
             knockbackTimer -= Time.deltaTime;
+        }
+        if(breathCooldown > 0)
+        {
+            StartCoroutine(RefreshBreath());
         }
 
         //DEV TEST KEY FOR ORBS.
@@ -493,8 +498,18 @@ public class PlayerController : GameBehaviour
 
     private void EnterWater()
     {
+        if (firstSwim)
+        {
+            Tutorial tutorial = FindObjectOfType<Tutorial>();
+            tutorial.SwimTutorial();
+            firstSwim = false;
+        }
         isGrounded = false;
         isSwimming = true;
+        if(breathCooldown > 0)
+        {
+            breathCooldown = -1;
+        }
         anim.SetBool("isSwimming", true);
         anim.SetBool("isJumping", false);
         breathPanel.SetActive(true);
@@ -509,13 +524,28 @@ public class PlayerController : GameBehaviour
         isSwimming = false;
         anim.SetBool("isSwimming", false);
         anim.SetBool("isJumping", true);
-        breathTimer = maxBreathTimer;
+        breathCooldown = 5f;
         breathPanel.SetActive(false);
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.gravityScale = gravity;
         playerRb.drag = 0f;
         _AM.PlaySFX("Player Dive");
         DashEnd();
+    }
+
+    IEnumerator RefreshBreath()
+    {
+        
+        if (breathTimer > 0)
+        {
+            breathCooldown -= Time.deltaTime;
+        }
+        if(breathCooldown <= 0)
+        {
+            breathTimer = maxBreathTimer;
+        }
+
+        yield return null;
     }
 
     public void UpdateBreathBar()

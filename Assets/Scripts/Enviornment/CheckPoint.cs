@@ -10,22 +10,40 @@ public class CheckPoint : GameBehaviour
     public GameObject inActive;
 
     public bool usedCheckPoint;
+    bool touchingCheckpoint;
     public GameObject button;
 
     CheckpointManager manager;
     public Vector2 respawnPoint;
 
+    private Tutorial tutorial;
 
     void Start()
     {
         playerLeafRespawn = GameObject.Find("PlayerLeaf").GetComponent<PlayerRespawn>();
         playerSeaRespawn = GameObject.Find("PlayerSea").GetComponent<PlayerRespawn>();
         manager = FindObjectOfType<CheckpointManager>();
+        tutorial = FindObjectOfType<Tutorial>();
         respawnPoint = transform.position;
+    }
+
+    private void Update()
+    {
+
+        if (touchingCheckpoint && Input.GetButtonDown("Interact"))
+        {
+            manager.CheckpointSelect();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            tutorial.CheckpointTeleportTutorial(true);
+            touchingCheckpoint = true;
+        }
+
         if (collision.gameObject.name == "PlayerLeaf")
         {
             playerLeafRespawn.respawnPoint = transform.position;
@@ -41,11 +59,12 @@ public class CheckPoint : GameBehaviour
             UpdateFlag();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player") && Input.GetButtonDown("Interact"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            manager.CheckpointSelect();
+            touchingCheckpoint = false;
+            tutorial.CheckpointTeleportTutorial(false);
         }
     }
 
@@ -56,5 +75,6 @@ public class CheckPoint : GameBehaviour
         usedCheckPoint = true;
         _AM.PlaySFX("Checkpoint Active");
         manager.CheckpointActivate();
+        tutorial.CheckpointTutorial();
     }
 }

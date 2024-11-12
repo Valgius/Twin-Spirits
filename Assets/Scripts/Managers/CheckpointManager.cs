@@ -12,7 +12,6 @@ public class CheckpointManager : GameBehaviour
     public GameObject leafMenu;
     public GameObject seaMenu;
     public bool isPaused = false;
-    bool eventPause;
     [SerializeField] private GameObject firstButtonLeaf;
     [SerializeField] private GameObject firstButtonSea;
 
@@ -20,13 +19,14 @@ public class CheckpointManager : GameBehaviour
 
     PlayerController playerControllerLeaf;
     PlayerController playerControllerSea;
+    ControllerMenuManager controlManager;
 
     void Start()
     {
         playerControllerLeaf = GameObject.Find("PlayerLeaf").GetComponent<PlayerController>();
         playerControllerSea = GameObject.Find("PlayerSea").GetComponent<PlayerController>();
+        controlManager = FindObjectOfType<ControllerMenuManager>();
         isPaused = false;
-        eventPause = EventSystem.current;
     }
 
     void Update()
@@ -35,17 +35,7 @@ public class CheckpointManager : GameBehaviour
         {
             CheckpointSelect();
         }
-
-        if(isPaused && Input.GetAxis("Vertical") != 0 && !eventPause && playerControllerLeaf.isActiveAndEnabled)
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(firstButtonLeaf);
-        }
-        else if (playerControllerSea.isActiveAndEnabled)
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(firstButtonSea);
-        }
+        
     }
     
     /// <summary>
@@ -99,11 +89,14 @@ public class CheckpointManager : GameBehaviour
         if (playerControllerLeaf.isActiveAndEnabled)
         {
             leafMenu.SetActive(true);
+            controlManager.SetActiveButton(firstButtonLeaf);
         }
         else if(playerControllerSea.isActiveAndEnabled)
         {
+            controlManager.SetActiveButton(firstButtonSea);
             seaMenu.SetActive(true);
         }
             
     }
+
 }
