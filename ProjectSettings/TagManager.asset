@@ -18,6 +18,7 @@ TagManager:
   - Gallery
   - CheckpointLeaf
   - CheckpointSea
+  - Disappear
   layers:
   - Default
   - TransparentFX
