@@ -526,7 +526,6 @@ public class PlayerController : GameBehaviour
         anim.SetBool("isJumping", true);
         breathCooldown = 5f;
         breathPanel.SetActive(false);
-        breathTimer = maxBreathTimer;
         ToggleBreath(false);
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.gravityScale = gravity;
