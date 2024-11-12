@@ -12,21 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/OpeningCutscene.unity
     guid: 7f2098dec6568e94d8432839fb645c9f
   - enabled: 1
-    path: Assets/Scenes/Level Tests/FinalLevelTestScene 1.unity
-    guid: 765399b59a9e05f4a963263f47d7d757
+    path: Assets/Scenes/FinalLevelScene.unity
+    guid: e72eccb8e7be7d547a696be38d369768
   - enabled: 1
     path: Assets/Scenes/ClosingCutscene.unity
     guid: 473648a9a65039a41987299069ae79cd
-  - enabled: 0
-    path: Assets/Scenes/Level Tests/LevelScene.unity
-    guid: 65ef23b9bb87bbf45a3f95ae0ddb0bf2
-  - enabled: 0
-    path: Assets/Scenes/Level Tests/UpdatedLevelScene.unity
-    guid: 522aea49afcba9e4ab9dd87cdfb89c12
-  - enabled: 0
-    path: Assets/Scenes/Level Tests/BoulderLevelDesign.unity
-    guid: 4204d981dec9244449c9551cec2557fb
-  - enabled: 0
-    path: Assets/Scenes/Level Tests/MechanicsTestBen.unity
-    guid: fafd5eb9a3471a748807d0b9dc8a02ee
   m_configObjects: {}

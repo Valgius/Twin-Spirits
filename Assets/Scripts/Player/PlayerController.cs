@@ -91,7 +91,7 @@ public class PlayerController : GameBehaviour
         this.gameObject.GetComponent<PlayerRespawn>();
         playerHealth = this.gameObject.GetComponent<PlayerHealth>();
         breathTimer = maxBreathTimer;
-        breathPanel.SetActive(false);
+        ToggleBreath(false);
         fadeOut = FindObjectOfType<FadeOut>();
         manager = FindObjectOfType<CheckpointManager>();
     }
@@ -512,7 +512,7 @@ public class PlayerController : GameBehaviour
         }
         anim.SetBool("isSwimming", true);
         anim.SetBool("isJumping", false);
-        breathPanel.SetActive(true);
+        ToggleBreath(true);
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.gravityScale = 0.5f;
         _AM.PlaySFX("Player Dive");
@@ -526,6 +526,8 @@ public class PlayerController : GameBehaviour
         anim.SetBool("isJumping", true);
         breathCooldown = 5f;
         breathPanel.SetActive(false);
+        breathTimer = maxBreathTimer;
+        ToggleBreath(false);
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.gravityScale = gravity;
         playerRb.drag = 0f;
@@ -688,5 +690,13 @@ public class PlayerController : GameBehaviour
     public void ToggleHasSeaOrb()
     {
         hasSeaOrb = !hasSeaOrb;
+    }
+
+    public void ToggleBreath(bool active)
+    {
+        if (!isLeaf)
+        {
+            breathPanel.SetActive(active);
+        }
     }
 }
