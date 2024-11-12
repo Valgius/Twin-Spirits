@@ -9,8 +9,6 @@ public class NewFish : GameBehaviour
     public PatrolType myPatrol;
     public BoxCollider2D fishCollider;
     LayerMask mask;
-    public Animator mainAnim;
-    public Animator[] smallAnim;
     public Rigidbody2D rb;
 
     [Header("Patrol Points")]
@@ -44,6 +42,12 @@ public class NewFish : GameBehaviour
     [SerializeField] private float detectTime = 5f;
     [SerializeField] private float detectCountdown = 1f;
     [SerializeField] private float attackTimer = 0;
+
+    [Header("Animation")]
+    public Animator mainAnim;
+    public Animator[] smallAnim;
+    public float minDelay = 0.1f;
+    public float maxDelay = 0.5f;
 
 
     void Start()
@@ -329,7 +333,8 @@ public class NewFish : GameBehaviour
         {
             if (animator != null)
             {
-                animator.Play("FishMove");
+                float delay = Random.Range(minDelay, maxDelay);
+                StartCoroutine(PlayAnimationWithDelay(animator, "FishMove", delay));
             }
         }
     }
@@ -340,9 +345,16 @@ public class NewFish : GameBehaviour
         {
             if (animator != null)
             {
-                animator.Play("FishAttack");
+                float delay = Random.Range(minDelay, maxDelay);
+                StartCoroutine(PlayAnimationWithDelay(animator, "FishAttack", delay));
             }
         }
+    }
+
+    private IEnumerator PlayAnimationWithDelay(Animator animator, string animationName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        animator.Play(animationName);
     }
 
     public void ToggleComponents(bool isActive)
