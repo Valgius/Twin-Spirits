@@ -7,15 +7,17 @@ public class EndGameScript : GameBehaviour
     [SerializeField] private GameObject loadScene;
     [SerializeField] private GameObject playerLeaf;
     [SerializeField] private GameObject playerSea;
+    [SerializeField] private GameObject fakeSea;
     private bool leafFinished;
     private bool seaFinished;
-    private PlayerController playerController;
-    private Rigidbody2D playerRb;
+    private SpriteRenderer seaSprite;
+
 
     private void Start()
     {
         leafFinished = false;
         seaFinished = false;
+        fakeSea.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,7 +32,7 @@ public class EndGameScript : GameBehaviour
         {
             seaFinished = true;
             CheckEndStatus();
-            seaStatic();
+            ActivateFakeSea();
         }
     }
 
@@ -40,10 +42,10 @@ public class EndGameScript : GameBehaviour
             loadScene.SetActive(true);
     }
 
-    private void seaStatic()
+    private void ActivateFakeSea()
     {
-        playerController = playerLeaf.GetComponent<PlayerController>();
-        playerRb = playerLeaf.GetComponent<Rigidbody2D>();
+        seaSprite = playerSea.GetComponent<SpriteRenderer>();
+        seaSprite.enabled = false;
+        fakeSea.SetActive(true);
     }
-
 }
