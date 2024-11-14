@@ -48,8 +48,8 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float buoyancyForce = 0f;
     [SerializeField] public float maxBuoyancyVelocity = 0f;
 
-    [SerializeField] private float breathTimer = 0;
-    [SerializeField] private float maxBreathTimer = 0;
+    public float breathTimer = 0;
+    public float maxBreathTimer = 0;
     [SerializeField] private Image breathFill;
     [SerializeField] private GameObject breathPanel;
     [SerializeField] private float swimmingStateCooldown = 0.5f;
@@ -479,7 +479,6 @@ public class PlayerController : GameBehaviour
         else
         {
             this.gameObject.GetComponent<PlayerRespawn>().Respawn();
-            breathTimer = maxBreathTimer;
         }
             
     }
