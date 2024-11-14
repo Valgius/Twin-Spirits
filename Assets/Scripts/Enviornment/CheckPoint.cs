@@ -12,6 +12,7 @@ public class CheckPoint : GameBehaviour
     public bool usedCheckPoint;
     bool touchingCheckpoint;
     public GameObject button;
+    public bool isSceneSwitch;
 
     CheckpointManager manager;
     public Vector2 respawnPoint;
@@ -38,7 +39,7 @@ public class CheckPoint : GameBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !isSceneSwitch)
         {
             tutorial.CheckpointTeleportTutorial(true);
             touchingCheckpoint = true;
@@ -55,7 +56,7 @@ public class CheckPoint : GameBehaviour
             print("hit checkpoint sea");
         }
 
-        if (collision.gameObject.CompareTag("Player") && !usedCheckPoint)
+        if (collision.gameObject.CompareTag("Player") && !usedCheckPoint && !isSceneSwitch)
             UpdateFlag();
     }
 
