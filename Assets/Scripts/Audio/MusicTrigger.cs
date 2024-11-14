@@ -66,17 +66,17 @@ public class MusicTrigger : GameBehaviour
         {
             case AreaType.Treetops:
                 _AM.TransitionToSnapshot("Treetops", 1);
-                //_AM.PlayMusic("Treetops");
+                //_AM.PlayAmbience("Caves");
                 break;
 
             case AreaType.Grasslands:
                 _AM.TransitionToSnapshot("Grasslands", 1);
-                //_AM.PlayMusic("Grasslands");
+                //_AM.PlayAmbience("Caves");
                 break;
 
             case AreaType.Undercove:
                 _AM.TransitionToSnapshot("Undercove", 1);
-                //_AM.PlayMusic("Undercove");
+                _AM.PlayAmbience("Caves");
                 break;
         }
     }
