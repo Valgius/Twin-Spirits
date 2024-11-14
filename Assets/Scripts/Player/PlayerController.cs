@@ -15,6 +15,7 @@ public class PlayerController : GameBehaviour
     [SerializeField] private LayerMask climbLayer;
     public GameObject pausePanel;
     CheckpointManager manager;
+    Tutorial tutorial;
 
     public bool isLeaf;
     public bool hasLeafOrb;
@@ -85,6 +86,7 @@ public class PlayerController : GameBehaviour
     
     void Start()
     {
+        tutorial = FindObjectOfType<Tutorial>();
         swimSpeed = maxSwimSpeed;
         playerRb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
@@ -143,7 +145,8 @@ public class PlayerController : GameBehaviour
         {
             knockbackTimer -= Time.deltaTime;
         }
-        if(breathCooldown > 0)
+
+        if(!isLeaf && !isSwimming)
         {
             StartCoroutine(RefreshBreath());
         }
@@ -474,7 +477,11 @@ public class PlayerController : GameBehaviour
             breathTimer -= Time.deltaTime;
         }
         else
+        {
             this.gameObject.GetComponent<PlayerRespawn>().Respawn();
+            breathTimer = maxBreathTimer;
+        }
+            
     }
 
     private void ApplyWaterDragAndBuoyancy()
@@ -500,7 +507,6 @@ public class PlayerController : GameBehaviour
     {
         if (firstSwim)
         {
-            Tutorial tutorial = FindObjectOfType<Tutorial>();
             tutorial.SwimTutorial();
             firstSwim = false;
         }
@@ -524,8 +530,8 @@ public class PlayerController : GameBehaviour
         isSwimming = false;
         anim.SetBool("isSwimming", false);
         anim.SetBool("isJumping", true);
-        breathCooldown = 5f;
         breathPanel.SetActive(false);
+        breathCooldown = 5f;
         ToggleBreath(false);
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.gravityScale = gravity;

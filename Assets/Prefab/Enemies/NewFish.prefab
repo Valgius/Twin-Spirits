@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8419506054016042543}
   - component: {fileID: 2674259438653233314}
+  - component: {fileID: 3730326678912867392}
   m_Layer: 7
   m_Name: Small Fish (9)
   m_TagString: Untagged
@@ -84,6 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3730326678912867392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562381722627785217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1507627254765144777
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,6 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3841718288698239633}
   - component: {fileID: 6197914960990339592}
+  - component: {fileID: 3478205558881873591}
   m_Layer: 7
   m_Name: Small Fish (7)
   m_TagString: Untagged
@@ -235,6 +249,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3478205558881873591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383213809027492587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3742425991535845631
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3107613544860929889}
   - component: {fileID: 3289383429897423006}
+  - component: {fileID: 3430164145775432359}
   m_Layer: 7
   m_Name: Small Fish (3)
   m_TagString: Untagged
@@ -319,6 +346,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3430164145775432359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3742425991535845631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4289604031254398665
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4836025323013021177}
   - component: {fileID: 3362427948539050954}
+  - component: {fileID: 5728047844279645505}
   m_Layer: 7
   m_Name: Small Fish (2)
   m_TagString: Untagged
@@ -434,6 +474,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5728047844279645505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5172652053312648147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5909986542199003363
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6468543430632164904}
   - component: {fileID: 331650191217711399}
+  - component: {fileID: 7039569415978167701}
   m_Layer: 7
   m_Name: Small Fish (8)
   m_TagString: Untagged
@@ -518,6 +571,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7039569415978167701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909986542199003363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6608697950180143774
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8364718863619082423}
   - component: {fileID: 7864243264740833965}
+  - component: {fileID: 353210534845390285}
   m_Layer: 7
   m_Name: Small Fish (5)
   m_TagString: Untagged
@@ -602,6 +668,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &353210534845390285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6608697950180143774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6811840634742822793
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4889757937606534868}
   - component: {fileID: 8510299760101359455}
+  - component: {fileID: 9007908895045784809}
   m_Layer: 7
   m_Name: Small Fish (6)
   m_TagString: Untagged
@@ -686,6 +765,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9007908895045784809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6811840634742822793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7102402889324723285
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,6 +869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 251782537335732865}
   - component: {fileID: 1169058400735136049}
+  - component: {fileID: 482552878680886280}
   m_Layer: 7
   m_Name: Small Fish
   m_TagString: Untagged
@@ -852,6 +944,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &482552878680886280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303123407946061523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8351046136870782554
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +966,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4972641365846244062}
   - component: {fileID: 764517255104376187}
+  - component: {fileID: 2994347214855358720}
   m_Layer: 7
   m_Name: Small Fish (1)
   m_TagString: Untagged
@@ -936,6 +1041,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2994347214855358720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351046136870782554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9010377087749963166
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,6 +1094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 943566894276528111}
   - component: {fileID: 5137220196315276474}
+  - component: {fileID: 6453961763311379081}
   m_Layer: 7
   m_Name: Small Fish (4)
   m_TagString: Untagged
@@ -1051,6 +1169,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6453961763311379081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9146040281197830478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2978851095814289080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1180,22 +1310,22 @@ PrefabInstance:
       addedObject: {fileID: 3107613544860929889}
     - targetCorrespondingSourceObject: {fileID: 3516890887614811783, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 943566894276528111}
+    - targetCorrespondingSourceObject: {fileID: 3516890887614811783, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8364718863619082423}
     - targetCorrespondingSourceObject: {fileID: 3516890887614811783, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4889757937606534868}
     - targetCorrespondingSourceObject: {fileID: 3516890887614811783, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8419506054016042543}
+      addedObject: {fileID: 3841718288698239633}
     - targetCorrespondingSourceObject: {fileID: 3516890887614811783, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6468543430632164904}
     - targetCorrespondingSourceObject: {fileID: 3516890887614811783, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3841718288698239633}
-    - targetCorrespondingSourceObject: {fileID: 3516890887614811783, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 943566894276528111}
+      addedObject: {fileID: 8419506054016042543}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2755492120442977157, guid: a4d72113e8e5f584da03385013b118b1, type: 3}
       insertIndex: -1
@@ -1233,7 +1363,6 @@ MonoBehaviour:
   attackDistance: 1
   detectDistance: 10
   activationDistance: 25
-  raycastDistance: 0
   detectTime: 2
   detectCountdown: 1
   attackTimer: 0
