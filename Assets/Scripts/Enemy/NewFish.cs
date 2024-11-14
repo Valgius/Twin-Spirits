@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NewFish : GameBehaviour
@@ -8,6 +9,7 @@ public class NewFish : GameBehaviour
     public PatrolType myPatrol;
     public BoxCollider2D fishCollider;
     LayerMask mask;
+    public Rigidbody2D rb;
 
     [Header("Patrol Points")]
     public Transform[] patrolPoints;
@@ -40,6 +42,12 @@ public class NewFish : GameBehaviour
     [SerializeField] private float detectCountdown = 1f;
     [SerializeField] private float attackTimer = 0;
 
+    [Header("Animation")]
+    public Animator mainAnim;
+    public Animator[] smallAnim;
+    public float minDelay = 0.1f;
+    public float maxDelay = 0.5f;
+
 
     void Start()
     {
@@ -51,8 +59,12 @@ public class NewFish : GameBehaviour
         playerHealth = playerSea.GetComponent<PlayerHealth>();
         newEnemyChaseZone = patrolArea.GetComponent<NewEnemyChaseZone>();
         patrolZoneCollider = patrolArea.GetComponent<CircleCollider2D>();
+        mainAnim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         detectCountdown = detectTime;
         attackTimer = 0;
+
+        PlayMoveAnimationForChildren();
     }
 
     void Update()
@@ -105,11 +117,10 @@ public class NewFish : GameBehaviour
         if (attackTimer > 0)
         {
             movementSpeed = 0f;
-            attackTimer -= Time.deltaTime;
+            attackTimer -= Time.deltaTime; 
         }
 
         ReturnToPatrol();
-
     }
 
 
@@ -236,22 +247,27 @@ public class NewFish : GameBehaviour
     }
 
     void Attack()
+
     {
         //Attack player if attack timer is 0 and player health is greater than 0
-        if(attackTimer <= 0 && playerHealth.health > 0)
+        if (attackTimer <= 0 && playerHealth.health > 0)
         {
             print("hit");
+            mainAnim.SetBool("IsAttacking", true);
             _AM.PlaySFX("Fish Attack");
-            attackTimer = 1f;
             playerHealth.EnemyHit();
+            PlayAttackAnimationForChildren();
+            attackTimer = 1.5f;
         }
+
         //Return to chase when leaving attackDistance.
         if(Vector2.Distance(transform.position, playerSea.position) > attackDistance)
         {
             myPatrol = PatrolType.Chase;
+            mainAnim.SetBool("IsAttacking", false);
+            PlayMoveAnimationForChildren();
         }
     }
-
 
     void FlipSprite()
     {
@@ -267,7 +283,6 @@ public class NewFish : GameBehaviour
                 spriteRenderer.flipX = false;
             }
         }
-        
     }
 
     public void CullEnemy(float disToPlayer)
@@ -288,5 +303,81 @@ public class NewFish : GameBehaviour
             spriteRenderer.flipY = false;
         }
             
+    }
+
+    void PlayMoveAnimationForChildren()
+    {
+        foreach (Animator animator in smallAnim)
+        {
+            if (animator != null)
+            {
+                float delay = Random.Range(minDelay, maxDelay);
+                StartCoroutine(PlayAnimationWithDelay(animator, "FishMove", delay));
+            }
+        }
+    }
+
+    void PlayAttackAnimationForChildren()
+    {
+        foreach (Animator animator in smallAnim)
+        {
+            if (animator != null)
+            {
+                float delay = Random.Range(minDelay, maxDelay);
+                StartCoroutine(PlayAnimationWithDelay(animator, "FishAttack", delay));
+            }
+        }
+    }
+
+    private IEnumerator PlayAnimationWithDelay(Animator animator, string animationName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        animator.Play(animationName);
+    }
+
+    public void ToggleComponents(bool isActive)
+    {
+        if (isActive)
+        {
+            UnFreezeConstraints();
+            ToggleChildComponents(true);
+            spriteRenderer.enabled = true;
+            fishCollider.enabled = true;
+        }
+        else
+        {
+            FreezeConstraints();
+            ToggleChildComponents(false);
+            spriteRenderer.enabled = false;
+            fishCollider.enabled = false;
+        }
+    }
+
+    private void FreezeConstraints()
+    {
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+    }
+
+    private void UnFreezeConstraints()
+    {
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    private void ToggleChildComponents(bool isActive)
+    {
+        foreach (Transform child in transform)
+        {
+            // Get the SpriteRenderer component on the child object
+            SpriteRenderer childSpriteRenderer = child.GetComponent<SpriteRenderer>();
+            // Get the Collider component on the child object
+            Collider2D childCollider = child.GetComponent<Collider2D>();
+
+            // Toggle SpriteRenderer and Collider components on the child
+            if (childSpriteRenderer != null)
+            {
+                childSpriteRenderer.enabled = isActive;
+            }
+        }
     }
 }

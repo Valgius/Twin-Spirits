@@ -240,9 +240,6 @@ public class EnemyPatrol : GameBehaviour
         // Determine the direction of movement
         Vector2 movementDirection = (targetPosition - (Vector2)transform.position).normalized;
 
-        // Flip the sprite based on movement direction
-        UpdateSpriteAndCollider(movementDirection);
-
         enemyAnim.SetFloat("Speed", Mathf.Abs(mySpeed));
     }
 
@@ -342,6 +339,7 @@ public class EnemyPatrol : GameBehaviour
     {
         // Get the direction vector between waypoints
         Vector2 direction = (currentPoint.position - transform.position).normalized;
+
         // Calculate the angle in degrees from the direction vector
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
