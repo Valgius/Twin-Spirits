@@ -24,20 +24,4 @@ public class WaterFlow : GameBehaviour
     {
         currentDirection = new Vector2(this.transform.up.x, transform.up.y);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            _AM.PlaySFX("Water Current");
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            _AM.StopSFX();
-        }
-    }
 }
