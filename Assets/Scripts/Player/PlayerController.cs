@@ -14,6 +14,8 @@ public class PlayerController : GameBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask climbLayer;
     public GameObject pausePanel;
+    CheckpointManager manager;
+    Tutorial tutorial;
 
     public bool isLeaf;
     public bool hasLeafOrb;
@@ -46,8 +48,8 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float buoyancyForce = 0f;
     [SerializeField] public float maxBuoyancyVelocity = 0f;
 
-    [SerializeField] private float breathTimer = 0;
-    [SerializeField] private float maxBreathTimer = 0;
+    public float breathTimer = 0;
+    public float maxBreathTimer = 0;
     [SerializeField] private Image breathFill;
     [SerializeField] private GameObject breathPanel;
     [SerializeField] private float swimmingStateCooldown = 0.5f;
@@ -55,7 +57,8 @@ public class PlayerController : GameBehaviour
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
     public WaterFlow flow;
-    
+    [SerializeField] private float breathCooldown = 5f;
+    private bool firstSwim = true;
 
     [Header("- Climb -")]
     public float climbSpeed = 0f;                      
@@ -83,6 +86,7 @@ public class PlayerController : GameBehaviour
     
     void Start()
     {
+        tutorial = FindObjectOfType<Tutorial>();
         swimSpeed = maxSwimSpeed;
         playerRb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
@@ -91,6 +95,7 @@ public class PlayerController : GameBehaviour
         breathTimer = maxBreathTimer;
         ToggleBreath(false);
         fadeOut = FindObjectOfType<FadeOut>();
+        manager = FindObjectOfType<CheckpointManager>();
     }
 
     
@@ -112,7 +117,7 @@ public class PlayerController : GameBehaviour
         }
             
         //If the player is dashing, dying or if the player pauses, dont run anything after.
-        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
+        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie || manager.isPaused)
             return;
 
         Movement();
@@ -141,6 +146,11 @@ public class PlayerController : GameBehaviour
             knockbackTimer -= Time.deltaTime;
         }
 
+        if(!isLeaf && !isSwimming)
+        {
+            StartCoroutine(RefreshBreath());
+        }
+
         //DEV TEST KEY FOR ORBS.
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -155,7 +165,7 @@ public class PlayerController : GameBehaviour
     void FixedUpdate()
     {
         //If player is dashing, dying or pausing the game, ignore the rest of code.
-        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie)
+        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie || manager.isPaused)
             return;
 
         Swimming();
@@ -467,7 +477,10 @@ public class PlayerController : GameBehaviour
             breathTimer -= Time.deltaTime;
         }
         else
+        {
             this.gameObject.GetComponent<PlayerRespawn>().Respawn();
+        }
+            
     }
 
     private void ApplyWaterDragAndBuoyancy()
@@ -491,8 +504,17 @@ public class PlayerController : GameBehaviour
 
     private void EnterWater()
     {
+        if (firstSwim)
+        {
+            tutorial.SwimTutorial();
+            firstSwim = false;
+        }
         isGrounded = false;
         isSwimming = true;
+        if(breathCooldown > 0)
+        {
+            breathCooldown = -1;
+        }
         anim.SetBool("isSwimming", true);
         anim.SetBool("isJumping", false);
         ToggleBreath(true);
@@ -507,13 +529,29 @@ public class PlayerController : GameBehaviour
         isSwimming = false;
         anim.SetBool("isSwimming", false);
         anim.SetBool("isJumping", true);
-        breathTimer = maxBreathTimer;
+        breathPanel.SetActive(false);
+        breathCooldown = 5f;
         ToggleBreath(false);
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.gravityScale = gravity;
         playerRb.drag = 0f;
         _AM.PlaySFX("Player Dive");
         DashEnd();
+    }
+
+    IEnumerator RefreshBreath()
+    {
+        
+        if (breathTimer > 0)
+        {
+            breathCooldown -= Time.deltaTime;
+        }
+        if(breathCooldown <= 0)
+        {
+            breathTimer = maxBreathTimer;
+        }
+
+        yield return null;
     }
 
     public void UpdateBreathBar()

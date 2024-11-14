@@ -36,7 +36,6 @@ public class NewFish : GameBehaviour
     [SerializeField] private float attackDistance;
     [SerializeField] private float detectDistance;
     [SerializeField] private float activationDistance = 50;
-    [SerializeField] private float raycastDistance;
 
     [Header("Timers")]
     [SerializeField] private float detectTime = 5f;
@@ -124,27 +123,6 @@ public class NewFish : GameBehaviour
         ReturnToPatrol();
     }
 
-    private void FixedUpdate()
-    {
-        Raycast();
-    }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Ground"))
-    //    {
-    //        NewTarget();
-    //    }
-    //}
-
-    void Raycast()
-    {
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position, Vector2.left, out hit, raycastDistance, mask))
-        {
-            NewTarget();
-        }
-    }
 
     void GetDistance(float disToPlayer)
     {

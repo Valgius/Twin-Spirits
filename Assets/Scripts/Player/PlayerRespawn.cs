@@ -6,12 +6,14 @@ public class PlayerRespawn : GameBehaviour
 {
     public Vector3 respawnPoint;
     private PlayerHealth playerHealth;
+    private PlayerController playerController;
     FadeOut fadeOut;
 
     void Start()
     {
         playerHealth = this.gameObject.GetComponent<PlayerHealth>();
         fadeOut = FindObjectOfType<FadeOut>();
+        playerController = GetComponent<PlayerController>();
     }
 
     public void Respawn()
@@ -19,6 +21,7 @@ public class PlayerRespawn : GameBehaviour
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         transform.position = respawnPoint;
+        playerController.breathTimer = playerController.maxBreathTimer;
         playerHealth.MaxHealth();
         //_AM.PlaySFX("Revive");
     }

@@ -14,14 +14,17 @@ public class OrbManager : Singleton<OrbManager>
     [Header("- Panel -")]
     public GameObject orbPanelLeaf;
     public GameObject orbPanelSea;
-    private Image orbPanelLeafImage;
-    private Image orbPanelSeaImage;
+    public Image orbPanelLeafImage;
+    public Image orbPanelSeaImage;
 
     [Header("- Orb -")]
     public GameObject orbLeaf;
     public GameObject orbSea;
     public Sprite orbLeafImage;
     public Sprite orbSeaImage;
+
+    [Header("- Tutorial -")]
+    private Tutorial tutorial;
 
     // Start is called before the first frame update
     void Start()
@@ -38,10 +41,10 @@ public class OrbManager : Singleton<OrbManager>
         playerLeafController = playerLeaf.GetComponent<PlayerController>();
         playerSeaController = playerSea.GetComponent<PlayerController>();
 
-
+        tutorial = FindObjectOfType<Tutorial>();
     }
 
-    private void SetOrbPanelActive(GameObject panel, Image panelImage, Sprite orbImage)
+    public void SetOrbPanelActive(GameObject panel, Image panelImage, Sprite orbImage)
     {
         panel.SetActive(true);
         if (panelImage != null && orbImage != null)
@@ -54,6 +57,7 @@ public class OrbManager : Singleton<OrbManager>
     {
         SetOrbPanelActive(orbPanelLeaf, orbPanelLeafImage, orbLeafImage);
         orbLeaf.SetActive(false);
+        tutorial.DoubleJumpTutorial();
         playerLeafController.ToggleHasLeafOrb();
     }
 
@@ -75,6 +79,7 @@ public class OrbManager : Singleton<OrbManager>
     {
         SetOrbPanelActive(orbPanelSea, orbPanelSeaImage, orbSeaImage);
         orbSea.SetActive(false);
+        tutorial.DashTutorial();
         playerSeaController.ToggleHasSeaOrb();
     }
 }

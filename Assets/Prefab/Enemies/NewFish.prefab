@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3603125100908834478}
   - component: {fileID: 9051845667977984267}
   - component: {fileID: 2903019409101552695}
+  - component: {fileID: 8971982225781004884}
   m_Layer: 7
   m_Name: Small Fish (1)
   m_TagString: Untagged
@@ -106,6 +107,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8971982225781004884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353077366715552298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &716005151230309694
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +130,7 @@ GameObject:
   - component: {fileID: 8798548089493296031}
   - component: {fileID: 3479474113025601738}
   - component: {fileID: 6623846898567629679}
+  - component: {fileID: 3283165802359335358}
   m_Layer: 7
   m_Name: Small Fish (4)
   m_TagString: Untagged
@@ -212,6 +226,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3283165802359335358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716005151230309694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1322767199507333795
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +249,7 @@ GameObject:
   - component: {fileID: 8393587291092791025}
   - component: {fileID: 7438774102902070593}
   - component: {fileID: 545905304631496403}
+  - component: {fileID: 7320106146376599151}
   m_Layer: 7
   m_Name: Small Fish
   m_TagString: Untagged
@@ -318,6 +345,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7320106146376599151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322767199507333795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2668097710112312467
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,6 +368,7 @@ GameObject:
   - component: {fileID: 3370487146570783320}
   - component: {fileID: 8329622872484187479}
   - component: {fileID: 5512571116270782229}
+  - component: {fileID: 2017648871436555882}
   m_Layer: 7
   m_Name: Small Fish (8)
   m_TagString: Untagged
@@ -424,6 +464,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2017648871436555882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2668097710112312467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2993210669445252089
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +487,7 @@ GameObject:
   - component: {fileID: 3808190573374108324}
   - component: {fileID: 78858362874604335}
   - component: {fileID: 6818225684231217710}
+  - component: {fileID: 1127567538607603616}
   m_Layer: 7
   m_Name: Small Fish (6)
   m_TagString: Untagged
@@ -530,6 +583,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1127567538607603616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993210669445252089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3221285450178995950
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +606,7 @@ GameObject:
   - component: {fileID: 222913564545719495}
   - component: {fileID: 1883039404587085533}
   - component: {fileID: 7182342926989387686}
+  - component: {fileID: 2215417592996577846}
   m_Layer: 7
   m_Name: Small Fish (5)
   m_TagString: Untagged
@@ -636,6 +702,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2215417592996577846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3221285450178995950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3515748264315873187
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +725,7 @@ GameObject:
   - component: {fileID: 3755864242665245065}
   - component: {fileID: 6461328110336389050}
   - component: {fileID: 1373413804569523568}
+  - component: {fileID: 3379908613364792948}
   m_Layer: 7
   m_Name: Small Fish (2)
   m_TagString: Untagged
@@ -742,6 +821,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3379908613364792948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3515748264315873187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4966702199090820239
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,6 +844,7 @@ GameObject:
   - component: {fileID: 6639141223342512913}
   - component: {fileID: 6531553186674433262}
   - component: {fileID: 8831780807582350587}
+  - component: {fileID: 1990365249900909243}
   m_Layer: 7
   m_Name: Small Fish (3)
   m_TagString: Untagged
@@ -848,6 +940,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1990365249900909243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966702199090820239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6480986358828301979
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,6 +963,7 @@ GameObject:
   - component: {fileID: 4778890556935880417}
   - component: {fileID: 2378440567004845688}
   - component: {fileID: 3756328180644170925}
+  - component: {fileID: 3267031473170973630}
   m_Layer: 7
   m_Name: Small Fish (7)
   m_TagString: Untagged
@@ -954,6 +1059,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3267031473170973630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6480986358828301979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8128851074158007921
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,6 +1082,7 @@ GameObject:
   - component: {fileID: 277703568003945055}
   - component: {fileID: 5917273629421341906}
   - component: {fileID: 2797952424547553612}
+  - component: {fileID: 8944712940643618894}
   m_Layer: 7
   m_Name: Small Fish (9)
   m_TagString: Untagged
@@ -1060,6 +1178,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8944712940643618894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8128851074158007921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f080f11365bf5144b0866a128dff985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8676459541630835021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,12 +1228,12 @@ Transform:
   - {fileID: 3603125100908834478}
   - {fileID: 3755864242665245065}
   - {fileID: 6639141223342512913}
+  - {fileID: 8798548089493296031}
   - {fileID: 222913564545719495}
   - {fileID: 3808190573374108324}
-  - {fileID: 277703568003945055}
-  - {fileID: 3370487146570783320}
   - {fileID: 4778890556935880417}
-  - {fileID: 8798548089493296031}
+  - {fileID: 3370487146570783320}
+  - {fileID: 277703568003945055}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1583042893652187572
@@ -1265,8 +1395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPatrol: 0
   fishCollider: {fileID: 0}
-  mainAnim: {fileID: 0}
-  smallAnim: []
+  rb: {fileID: 0}
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -1280,7 +1409,10 @@ MonoBehaviour:
   attackDistance: 1
   detectDistance: 10
   activationDistance: 50
-  raycastDistance: 0
   detectTime: 2
   detectCountdown: 1
   attackTimer: 0
+  mainAnim: {fileID: 0}
+  smallAnim: []
+  minDelay: 0.1
+  maxDelay: 0.5

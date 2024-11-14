@@ -363,6 +363,7 @@ MonoBehaviour:
   isDashing: 0
   dashingPower: 3
   trailRenderer: {fileID: 6170460103742773646}
+  dashPenalty: 2
   swimSpeed: 22
   swimSpeedUp: 13
   maxSwimSpeed: 13
@@ -377,6 +378,7 @@ MonoBehaviour:
   swimDeceleration: 0
   isSwimming: 0
   flow: {fileID: 0}
+  breathCooldown: 5
   climbSpeed: 0
   wallSlideSpeed: 0
   wallJumpForce: 0
@@ -387,7 +389,7 @@ MonoBehaviour:
   canWallJump: 0
   isKnockback: 0
   knockbackTimer: 0
-  force: 30
+  force: 10
 --- !u!96 &6170460103742773646
 TrailRenderer:
   serializedVersion: 3

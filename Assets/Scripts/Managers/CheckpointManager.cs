@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class CheckpointManager : GameBehaviour
 {
@@ -10,16 +11,22 @@ public class CheckpointManager : GameBehaviour
 
     public GameObject leafMenu;
     public GameObject seaMenu;
+    public bool isPaused = false;
+    [SerializeField] private GameObject firstButtonLeaf;
+    [SerializeField] private GameObject firstButtonSea;
 
     public Vector2 checkpointPosition;
 
     PlayerController playerControllerLeaf;
     PlayerController playerControllerSea;
+    ControllerMenuManager controlManager;
 
     void Start()
     {
         playerControllerLeaf = GameObject.Find("PlayerLeaf").GetComponent<PlayerController>();
         playerControllerSea = GameObject.Find("PlayerSea").GetComponent<PlayerController>();
+        controlManager = FindObjectOfType<ControllerMenuManager>();
+        isPaused = false;
     }
 
     void Update()
@@ -28,6 +35,7 @@ public class CheckpointManager : GameBehaviour
         {
             CheckpointSelect();
         }
+        
     }
     
     /// <summary>
@@ -65,6 +73,7 @@ public class CheckpointManager : GameBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         Time.timeScale = 0;
+        isPaused = true;
 
         if (leafMenu.activeSelf || seaMenu.activeSelf)
         {
@@ -73,17 +82,21 @@ public class CheckpointManager : GameBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1;
+            isPaused = false;
             return;
         }
             
         if (playerControllerLeaf.isActiveAndEnabled)
         {
             leafMenu.SetActive(true);
+            controlManager.SetActiveButton(firstButtonLeaf);
         }
         else if(playerControllerSea.isActiveAndEnabled)
         {
+            controlManager.SetActiveButton(firstButtonSea);
             seaMenu.SetActive(true);
         }
             
     }
+
 }
