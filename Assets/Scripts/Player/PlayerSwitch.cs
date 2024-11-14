@@ -24,8 +24,6 @@ public class PlayerSwitch : GameBehaviour
 
     public bool isLeafActive;
 
-
-
     public int switchCount = 0;
 
     void Start()
@@ -36,8 +34,6 @@ public class PlayerSwitch : GameBehaviour
         fadeOut = FindObjectOfType<FadeOut>();
 
         musicTriggers = musicTriggerObj.GetComponentsInChildren<MusicTrigger>();
-
-       
     }
     
     void Update()

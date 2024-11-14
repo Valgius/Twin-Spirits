@@ -22,7 +22,7 @@ public class CheckPointUI : GameBehaviour
     }
 
     /// <summary>
-    /// When button is pressed, teleport player to connceted checkpoint.
+    /// When button is pressed, teleport player to connected checkpoint.
     /// </summary>
     public void Teleport()
     {
