@@ -6,6 +6,7 @@ using TMPro;
 public class Tutorial : GameBehaviour
 {
     public TMP_Text text;
+    public TMP_Text checkpointText;
     Animator animator;
 
     void Start()
@@ -43,6 +44,6 @@ public class Tutorial : GameBehaviour
     public void CheckpointTeleportTutorial(bool enable)
     {
         animator.SetBool("CheckpointHit", enable);
-        text.text = "Press E (X Button) to teleport between checkpoints.";
+        checkpointText.text = "Press E (X Button) to teleport between checkpoints.";
     }
 }
