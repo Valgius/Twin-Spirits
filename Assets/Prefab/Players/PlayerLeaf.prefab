@@ -193,6 +193,7 @@ MonoBehaviour:
   jumpForce: 25
   doubleJumpForce: 20
   gravity: 3
+  maxFallVelocity: -50
   isGrounded: 0
   stepRate: 0.5
   isFacingRight: 1
@@ -200,6 +201,7 @@ MonoBehaviour:
   isDashing: 0
   dashingPower: 10
   trailRenderer: {fileID: 2546723653339653019}
+  dashPenalty: 2
   swimSpeed: 14
   swimSpeedUp: 0
   maxSwimSpeed: 0
@@ -213,6 +215,8 @@ MonoBehaviour:
   swimmingStateCooldown: 0.5
   swimDeceleration: 0
   isSwimming: 0
+  breathRefill: 0
+  refillSpeed: 5
   flow: {fileID: 0}
   climbSpeed: 10
   wallSlideSpeed: 1

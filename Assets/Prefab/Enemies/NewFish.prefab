@@ -728,6 +728,7 @@ GameObject:
   - component: {fileID: 3712863670478681675}
   - component: {fileID: 8995561899660444533}
   - component: {fileID: 846611725737617289}
+  - component: {fileID: -6168025911407190157}
   m_Layer: 7
   m_Name: NewFish
   m_TagString: Enemy
@@ -744,8 +745,8 @@ Transform:
   m_GameObject: {fileID: 8676459541630835021}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.409027, y: -6.149704, z: 0.119984396}
-  m_LocalScale: {x: 1.3321977, y: 1.3321977, z: 1.3321977}
+  m_LocalPosition: {x: 6.4302, y: -6.1581, z: 0.119984396}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8393587291092791025}
@@ -925,14 +926,59 @@ MonoBehaviour:
   patrolArea: {fileID: 0}
   startSpeed: 10
   movementSpeed: 0
-  chaseSpeed: 11.5
+  chaseSpeed: 9.5
   attackDistance: 1
   detectDistance: 10
   activationDistance: 50
-  detectTime: 2
+  detectTime: 1
   detectCountdown: 1
   attackTimer: 0
   mainAnim: {fileID: 0}
   smallAnim: []
   minDelay: 0.1
   maxDelay: 0.5
+--- !u!61 &-6168025911407190157
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8676459541630835021}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4087
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.5575, y: 2.49625}
+    newSize: {x: 2.5575, y: 2.49625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.5575, y: 2.49625}
+  m_EdgeRadius: 0

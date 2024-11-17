@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3093086119399704232}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -378.4582, y: 47.16998, z: -10}
+  m_LocalPosition: {x: -132.9582, y: 9.569983, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -356,6 +356,7 @@ MonoBehaviour:
   jumpForce: 15
   doubleJumpForce: 1
   gravity: 1
+  maxFallVelocity: -50
   isGrounded: 0
   stepRate: 0.5
   isFacingRight: 1
@@ -390,7 +391,7 @@ MonoBehaviour:
   canWallJump: 0
   isKnockback: 0
   knockbackTimer: 0
-  force: 10
+  force: 5
 --- !u!96 &6170460103742773646
 TrailRenderer:
   serializedVersion: 3

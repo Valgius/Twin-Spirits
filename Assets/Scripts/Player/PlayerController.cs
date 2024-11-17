@@ -28,6 +28,7 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float jumpForce = 0f;
     [SerializeField] private float doubleJumpForce = 1f;
     [SerializeField] private float gravity = 1f;
+    [SerializeField] private float maxFallVelocity = 30f;
     public bool isGrounded;
     public float stepRate = 0.5f;
     float stepCooldown;
@@ -102,20 +103,7 @@ public class PlayerController : GameBehaviour
     
     void Update()
     {
-        //When the player dies, freeze player and stop jump animation, if alive, enable colliders and set constraints.
-        if (fadeOut.playerDie)
-        {
-            playerRb.velocity = new Vector2(0f, 0f);
-            anim.SetBool("isJumping", false);
-            playerRb.GetComponent<BoxCollider2D>().enabled = false;
-            playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
-        else
-        {
-            playerRb.GetComponent<BoxCollider2D>().enabled = true;
-            playerRb.constraints = RigidbodyConstraints2D.None;
-            playerRb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        }
+        Dying();
             
         //If the player is dashing, dying or if the player pauses, dont run anything after.
         if (isDashing || pausePanel.activeSelf || fadeOut.playerDie || manager.isPaused)
@@ -140,7 +128,12 @@ public class PlayerController : GameBehaviour
         Jumping();
 
         ClimbingAndWallJumping();
-        UpdateBreathBar();
+
+        if (!isLeaf)
+        {
+            UpdateBreathBar();
+        }
+        
 
         if(knockbackTimer > 0)
         {
@@ -184,6 +177,34 @@ public class PlayerController : GameBehaviour
         if (isLeaf)
         {
             ClimbingAndWallSliding();
+        }
+
+        Falling();
+    }
+
+    void Falling()
+    {
+        if(playerRb.velocity.y < maxFallVelocity)
+        {
+            fadeOut.playerDie = true;
+        }
+    }
+
+    void Dying()
+    {
+        //When the player dies, freeze player and stop jump animation, if alive, enable colliders and set constraints.
+        if (fadeOut.playerDie)
+        {
+            playerRb.velocity = new Vector2(0f, 0f);
+            anim.SetBool("isJumping", false);
+            playerRb.GetComponent<BoxCollider2D>().enabled = false;
+            playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+        else
+        {
+            playerRb.GetComponent<BoxCollider2D>().enabled = true;
+            playerRb.constraints = RigidbodyConstraints2D.None;
+            playerRb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
     }
 
@@ -298,6 +319,9 @@ public class PlayerController : GameBehaviour
         return grounded;
     }
 
+    /// <summary>
+    /// Movement function for player characters when on land.
+    /// </summary>
     private void Movement()
     {
         if(isKnockback || !isLeaf && isSwimming)
@@ -311,15 +335,6 @@ public class PlayerController : GameBehaviour
             anim.SetFloat("Speed", Mathf.Abs(movement));
             anim.SetBool("isGrounded", true);
         }
-
-        //if(Input.GetAxis("Horizontal") == +1)
-        //{
-        //    playerRb.velocity = new Vector2(moveSpeed, playerRb.velocity.y);
-        //}
-        //if(Input.GetAxis("Horizontal") == -1)
-        //{
-        //    playerRb.velocity = new Vector2(-moveSpeed, playerRb.velocity.y);
-        //}
 
         //Footstep Audio
         stepCooldown -= Time.deltaTime;
@@ -357,6 +372,9 @@ public class PlayerController : GameBehaviour
         anim.SetBool("isDashing", false);
     }
 
+    /// <summary>
+    /// While the player is jumping and has the leaf orb as leaf character, allow double jump.
+    /// </summary>
     private void Jumping()
     {
         //Allows the player to jump
@@ -401,6 +419,9 @@ public class PlayerController : GameBehaviour
         _AM.PlaySFX("Jump");
     }
 
+    /// <summary>
+    /// Paramaters for dashing.
+    /// </summary>
     private void Dashing()
     {
         //Allows the player to Dash
@@ -434,7 +455,7 @@ public class PlayerController : GameBehaviour
             //Get Vector2 of the water flow and apply movement speed depending on direction.
             if (flow != null)
             {
-                print("got flow direction: " + this.flow.GetCurrentDirection());
+                //print("got flow direction: " + this.flow.GetCurrentDirection());
                 moveDirection += flow.GetCurrentDirection();
             }
 
@@ -465,6 +486,9 @@ public class PlayerController : GameBehaviour
         }
     }
 
+    /// <summary>
+    /// Limits player swim speed.
+    /// </summary>
     private void LimitSwimmingSpeed()
     {
         // Limit the player's maximum speed
@@ -472,6 +496,9 @@ public class PlayerController : GameBehaviour
             playerRb.velocity = playerRb.velocity.normalized * maxSwimSpeed;
     }
 
+    /// <summary>
+    /// Timer for swimming breath.
+    /// </summary>
     private void BreathTimer()
     {
         //Enables Breath Countdown
@@ -486,6 +513,9 @@ public class PlayerController : GameBehaviour
             
     }
 
+    /// <summary>
+    /// Makes the player slowly float downwards when in water.
+    /// </summary>
     private void ApplyWaterDragAndBuoyancy()
     {
         // Apply drag when swimming
@@ -505,6 +535,9 @@ public class PlayerController : GameBehaviour
         }
     }
 
+    /// <summary>
+    /// Player makes contact with water.
+    /// </summary>
     private void EnterWater()
     {
         if (firstSwim)
@@ -523,6 +556,9 @@ public class PlayerController : GameBehaviour
         _AM.PlaySFX("Player Dive");
     }
 
+    /// <summary>
+    /// Player leaves water.
+    /// </summary>
     private void ExitWater()
     {
         playerRb.velocity = playerRb.velocity.normalized * swimSpeedUp;
@@ -539,12 +575,17 @@ public class PlayerController : GameBehaviour
         DashEnd();
     }
 
-
+    /// <summary>
+    /// Displays amount of breath left.
+    /// </summary>
     public void UpdateBreathBar()
     {
         breathFill.fillAmount = MapTo01(breathTimer, 0, maxBreathTimer);
     }
 
+    /// <summary>
+    /// Determines if the player is climbing and allows jumping while climbing.
+    /// </summary>
     private void ClimbingAndWallJumping()
     {
         //Allows the player to climb and Wall Jump
@@ -592,6 +633,9 @@ public class PlayerController : GameBehaviour
         }
     }
 
+    /// <summary>
+    /// When climbing, player slowly slides down when no inputs are pressed.
+    /// </summary>
     private void ClimbingAndWallSliding()
     {
         // Toggle climbing state based on input and wall detection
@@ -623,6 +667,9 @@ public class PlayerController : GameBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if player is touching a climbable surface.
+    /// </summary>
     private void WallDetection()
     {
         if (!isLeaf)

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class PauseController : GameBehaviour
 {
     public GameObject pausePanel;
-    [SerializeField] private bool paused;
+    public bool paused;
 
     //public bool eventPause;
     //public GameObject pauseButton;
@@ -44,16 +44,15 @@ public class PauseController : GameBehaviour
         if (!paused)
         {
             controlManager.SetActiveButton(firstPauseButton);
-            //EventSystem.current.SetSelectedGameObject(null);
-            //EventSystem.current.SetSelectedGameObject(pauseButton);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
+            ToggleAudio();
         }
         else
         {
-            //EventSystem.current.SetSelectedGameObject(null);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            ToggleAudio();
         }
             
 
@@ -61,5 +60,12 @@ public class PauseController : GameBehaviour
         pausePanel.SetActive(paused);
         Time.timeScale = paused ? 0 : 1; 
 
+    }
+
+    void ToggleAudio()
+    {
+        _AM.ToggleMusic();
+        _AM.ToggleAmbience();
+        _AM.ToggleSFX();
     }
 }
