@@ -2,16 +2,27 @@ using System.Collections;
 using UnityEngine;
 using static System.TimeZoneInfo;
 
-public enum AreaType
+public enum BackgroundType
 {
     Treetops,
     Grasslands,
-    Undercove
+    Undercove,
+    None
+}
+
+public enum AmbienceType
+{
+    Forest,
+    Stream,
+    Caves,
+    Waterfall,
+    None
 }
 
 public class MusicTrigger : GameBehaviour
 {
-    public AreaType myArea;
+    public BackgroundType backgroundArea;
+    public AmbienceType ambienceArea;
 
     public bool leafInZone;
     public bool seaInZone;
@@ -62,21 +73,37 @@ public class MusicTrigger : GameBehaviour
 
     private void PlayMusicForArea()
     {
-        switch (myArea)
+        switch (backgroundArea)
         {
-            case AreaType.Treetops:
+            case BackgroundType.Treetops:
                 _AM.TransitionToSnapshot("Treetops", 1);
-                _AM.PlayAmbience("Trees");
                 break;
 
-            case AreaType.Grasslands:
+            case BackgroundType.Grasslands:
                 _AM.TransitionToSnapshot("Grasslands", 1);
-                _AM.PlayAmbience("Ground");
                 break;
 
-            case AreaType.Undercove:
+            case BackgroundType.Undercove:
                 _AM.TransitionToSnapshot("Undercove", 1);
+                break;
+        }
+
+        switch (ambienceArea)
+        {
+            case AmbienceType.Forest:
+                _AM.PlayAmbience("Forest");
+                break;
+
+            case AmbienceType.Stream:
+                _AM.PlayAmbience("Stream");
+                break;
+
+            case AmbienceType.Caves:
                 _AM.PlayAmbience("Caves");
+                break;
+
+            case AmbienceType.Waterfall:
+                _AM.PlayAmbience("Waterfall");
                 break;
         }
     }
