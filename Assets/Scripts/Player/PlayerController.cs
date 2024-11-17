@@ -56,8 +56,9 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float swimDeceleration;
     private float swimmingStateTimer = 0f;
     public bool isSwimming = false;
+    [SerializeField] private bool breathRefill = false;
+    [SerializeField] private float refillSpeed = 5f;
     public WaterFlow flow;
-    [SerializeField] private float breathCooldown = 5f;
     private bool firstSwim = true;
 
     [Header("- Climb -")]
@@ -146,10 +147,12 @@ public class PlayerController : GameBehaviour
             knockbackTimer -= Time.deltaTime;
         }
 
-        if(!isLeaf && !isSwimming)
+        if (breathTimer < maxBreathTimer && breathRefill)
         {
-            StartCoroutine(RefreshBreath());
+            breathTimer += Time.deltaTime * refillSpeed;
         }
+        else
+            breathRefill = false;
 
         //DEV TEST KEY FOR ORBS.
         if (Input.GetKeyDown(KeyCode.O))
@@ -511,10 +514,7 @@ public class PlayerController : GameBehaviour
         }
         isGrounded = false;
         isSwimming = true;
-        if(breathCooldown > 0)
-        {
-            breathCooldown = -1;
-        }
+        breathRefill = false;
         anim.SetBool("isSwimming", true);
         anim.SetBool("isJumping", false);
         ToggleBreath(true);
@@ -530,7 +530,7 @@ public class PlayerController : GameBehaviour
         anim.SetBool("isSwimming", false);
         anim.SetBool("isJumping", true);
         breathPanel.SetActive(false);
-        breathCooldown = 5f;
+        breathRefill = true;
         ToggleBreath(false);
         swimmingStateTimer = swimmingStateCooldown;
         playerRb.gravityScale = gravity;
@@ -539,20 +539,6 @@ public class PlayerController : GameBehaviour
         DashEnd();
     }
 
-    IEnumerator RefreshBreath()
-    {
-        
-        if (breathTimer > 0)
-        {
-            breathCooldown -= Time.deltaTime;
-        }
-        if(breathCooldown <= 0)
-        {
-            breathTimer = maxBreathTimer;
-        }
-
-        yield return null;
-    }
 
     public void UpdateBreathBar()
     {

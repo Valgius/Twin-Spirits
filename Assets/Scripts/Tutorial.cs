@@ -5,8 +5,8 @@ using TMPro;
 
 public class Tutorial : GameBehaviour
 {
-    public TMP_Text text;
-    public TMP_Text checkpointText;
+    [SerializeField] private TMP_Text text;
+    [SerializeField] private TMP_Text checkpointText;
     Animator animator;
 
     void Start()
@@ -16,6 +16,11 @@ public class Tutorial : GameBehaviour
         text.text = "Press A and D (Left Stick) to move left or right.";
     }
 
+    public void JumpTutorial()
+    {
+        animator.SetTrigger("Enable");
+        text.text = "Press Space (A Button) to Jump.";
+    }
 
     public void DoubleJumpTutorial()
     {
