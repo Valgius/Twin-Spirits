@@ -18,6 +18,8 @@ public class EndGameScript : GameBehaviour
         leafFinished = false;
         seaFinished = false;
         fakeSea.SetActive(false);
+
+        Physics2D.IgnoreCollision(playerSea.GetComponent<BoxCollider2D>(), fakeSea.GetComponent<BoxCollider2D>());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -100,7 +100,6 @@ public class PlayerController : GameBehaviour
         manager = FindObjectOfType<CheckpointManager>();
     }
 
-    
     void Update()
     {
         Dying();
