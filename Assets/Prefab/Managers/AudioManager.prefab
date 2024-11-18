@@ -49,7 +49,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroy: 0
-  AmbienceSounds: []
+  AmbienceSounds:
+  - name: Forest
+    clip: {fileID: 8300000, guid: 7d7c03a87d7a04a45b41a8b017ac2f1e, type: 3}
+  - name: Stream
+    clip: {fileID: 8300000, guid: efd16465e3c946b4ba14185f26d1f8d7, type: 3}
+  - name: Caves
+    clip: {fileID: 8300000, guid: 27def8b8fcd182e4585f9ed32f51a09a, type: 3}
+  - name: Waterfall
+    clip: {fileID: 8300000, guid: 7486747904dc9984ea871344676dca3d, type: 3}
   SFXSounds:
   - name: Fish Attack
     clip: {fileID: 8300000, guid: 579a389c44b435a4cab8ea904ee8163d, type: 3}
@@ -81,12 +89,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: eaae8fe8d600e1f459f34aa5757fa3b8, type: 3}
   - name: Checkpoint Active
     clip: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
-  - name: Revive
-    clip: {fileID: 8300000, guid: acbcb75601b0082458fda8807f67c813, type: 3}
+  - name: Water Current
+    clip: {fileID: 8300000, guid: 12dcfb376cf914e41afea7f9183f45a9, type: 3}
   - name: Death
     clip: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
   - name: Boulder Fall
-    clip: {fileID: 8300000, guid: cad5741215bb9e84a94190b5b68d9752, type: 3}
+    clip: {fileID: 8300000, guid: 7591cf4fd14cb4446af04371b30f2746, type: 3}
+  - name: Platform Fall
+    clip: {fileID: 8300000, guid: 7860ed8cf052bf7419c89b2f73197fb6, type: 3}
   musicSource: {fileID: 5462371185516191440}
   ambienceSource: {fileID: 7328992782698800103}
   SFXSource: {fileID: 6121152529317204564}
