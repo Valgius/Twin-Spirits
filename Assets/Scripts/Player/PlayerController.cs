@@ -98,7 +98,6 @@ public class PlayerController : GameBehaviour
         manager = FindObjectOfType<CheckpointManager>();
     }
 
-    
     void Update()
     {
         //When the player dies, freeze player and stop jump animation, if alive, enable colliders and set constraints.

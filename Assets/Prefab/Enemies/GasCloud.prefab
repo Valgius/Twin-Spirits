@@ -134,4 +134,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 0.8
-  maxSize: {x: 5, y: 5, z: 5}
+  maxSize: {x: 7, y: 7, z: 7}
