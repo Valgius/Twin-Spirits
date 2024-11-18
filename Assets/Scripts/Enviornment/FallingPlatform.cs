@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallingPlatform : MonoBehaviour
+public class FallingPlatform : GameBehaviour
 {
     public float fallDelay = 1f;
     
@@ -33,9 +33,9 @@ public class FallingPlatform : MonoBehaviour
     {
         yield return new WaitForSeconds(fallDelay);
         rb.bodyType = RigidbodyType2D.Dynamic;
+        _AM.PlaySFX("Platform Fall");
         
         StartCoroutine(PlatformRespawn());
-
     }
 
     private IEnumerator PlatformRespawn()
