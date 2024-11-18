@@ -104,7 +104,7 @@ public class PlayerController : GameBehaviour
     void Update()
     {
         Dying();
-            
+
         //If the player is dashing, dying or if the player pauses, dont run anything after.
         if (isDashing || pausePanel.activeSelf || fadeOut.playerDie || manager.isPaused)
             return;
@@ -186,7 +186,8 @@ public class PlayerController : GameBehaviour
     {
         if(playerRb.velocity.y < maxFallVelocity)
         {
-            fadeOut.playerDie = true;
+            playerHealth.health = 1;
+            playerHealth.EnemyHit();
         }
     }
 
