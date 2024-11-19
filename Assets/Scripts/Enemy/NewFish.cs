@@ -92,15 +92,15 @@ public class NewFish : GameBehaviour
         }
 
         //Look at currentPoint at most times.
-        if (targetPoint.position.x > transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
+        if (myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
         {
             transform.right = targetPoint.position - transform.position;
         }
-        else if (targetPoint.position.x < transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
-        {
-            transform.right = transform.position - targetPoint.position;
+        //else if (targetPoint.position.x < transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
+        //{
+        //    transform.right = transform.position - targetPoint.position;
 
-        }
+        //}
         //Flip sprites
         FlipSprite();
 
@@ -246,11 +246,11 @@ public class NewFish : GameBehaviour
             //Flip sprite on x axis.
             if (targetPoint.position.x < transform.position.x)
             {
-                spriteRenderer.flipX = true;
+                spriteRenderer.flipY = true;
             }
             else
             {
-                spriteRenderer.flipX = false;
+                spriteRenderer.flipY = false;
             }
         }
     }

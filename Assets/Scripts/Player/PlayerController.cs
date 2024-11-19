@@ -211,7 +211,7 @@ public class PlayerController : GameBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //If touching ground, isGrounded is true.
-        if (collision.gameObject.CompareTag("Ground") && !isSwimming)
+        if (collision.gameObject.CompareTag("Ground") && !isSwimming && !isClimbing)
         {
             isGrounded = true;
         }
