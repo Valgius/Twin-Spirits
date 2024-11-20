@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class NewFish : GameBehaviour
 {
     public PatrolType myPatrol;
     public BoxCollider2D fishCollider;
-    LayerMask mask;
     public Rigidbody2D rb;
 
     [Header("Patrol Points")]
@@ -52,7 +50,6 @@ public class NewFish : GameBehaviour
     void Start()
     {
         //A whole lotta declares
-        mask = LayerMask.GetMask("Ground");
         playerSea = GameObject.Find("PlayerSea").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         fishCollider = GetComponent<BoxCollider2D>();
@@ -95,15 +92,15 @@ public class NewFish : GameBehaviour
         }
 
         //Look at currentPoint at most times.
-        if (targetPoint.position.x > transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
+        if (myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
         {
             transform.right = targetPoint.position - transform.position;
         }
-        else if (targetPoint.position.x < transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
-        {
-            transform.right = transform.position - targetPoint.position;
+        //else if (targetPoint.position.x < transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
+        //{
+        //    transform.right = transform.position - targetPoint.position;
 
-        }
+        //}
         //Flip sprites
         FlipSprite();
 
@@ -156,35 +153,9 @@ public class NewFish : GameBehaviour
         float disToWaypoint = Vector2.Distance(transform.position, targetPoint.position);
         if (disToWaypoint < 1.5f)
         {
-            //float radius = patrolZoneCollider.radius;
-            //Vector2 center = patrolZoneCollider.transform.position;
             int rndPoint = Random.Range(0, patrolPoints.Length);
             targetPoint = patrolPoints[rndPoint];
-            //targetPoint.position = GetRandomPointInCircle();
-            print(targetPoint.localPosition);
-
-            //targetPoint = (targetPoint == pointB.transform) ? pointA.transform : pointB.transform;
         }
-    }
-
-    Vector2 GetRandomPointInCircle()
-    {
-        // Get the radius of the circle
-        float radius = patrolZoneCollider.radius;
-        // Get the center position of the circle in world space
-        Vector2 center = patrolZoneCollider.transform.position;
-
-        // Generate a random angle between 0 and 2 * PI radians
-        float angle = Random.Range(0f, Mathf.PI * 2);
-
-        // Generate a random distance from the center (square root distribution keeps points uniformly distributed)
-        float distance = Mathf.Sqrt(Random.Range(0f, 1f)) * radius;
-
-        // Convert polar coordinates (angle and distance) to Cartesian coordinates
-        float x = center.x + distance * Mathf.Cos(angle);
-        float y = center.y + distance * Mathf.Sin(angle);
-
-        return new Vector2(x, y);
     }
 
     public void Patrol()
@@ -247,7 +218,6 @@ public class NewFish : GameBehaviour
     }
 
     void Attack()
-
     {
         //Attack player if attack timer is 0 and player health is greater than 0
         if (attackTimer <= 0 && playerHealth.health > 0)
@@ -276,15 +246,19 @@ public class NewFish : GameBehaviour
             //Flip sprite on x axis.
             if (targetPoint.position.x < transform.position.x)
             {
-                spriteRenderer.flipX = true;
+                spriteRenderer.flipY = true;
             }
             else
             {
-                spriteRenderer.flipX = false;
+                spriteRenderer.flipY = false;
             }
         }
     }
 
+    /// <summary>
+    /// Disables fish renderer when the sea character is over a certain distance away.
+    /// </summary>
+    /// <param name="disToPlayer">Check to see how far the player is.</param>
     public void CullEnemy(float disToPlayer)
     {
         if (disToPlayer > activationDistance)
@@ -305,6 +279,9 @@ public class NewFish : GameBehaviour
             
     }
 
+    /// <summary>
+    /// Plays movement animation for the small fish.
+    /// </summary>
     void PlayMoveAnimationForChildren()
     {
         foreach (Animator animator in smallAnim)
@@ -317,6 +294,9 @@ public class NewFish : GameBehaviour
         }
     }
 
+    /// <summary>
+    /// Play attack animation for the small fish.
+    /// </summary>
     void PlayAttackAnimationForChildren()
     {
         foreach (Animator animator in smallAnim)
@@ -329,6 +309,13 @@ public class NewFish : GameBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays an animation after a short delay.
+    /// </summary>
+    /// <param name="animator">The animator component to animate.</param>
+    /// <param name="animationName">Name of the animation to play.</param>
+    /// <param name="delay">Delay before playing the animation.</param>
+    /// <returns></returns>
     private IEnumerator PlayAnimationWithDelay(Animator animator, string animationName, float delay)
     {
         yield return new WaitForSeconds(delay);

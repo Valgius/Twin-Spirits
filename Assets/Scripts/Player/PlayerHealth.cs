@@ -22,8 +22,12 @@ public class PlayerHealth : GameBehaviour
     private CinemachineBasicMultiChannelPerlin noise;
     public float screenShake = 0;
 
+    [Header("Dying")]
+    ParticleSystem particle;
+
     void Start()
     {
+        particle = GetComponent<ParticleSystem>();
         fadeOut = FindObjectOfType<FadeOut>();
         noise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
@@ -103,7 +107,9 @@ public class PlayerHealth : GameBehaviour
             this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             fadeOut.playerDie = true;
             DisableAnimations();
-            _AM.PlaySFX("Death"); 
+            _AM.PlaySFX("Death");
+            particle.Play();
+            
         }
     }
 
