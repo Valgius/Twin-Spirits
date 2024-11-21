@@ -33,54 +33,33 @@ public class EnemyManager : Singleton<EnemyManager>
 
     void Update()
     {
-        // Loop through each patrol GameObject
+        // Loop through each patrol GameObject and deactivate when far away.
         foreach (GameObject patrol in patrols)
         {
-            // Deactivate Enemy Children of the patrol GameObject
-            foreach (Transform child in patrol.transform)
+            if (patrol.transform.CompareTag("Enemy"))
             {
-                if (child.CompareTag("Enemy"))
-                {
-                    // Calculate the distance between the enemy and the player
-                    float distance = Vector3.Distance(child.transform.position, player.position);
-
-                    //Get Enemy Patrol script
-                    EnemyPatrol enemyPatrol = child.GetComponent<EnemyPatrol>();
-                    NewFish newFish = child.GetComponent<NewFish>();
-
-                    //child.gameObject.SetActive(distance <= activationDistance);
-
-                    if (distance > activationDistance)
-                    {
-                        if(enemyPatrol != null)
-                        {
-                            enemyPatrol.ToggleComponents(false);
-                        }
-
-                        if (newFish != null)
-                        {
-                            newFish.ToggleComponents(false);
-                        }
-                    }
-                    else
-                    {
-                        if (enemyPatrol != null)
-                        {
-                            enemyPatrol.ToggleComponents(true);
-                        }
-
-                        if (newFish != null)
-                        {
-                            newFish.ToggleComponents(true);
-                        }
-                    }
-                }
-                else
-                {
-                    // Use continue to skip non-enemy children
-                    continue;
-                }
+                continue;
             }
+            ToggleEnemies(patrol);
+        }
+
+    }
+
+    void ToggleEnemies(GameObject patrol)
+    {
+        // Calculate the distance between the enemy and the player
+        float distance = Vector2.Distance(patrol.transform.position, player.position);
+        bool isActive = distance <= activationDistance;
+
+        //If isActive, enemy is active. If not, then the enemy is inactive.
+        if (isActive)
+        {
+            patrol.SetActive(true);
+        }
+        else
+        {
+            patrol.SetActive(false);
         }
     }
+
 }
