@@ -68,7 +68,6 @@ public class NewFish : GameBehaviour
     {
         //Distance declaration
         float disToPlayer = Vector2.Distance(transform.position, playerSea.transform.position);
-        CullEnemy(disToPlayer);
         if (disToPlayer > activationDistance)
             return;
 
@@ -257,30 +256,6 @@ public class NewFish : GameBehaviour
     }
 
     /// <summary>
-    /// Disables fish renderer when the sea character is over a certain distance away.
-    /// </summary>
-    /// <param name="disToPlayer">Check to see how far the player is.</param>
-    public void CullEnemy(float disToPlayer)
-    {
-        if (disToPlayer > activationDistance)
-        {
-            fishCollider.enabled = false;
-            spriteRenderer.enabled = false;
-        }
-        else
-        {
-            spriteRenderer.enabled = true;
-            fishCollider.enabled = true;
-        }
-
-        if(myPatrol != PatrolType.Detect)
-        {
-            spriteRenderer.flipY = false;
-        }
-            
-    }
-
-    /// <summary>
     /// Plays movement animation for the small fish.
     /// </summary>
     void PlayMoveAnimationForChildren()
@@ -323,49 +298,4 @@ public class NewFish : GameBehaviour
         animator.Play(animationName);
     }
 
-    public void ToggleComponents(bool isActive)
-    {
-        if (isActive)
-        {
-            UnFreezeConstraints();
-            ToggleChildComponents(true);
-            spriteRenderer.enabled = true;
-            fishCollider.enabled = true;
-        }
-        else
-        {
-            FreezeConstraints();
-            ToggleChildComponents(false);
-            spriteRenderer.enabled = false;
-            fishCollider.enabled = false;
-        }
-    }
-
-    private void FreezeConstraints()
-    {
-        rb.constraints = RigidbodyConstraints2D.FreezePosition;
-    }
-
-    private void UnFreezeConstraints()
-    {
-        rb.constraints = RigidbodyConstraints2D.None;
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-    }
-
-    private void ToggleChildComponents(bool isActive)
-    {
-        foreach (Transform child in transform)
-        {
-            // Get the SpriteRenderer component on the child object
-            SpriteRenderer childSpriteRenderer = child.GetComponent<SpriteRenderer>();
-            // Get the Collider component on the child object
-            Collider2D childCollider = child.GetComponent<Collider2D>();
-
-            // Toggle SpriteRenderer and Collider components on the child
-            if (childSpriteRenderer != null)
-            {
-                childSpriteRenderer.enabled = isActive;
-            }
-        }
-    }
 }

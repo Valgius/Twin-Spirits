@@ -5,6 +5,7 @@ using UnityEngine;
 public class GalleryManager : MonoBehaviour
 {
     public bool galleryAvailable;
+    public GameObject galleryButton;
 
     private void Awake()
     {
@@ -16,5 +17,13 @@ public class GalleryManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void CheckGallery()
+    {
+        if (galleryAvailable)
+        {
+            galleryButton.SetActive(true);
+        }
     }
 }

@@ -42,12 +42,11 @@ public class EnemyManager : Singleton<EnemyManager>
             }
             ToggleEnemies(patrol);
         }
-
     }
 
     void ToggleEnemies(GameObject patrol)
     {
-        // Calculate the distance between the enemy and the player
+        // Calculate the distance between the enemy and the player (Edit: turns out that this is checking the distance of the enemies parent object and not the enemy)
         float distance = Vector2.Distance(patrol.transform.position, player.position);
         bool isActive = distance <= activationDistance;
 
