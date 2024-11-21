@@ -570,8 +570,8 @@ MonoBehaviour:
   attackDistance: 1
   detectDistance: 10
   activationDistance: 50
-  detectTime: 1
-  detectCountdown: 1
+  detectTime: 3
+  detectCountdown: 3
   attackTimer: 0
   mainAnim: {fileID: 0}
   smallAnim: []

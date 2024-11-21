@@ -91,16 +91,8 @@ public class NewFish : GameBehaviour
                 break;
         }
 
-        //Look at currentPoint at most times.
-        if (myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
-        {
-            transform.right = targetPoint.position - transform.position;
-        }
-        //else if (targetPoint.position.x < transform.position.x && myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
-        //{
-        //    transform.right = transform.position - targetPoint.position;
+        LookAtDestination();
 
-        //}
         //Flip sprites
         FlipSprite();
 
@@ -120,6 +112,15 @@ public class NewFish : GameBehaviour
         ReturnToPatrol();
     }
 
+    void LookAtDestination()
+    {
+        //Look at currentPoint at most times.
+        if (myPatrol != PatrolType.Detect && myPatrol != PatrolType.Attack)
+        {
+            Vector2 lookDirection = (targetPoint.position - transform.position);
+            transform.right = lookDirection.normalized;
+        }
+    }
 
     void GetDistance(float disToPlayer)
     {
