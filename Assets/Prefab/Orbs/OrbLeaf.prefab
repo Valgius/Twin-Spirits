@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5187849eb1b614e499497a716ec89467, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17818b74e52ac1c40bc453fce79b7eb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -120,9 +120,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.124349594, y: 0.06661606}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.43338203
 --- !u!114 &4879027903481003933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orbManager: {fileID: 0}
   isLeafOrb: 1
+  orbDrop: {fileID: 0}
 --- !u!50 &2369250945700145001
 Rigidbody2D:
   serializedVersion: 4
@@ -152,7 +153,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -174,7 +175,7 @@ Animator:
   m_GameObject: {fileID: 8845573123298833780}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 348a7338b1bac1046890274890bbd739, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
