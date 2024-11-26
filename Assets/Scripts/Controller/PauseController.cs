@@ -7,10 +7,11 @@ using UnityEngine.EventSystems;
 public class PauseController : GameBehaviour
 {
     public GameObject pausePanel;
+    public GameObject audioPanel;
+    public GameObject mainPanel;
     public bool paused;
+    public bool audioMenu;
 
-    //public bool eventPause;
-    //public GameObject pauseButton;
     ControllerMenuManager controlManager;
 
     [SerializeField] private GameObject firstPauseButton;
@@ -19,8 +20,9 @@ public class PauseController : GameBehaviour
     {
         paused = false;
         pausePanel.SetActive(paused);
-        Time.timeScale = 1;
-        //eventPause = EventSystem.current;
+        audioMenu = false;
+        audioPanel.SetActive(audioMenu);
+    Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         controlManager = FindObjectOfType<ControllerMenuManager>();
@@ -30,13 +32,6 @@ public class PauseController : GameBehaviour
     {
         if (Input.GetButtonDown("Pause"))
             Pause();
-
-        //if (paused && Input.GetAxis("Vertical") != 0 && !eventPause)
-        //{
-        //    EventSystem.current.firstSelectedGameObject = pauseButton;
-        //    //EventSystem.current.SetSelectedGameObject(pauseButton);
-        //}
-        
     }
 
     public void Pause()
@@ -53,13 +48,12 @@ public class PauseController : GameBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             ToggleAudio();
+            ResetPanel();
         }
             
-
         paused = !paused;
         pausePanel.SetActive(paused);
         Time.timeScale = paused ? 0 : 1; 
-
     }
 
     void ToggleAudio()
@@ -67,5 +61,19 @@ public class PauseController : GameBehaviour
         _AM.ToggleMusic();
         _AM.ToggleAmbience();
         _AM.ToggleSFX();
+    }
+
+    public void ToggleAudioPanel()
+    {
+        audioMenu = !audioMenu;
+        audioPanel.SetActive(audioMenu);
+        mainPanel.SetActive(!audioMenu);
+    }
+
+    public void ResetPanel()
+    {
+        audioPanel.SetActive(false);
+        mainPanel.SetActive(true);
+        audioMenu = false;
     }
 }
