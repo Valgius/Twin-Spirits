@@ -248,6 +248,7 @@ public class PlayerController : GameBehaviour
         // Check if the player enters water
         if (other.CompareTag("Water"))
         {
+            print("in water");
             EnterWater();
         }
         if (other.gameObject.GetComponent<WaterFlow>() && flow == null)
