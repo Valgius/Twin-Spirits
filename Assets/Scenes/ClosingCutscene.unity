@@ -149,7 +149,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42668166}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: e2851393c650f744c8d4e9cc58f0b739, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 7358a7379a7253a47b48d18b96437c0c, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 159174109}
@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadScene: {fileID: 401182395}
-  scene: CreditsSceme
+  scene: TitleScene
 --- !u!114 &1604196750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -999,7 +999,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: CreditsSceme
+          m_StringArgument: FinalLevelScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1746239987
