@@ -62,3 +62,21 @@ TagManager:
   - name: CameraSortingLayer
     uniqueID: 2003891163
     locked: 0
+  - name: Background (Far)
+    uniqueID: 2962459053
+    locked: 0
+  - name: Background (Mid)
+    uniqueID: 1244097139
+    locked: 0
+  - name: Background (Close)
+    uniqueID: 3961266699
+    locked: 0
+  - name: MidGround
+    uniqueID: 3068341095
+    locked: 0
+  - name: Foreground (Close)
+    uniqueID: 1650666143
+    locked: 0
+  - name: ForeGround (Far)
+    uniqueID: 3328532245
+    locked: 0
