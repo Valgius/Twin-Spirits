@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 501511183
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 88bc1d7a7c6099d45bdb25463eacac7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -154,8 +154,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 501511183
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 40849a3d24aab304c867fb6867fa61f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -219,6 +219,7 @@ MonoBehaviour:
   inActive: {fileID: 7010182919453820258}
   usedCheckPoint: 0
   button: {fileID: 0}
+  isSceneSwitch: 0
   respawnPoint: {x: 0, y: 0}
 --- !u!61 &6041510954669569361
 BoxCollider2D:
