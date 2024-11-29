@@ -68,20 +68,17 @@ TagManager:
   - name: Background (Close)
     uniqueID: 3961266699
     locked: 0
-  - name: Midground
-    uniqueID: 3068341095
-    locked: 0
-  - name: Platforms
-    uniqueID: 1899305859
-    locked: 0
   - name: Climbable
     uniqueID: 2797559263
     locked: 0
   - name: Checkpoints
     uniqueID: 501511183
     locked: 0
-  - name: Creatures
-    uniqueID: 540074737
+  - name: Platforms
+    uniqueID: 1899305859
+    locked: 0
+  - name: Midground
+    uniqueID: 3068341095
     locked: 0
   - name: Foreground (Close)
     uniqueID: 1650666143
