@@ -27,7 +27,7 @@ public class EnemyManager : Singleton<EnemyManager>
     private void Start()
     {
         // Find all GameObjects with the "EnemyPatrol" tag
-        patrols = GameObject.FindGameObjectsWithTag("EnemyPatrol");
+        patrols = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
 
@@ -36,10 +36,6 @@ public class EnemyManager : Singleton<EnemyManager>
         // Loop through each patrol GameObject and deactivate when far away.
         foreach (GameObject patrol in patrols)
         {
-            if (patrol.transform.CompareTag("Enemy"))
-            {
-                continue;
-            }
             ToggleEnemies(patrol);
         }
     }
