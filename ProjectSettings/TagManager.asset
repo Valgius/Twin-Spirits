@@ -56,9 +56,30 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: rocks
-    uniqueID: 3057406793
-    locked: 0
   - name: CameraSortingLayer
     uniqueID: 2003891163
+    locked: 0
+  - name: Background (Far)
+    uniqueID: 2962459053
+    locked: 0
+  - name: Background (Mid)
+    uniqueID: 1244097139
+    locked: 0
+  - name: Background (Close)
+    uniqueID: 3961266699
+    locked: 0
+  - name: Midground
+    uniqueID: 3068341095
+    locked: 0
+  - name: Climbable
+    uniqueID: 2797559263
+    locked: 0
+  - name: Platforms
+    uniqueID: 1899305859
+    locked: 0
+  - name: Foreground (Close)
+    uniqueID: 1650666143
+    locked: 0
+  - name: Foreground (Far)
+    uniqueID: 3328532245
     locked: 0
