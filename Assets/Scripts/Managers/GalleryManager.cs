@@ -18,12 +18,4 @@ public class GalleryManager : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
     }
-
-    public void CheckGallery()
-    {
-        if (galleryAvailable)
-        {
-            galleryButton.SetActive(true);
-        }
-    }
 }
