@@ -47,7 +47,6 @@ public class PlayerSwitch : GameBehaviour
 
     public void SwitchCharacter()
     {
-        fadeOut.playerSwitch = true;
 
         if (isLeafActive == true)
             StartCoroutine(ActivateSea());
@@ -124,6 +123,5 @@ public class PlayerSwitch : GameBehaviour
             if (isLeafActive == false)
                 trigger.ChangeMusicSea();
         }
-        fadeOut.playerSwitch = false;
     }
 }

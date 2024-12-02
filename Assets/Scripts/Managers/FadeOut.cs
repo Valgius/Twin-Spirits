@@ -32,14 +32,6 @@ public class FadeOut : GameBehaviour
             fadeOutAni.SetBool("Die", false);
         }
 
-        if (playerSwitch)
-        {
-            fadeOutAni.SetBool("Switch", true);
-        }
-        else
-        {
-            fadeOutAni.SetBool("Switch", false);
-        }
     }
 
 

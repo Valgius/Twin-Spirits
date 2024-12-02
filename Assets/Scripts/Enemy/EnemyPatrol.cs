@@ -269,15 +269,6 @@ public class EnemyPatrol : GameBehaviour
         }
     }
 
-    public void CalculateClosestPlayer()
-    {
-        //Always get the distance between the players and this object and assign the closest player.
-        float distToSea = Vector3.Distance(transform.position, playerSea.transform.position);
-        float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
-
-        closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(pointA.transform.position, 1f);
@@ -305,22 +296,6 @@ public class EnemyPatrol : GameBehaviour
             BoxCollider2D boxCollider = enemyAttack.fishAttackBox.GetComponent<BoxCollider2D>();
             Vector2 newOffset = new Vector2(movementDirection.x > 0 ? 1.5f : -1.5f, 0f);
             boxCollider.offset = newOffset;
-        }
-    }
-
-    public void ToggleComponents(bool isActive)
-    {
-        if (isActive)
-        {
-            UnFreezeConstraints();
-            spriteRenderer.enabled = true;
-            enemyCollider.enabled = true;
-        }
-        else
-        {
-            FreezeConstraints();
-            spriteRenderer.enabled = false;
-            enemyCollider.enabled = false;
         }
     }
 

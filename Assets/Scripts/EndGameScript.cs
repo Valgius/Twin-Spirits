@@ -8,8 +8,9 @@ public class EndGameScript : GameBehaviour
     [SerializeField] private GameObject playerLeaf;
     [SerializeField] private GameObject playerSea;
     [SerializeField] private GameObject fakeSea;
-    private bool leafFinished;
-    private bool seaFinished;
+    [SerializeField] private GalleryManager gallery;
+    [SerializeField] private bool leafFinished;
+    [SerializeField] private bool seaFinished;
     private SpriteRenderer seaSprite;
 
 
@@ -18,6 +19,7 @@ public class EndGameScript : GameBehaviour
         leafFinished = false;
         seaFinished = false;
         fakeSea.SetActive(false);
+        gallery = GameObject.FindGameObjectWithTag("Gallery").GetComponent<GalleryManager>();
 
         //Physics2D.IgnoreCollision(playerSea.GetComponent<CapsuleCollider2D>(), fakeSea.GetComponent<BoxCollider2D>());
     }
@@ -41,7 +43,17 @@ public class EndGameScript : GameBehaviour
     private void CheckEndStatus()
     {
         if (leafFinished && seaFinished)
+        {
             loadScene.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            if (gallery != null)
+            {
+                gallery.galleryAvailable = true;
+            }
+
+        }
+            
     }
 
     private void ActivateFakeSea()
