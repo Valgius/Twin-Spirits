@@ -5,7 +5,7 @@ using UnityEngine;
 public class SceneSwitchTrigger : MonoBehaviour
 {
     public PlayerSwitch playerSwitch;
-    public int switchNumber;
+    public int switchNumber = 1;
     public bool hasSwitched = false;
     public float sceneDelay;
 
