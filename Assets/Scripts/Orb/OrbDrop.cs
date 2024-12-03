@@ -60,7 +60,6 @@ public class OrbDrop : GameBehaviour
                     //When Player hits the trigger zone and has the corresponding orb, drop the orb to set location.
                     if (collision.gameObject.CompareTag("Player") && playerLeafController.hasSeaOrb)
                     {
-
                         print("Drop Orb Sea");
                         AnimateSeaOrb();
                         playerLeafController.ToggleHasSeaOrb();

@@ -21,7 +21,7 @@ public class EndGameScript : GameBehaviour
         fakeSea.SetActive(false);
         gallery = GameObject.FindGameObjectWithTag("Gallery").GetComponent<GalleryManager>();
 
-        //Physics2D.IgnoreCollision(playerSea.GetComponent<CapsuleCollider2D>(), fakeSea.GetComponent<BoxCollider2D>());
+        Physics2D.IgnoreCollision(playerSea.GetComponent<BoxCollider2D>(), fakeSea.GetComponent<BoxCollider2D>());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,7 +51,6 @@ public class EndGameScript : GameBehaviour
             {
                 gallery.galleryAvailable = true;
             }
-
         }
             
     }
