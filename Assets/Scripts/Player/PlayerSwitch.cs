@@ -24,7 +24,7 @@ public class PlayerSwitch : GameBehaviour
 
     public bool isLeafActive;
 
-    public int switchCount = 0;
+    public int switchCount = 1;
 
     void Start()
     {

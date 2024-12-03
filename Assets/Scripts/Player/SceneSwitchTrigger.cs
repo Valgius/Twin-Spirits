@@ -5,7 +5,7 @@ using UnityEngine;
 public class SceneSwitchTrigger : MonoBehaviour
 {
     public PlayerSwitch playerSwitch;
-    public int switchNumber = 1;
+    public int switchNumber;
     public bool hasSwitched = false;
     public float sceneDelay;
 
@@ -30,6 +30,7 @@ public class SceneSwitchTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.CompareTag("Player"))
         CheckSwitchNumber();
     }
 
