@@ -51,7 +51,6 @@ public class EndGameScript : GameBehaviour
             {
                 gallery.galleryAvailable = true;
             }
-
         }
             
     }
