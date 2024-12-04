@@ -239,6 +239,33 @@ public class NewFish : GameBehaviour
         }
     }
 
+    public void ToggleComponents(bool isActive)
+    {
+        if (isActive)
+        {
+            UnFreezeConstraints();
+            spriteRenderer.enabled = true;
+            fishCollider.enabled = true;
+        }
+        else
+        {
+            FreezeConstraints();
+            spriteRenderer.enabled = false;
+            fishCollider.enabled = false;
+        }
+    }
+
+    private void FreezeConstraints()
+    {
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+    }
+
+    private void UnFreezeConstraints()
+    {
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
     void FlipSprite()
     {
         if(myPatrol != PatrolType.Detect)

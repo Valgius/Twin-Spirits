@@ -23,13 +23,16 @@ public class EnemyAttack : GameBehaviour
     {
         Physics2D.IgnoreCollision(this.gameObject.GetComponent<BoxCollider2D>(), projectilePrefab.GetComponent<BoxCollider2D>());
         playerTransform = enemyPatrol.closestPlayer;
-
-        attackTimer -= Time.deltaTime;
+        if(attackTimer > 0)
+        {
+            attackTimer -= Time.deltaTime;
+        }
+        
     }
 
     public IEnumerator FishAttack()
     {
-        if (attackTimer < 0)
+        if (attackTimer <= 0)
         {
             enemyPatrol.myPatrol = PatrolType.Attack;
             print("Fish Attack");
@@ -48,7 +51,7 @@ public class EnemyAttack : GameBehaviour
 
     public IEnumerator FrogAttack()
     {
-        if(attackTimer < 0)
+        if(attackTimer <= 0)
         {
             enemyPatrol.myPatrol = PatrolType.Attack;
             print("Frog Attack");
