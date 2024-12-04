@@ -213,7 +213,7 @@ public class PlayerController : GameBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //If touching ground, isGrounded is true.
-        if (collision.gameObject.CompareTag("Ground") && !isSwimming && !isClimbing)
+        if (collision.gameObject.CompareTag("Ground") && !isSwimming)
         {
             isGrounded = true;
         }
@@ -242,6 +242,7 @@ public class PlayerController : GameBehaviour
             isGrounded = false;
             anim.SetFloat("Speed", 0f);
             anim.SetBool("isJumping", true);
+            anim.SetBool("isGrounded", false);
         }
     }
 
@@ -635,6 +636,7 @@ public class PlayerController : GameBehaviour
             canWallJump = false;
             isTouchingWall = false;
             anim.SetBool("isJumping", true);
+            anim.SetBool("isClimbing", false);
             wallJumpTimer = 0.5f;
             _AM.PlaySFX("Jump");
         }

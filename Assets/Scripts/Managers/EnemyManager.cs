@@ -42,19 +42,31 @@ public class EnemyManager : Singleton<EnemyManager>
 
     void ToggleEnemies(GameObject patrol)
     {
-        // Calculate the distance between the enemy and the player (Edit: turns out that this is checking the distance of the enemies parent object and not the enemy)
+        // Calculate the distance between the enemy and the player
         float distance = Vector2.Distance(patrol.transform.position, player.position);
         bool isActive = distance <= activationDistance;
 
+        EnemyPatrol ePatrol = patrol.GetComponent<EnemyPatrol>();
+        NewFish fish = patrol.GetComponent<NewFish>();
+
         //If isActive, enemy is active. If not, then the enemy is inactive.
-        if (isActive)
+        if (isActive && ePatrol != null)
         {
-            patrol.SetActive(true);
+            ePatrol.ToggleComponents(true);
         }
-        else
+        else if (!isActive && ePatrol != null)
         {
-            patrol.SetActive(false);
+            ePatrol.ToggleComponents(false);
         }
+        if(isActive && fish != null)
+        {
+            fish.ToggleComponents(true);
+        }
+        else if(!isActive && fish != null)
+        {
+            fish.ToggleComponents(false);
+        }
+
     }
 
 }
