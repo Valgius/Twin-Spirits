@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadScene: {fileID: 401182395}
-  scene: TitleScene
+  scene: CreditsScene
 --- !u!114 &1604196750
 MonoBehaviour:
   m_ObjectHideFlags: 0
