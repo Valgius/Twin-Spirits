@@ -62,6 +62,7 @@ public class PlayerSwitch : GameBehaviour
         playerLeaf.GetComponent<PlayerController>().enabled = true;
         playerLeaf.GetComponent<PlayerRespawn>().enabled = true;
         playerLeaf.GetComponent<BoxCollider2D>().enabled = true;
+        playerLeaf.GetComponent<CapsuleCollider2D>().enabled = true;
         playerLeafUI.SetActive(true);
         playerLeafCamera.SetActive(true);
 
@@ -78,10 +79,9 @@ public class PlayerSwitch : GameBehaviour
         seaRb.constraints = RigidbodyConstraints2D.FreezeAll;
         leafRb.constraints = RigidbodyConstraints2D.None;
         leafRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        _EM.player = playerLeaf.transform;
         yield return new WaitForSeconds(2);
         leafRb.AddForce(Vector2.down, ForceMode2D.Impulse);
-        _EM.player = playerLeaf.transform;
-
         CheckMusic();
     }
 
@@ -91,6 +91,7 @@ public class PlayerSwitch : GameBehaviour
         playerLeaf.GetComponent<PlayerController>().enabled = false;
         playerLeaf.GetComponent<PlayerRespawn>().enabled = false;
         playerLeaf.GetComponent<BoxCollider2D>().enabled = false;
+        playerLeaf.GetComponent<CapsuleCollider2D>().enabled = false;
         playerLeafUI.SetActive(false);
         playerLeafCamera.SetActive(false);
 
@@ -107,10 +108,9 @@ public class PlayerSwitch : GameBehaviour
         leafRb.constraints = RigidbodyConstraints2D.FreezeAll;
         seaRb.constraints = RigidbodyConstraints2D.None;
         seaRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        _EM.player = playerSea.transform;
         yield return new WaitForSeconds(2);
         seaRb.AddForce(Vector2.down, ForceMode2D.Impulse);
-        _EM.player = playerSea.transform;
-
         CheckMusic();
     }
 

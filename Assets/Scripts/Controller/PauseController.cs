@@ -22,7 +22,7 @@ public class PauseController : GameBehaviour
         pausePanel.SetActive(paused);
         audioMenu = false;
         audioPanel.SetActive(audioMenu);
-    Time.timeScale = 1;
+        Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         controlManager = FindObjectOfType<ControllerMenuManager>();
