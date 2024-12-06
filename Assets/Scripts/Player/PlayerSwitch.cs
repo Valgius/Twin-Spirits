@@ -20,6 +20,8 @@ public class PlayerSwitch : GameBehaviour
     public GameObject musicTriggerObj;
     private MusicTrigger[] musicTriggers;
 
+    public AssetManager assetManager;
+
     FadeOut fadeOut;
 
     public bool isLeafActive;
@@ -81,6 +83,7 @@ public class PlayerSwitch : GameBehaviour
         yield return new WaitForSeconds(2);
         leafRb.AddForce(Vector2.down, ForceMode2D.Impulse);
         _EM.player = playerLeaf.transform;
+        _AsM.player = playerLeaf.transform;
 
         CheckMusic();
     }
@@ -110,6 +113,7 @@ public class PlayerSwitch : GameBehaviour
         yield return new WaitForSeconds(2);
         seaRb.AddForce(Vector2.down, ForceMode2D.Impulse);
         _EM.player = playerSea.transform;
+        _AsM.player = playerSea.transform;
 
         CheckMusic();
     }

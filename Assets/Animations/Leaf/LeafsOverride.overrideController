@@ -8,4 +8,20 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: LeafsOverride
   m_Controller: {fileID: 9100000, guid: 11208535428d2c24dad4be228f763b56, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: ac990749e583fe944a94ee4e0952e46c, type: 2}
+    m_OverrideClip: {fileID: 0}
+  - m_OriginalClip: {fileID: 7400000, guid: 12703bec5cafb7a4ea96d6dc49807c05, type: 2}
+    m_OverrideClip: {fileID: 0}
+  - m_OriginalClip: {fileID: 7400000, guid: be4654f5ae22d75488a99cbca1453094, type: 2}
+    m_OverrideClip: {fileID: 0}
+  - m_OriginalClip: {fileID: 7400000, guid: dca7fefa6a981014c8e8d272a164cb10, type: 2}
+    m_OverrideClip: {fileID: 0}
+  - m_OriginalClip: {fileID: 7400000, guid: dda2c4399366fd246b0aa2014a703541, type: 2}
+    m_OverrideClip: {fileID: 0}
+  - m_OriginalClip: {fileID: 7400000, guid: 80fd23f29d3b89b40af7fe26fafa0828, type: 2}
+    m_OverrideClip: {fileID: 0}
+  - m_OriginalClip: {fileID: 7400000, guid: 85ad6b955093e5241b371accba311be5, type: 2}
+    m_OverrideClip: {fileID: 0}
+  - m_OriginalClip: {fileID: 7400000, guid: 4be393eb02e64304a8a884da9ad554e4, type: 2}
+    m_OverrideClip: {fileID: 0}
