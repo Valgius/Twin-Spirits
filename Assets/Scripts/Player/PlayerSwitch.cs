@@ -15,6 +15,9 @@ public class PlayerSwitch : GameBehaviour
     public Rigidbody2D seaRb;
     public Rigidbody2D leafRb;
 
+    PlayerController playerControllerSea;
+    PlayerController playerControllerLeaf;
+
     public Cinemachine.CinemachineVirtualCamera seaCamera;
 
     public GameObject musicTriggerObj;
@@ -28,6 +31,8 @@ public class PlayerSwitch : GameBehaviour
 
     void Start()
     {
+        playerControllerSea = playerSea.GetComponent<PlayerController>();
+        playerControllerLeaf = playerLeaf.GetComponent<PlayerController>();
         isLeafActive = true;
         StartCoroutine(ActivateLeaf());
         Physics2D.IgnoreCollision(playerSea.GetComponent<BoxCollider2D>(), playerLeaf.GetComponent<BoxCollider2D>());
@@ -71,6 +76,7 @@ public class PlayerSwitch : GameBehaviour
         playerSea.GetComponent<BoxCollider2D>().enabled = false;
         playerSeaUI.SetActive(false);
         playerSeaCamera.SetActive(false);
+        playerControllerSea.breathTimer = playerControllerSea.maxBreathTimer;
         
         seaCamera.Priority = 5;
 
