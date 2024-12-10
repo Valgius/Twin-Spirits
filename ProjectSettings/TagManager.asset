@@ -19,6 +19,7 @@ TagManager:
   - CheckpointLeaf
   - CheckpointSea
   - Disappear
+  - Asset
   layers:
   - Default
   - TransparentFX

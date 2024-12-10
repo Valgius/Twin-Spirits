@@ -66,7 +66,5 @@ public class EnemyManager : Singleton<EnemyManager>
         {
             fish.ToggleComponents(false);
         }
-
     }
-
 }
