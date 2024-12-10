@@ -12,7 +12,9 @@ public class VolumeSettings : MonoBehaviour
 
     private void Start()
     {
-        if(PlayerPrefs.HasKey("musicVolume"))
+        SetSliders();
+
+        if (PlayerPrefs.HasKey("musicVolume"))
         {
             LoadVolume();
         }
@@ -22,7 +24,16 @@ public class VolumeSettings : MonoBehaviour
             SetAmbienceVolume();
             SetSFXVolume();
         }
+    }
 
+    public void SetSliders()
+    {
+        if (musicSlider == null)
+            musicSlider = GameObject.Find("MusicSlider").GetComponent<Slider>();
+        if (ambienceSlider == null)
+            ambienceSlider = GameObject.Find("AmbienceSlider").GetComponent<Slider>();
+        if (SFXSlider == null)
+            SFXSlider = GameObject.Find("SFXSlider").GetComponent<Slider>();
     }
 
     public void SetMusicVolume()
@@ -36,7 +47,7 @@ public class VolumeSettings : MonoBehaviour
     {
         float volume = ambienceSlider.value;
         myMixer.SetFloat("Ambience", Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat("AmbienceVolume", volume);
+        PlayerPrefs.SetFloat("ambienceVolume", volume);
     }
 
     public void SetSFXVolume()
@@ -50,6 +61,7 @@ public class VolumeSettings : MonoBehaviour
     {
         musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
         SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume");
+        ambienceSlider.value = PlayerPrefs.GetFloat("ambienceVolume");
 
         SetMusicVolume();
         SetAmbienceVolume();

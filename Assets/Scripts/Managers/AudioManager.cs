@@ -13,7 +13,6 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] AudioSource SFXSource;
 
     [SerializeField] AudioMixer audioMixer;
-    //[SerializeField] string musicGroupName = "Music";
 
     public void PlaySFX(string name)
     {
