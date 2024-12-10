@@ -59,6 +59,8 @@ public class OrbManager : Singleton<OrbManager>
         orbLeaf.SetActive(false);
         tutorial.DoubleJumpTutorial();
         playerLeafController.ToggleHasLeafOrb();
+        playerLeafController.leafOrbLight.SetActive(true);
+        
     }
 
     public void LeafSeaOrbCollision()
@@ -81,5 +83,6 @@ public class OrbManager : Singleton<OrbManager>
         orbSea.SetActive(false);
         tutorial.DashTutorial();
         playerSeaController.ToggleHasSeaOrb();
+        playerSeaController.seaOrbLight.SetActive(true);
     }
 }

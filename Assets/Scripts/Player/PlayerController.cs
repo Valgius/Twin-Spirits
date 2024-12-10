@@ -85,6 +85,10 @@ public class PlayerController : GameBehaviour
     [Header("Death")]
     FadeOut fadeOut;
 
+    [Header("Glow")]
+    public GameObject seaOrbLight;
+    public GameObject leafOrbLight;
+
     private enum MovementState { idle, running, jumping, falling, swimming, climbing}
 
     
@@ -101,6 +105,9 @@ public class PlayerController : GameBehaviour
         fadeOut = FindObjectOfType<FadeOut>();
         manager = FindObjectOfType<CheckpointManager>();
         pausePanel = FindObjectOfType<PauseController>();
+        seaOrbLight.SetActive(false);
+        leafOrbLight.SetActive(false);
+
     }
 
     void Update()

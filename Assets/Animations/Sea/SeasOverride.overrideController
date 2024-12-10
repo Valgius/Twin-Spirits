@@ -9,11 +9,11 @@ AnimatorOverrideController:
   m_Name: SeasOverride
   m_Controller: {fileID: 9100000, guid: 1611244113e1c4d4fa6783e2d3ff4a03, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 625db6c18ad06704b82373ce19ab5a83, type: 2}
-    m_OverrideClip: {fileID: 0}
   - m_OriginalClip: {fileID: 7400000, guid: 00e2ad09ff9d01943a8c62e59390c61d, type: 2}
     m_OverrideClip: {fileID: 0}
   - m_OriginalClip: {fileID: 7400000, guid: 4be393eb02e64304a8a884da9ad554e4, type: 2}
+    m_OverrideClip: {fileID: 0}
+  - m_OriginalClip: {fileID: 7400000, guid: 625db6c18ad06704b82373ce19ab5a83, type: 2}
     m_OverrideClip: {fileID: 0}
   - m_OriginalClip: {fileID: 7400000, guid: 7e1ad349b9e37ac46a77befb2d71d21e, type: 2}
     m_OverrideClip: {fileID: 0}
