@@ -8,6 +8,7 @@ public class SceneSwitchTrigger : MonoBehaviour
     public int switchNumber;
     public bool hasSwitched = false;
     public float sceneDelay;
+    public bool finalSwitch;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class SceneSwitchTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (hasSwitched == true)
+        if (hasSwitched == true && !finalSwitch)
         {
             gameObject.SetActive(false);
         }

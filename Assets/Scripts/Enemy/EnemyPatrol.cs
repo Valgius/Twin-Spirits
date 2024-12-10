@@ -131,7 +131,7 @@ public class EnemyPatrol : GameBehaviour
         //Decrement our detect time
         detectCountdown -= Time.deltaTime;
 
-        if (distToClosest <= detectDistance)
+        if (distToClosest <= detectDistance && playerLeaf.GetComponent<PlayerController>().isActiveAndEnabled)
         {
 
             switch (myEnemy)
@@ -161,7 +161,7 @@ public class EnemyPatrol : GameBehaviour
             case EnemyType.Frog:
                 if (isGrounded)
                     enemyAnim.SetBool("isJumping", false);
-                Wait(0.5f);
+                StartCoroutine(Wait(0.5f));
                 FrogMove();
                 break;
         }

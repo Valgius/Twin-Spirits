@@ -8,6 +8,7 @@ public class CheckPoint : GameBehaviour
     private PlayerRespawn playerSeaRespawn;
     public GameObject active;
     public GameObject inActive;
+    [SerializeField] private GameObject respawnPos;
 
     public bool usedCheckPoint;
     bool touchingCheckpoint;
@@ -25,7 +26,7 @@ public class CheckPoint : GameBehaviour
         playerSeaRespawn = GameObject.Find("PlayerSea").GetComponent<PlayerRespawn>();
         manager = FindObjectOfType<CheckpointManager>();
         tutorial = FindObjectOfType<Tutorial>();
-        respawnPoint = transform.position;
+        respawnPoint = respawnPos.transform.position;
     }
 
     private void Update()
@@ -47,12 +48,12 @@ public class CheckPoint : GameBehaviour
 
         if (collision.gameObject.name == "PlayerLeaf")
         {
-            playerLeafRespawn.respawnPoint = transform.position;
+            playerLeafRespawn.respawnPoint = respawnPoint;
             print("hit checkpoint leaf");
         }
         if(collision.gameObject.name == "PlayerSea")
         {
-            playerSeaRespawn.respawnPoint = transform.position;
+            playerSeaRespawn.respawnPoint = respawnPoint;
             print("hit checkpoint sea");
         }
 

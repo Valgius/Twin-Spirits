@@ -7,6 +7,7 @@ public class FallingPlatform : GameBehaviour
     public float fallDelay = 1f;
     
     //private float destroyDelay = 2f;
+    Animator animator;
 
     public float respawnDelay = 2f;
 
@@ -17,6 +18,7 @@ public class FallingPlatform : GameBehaviour
     public void Start()
     {
         startingPos = gameObject.transform.position;
+        animator = GetComponent<Animator>();
        // Debug.Log(startingPos);
     }
 
@@ -31,6 +33,7 @@ public class FallingPlatform : GameBehaviour
     private IEnumerator PlatformFall()
     {
         yield return new WaitForSeconds(fallDelay);
+        animator.SetTrigger("StartFall");
         rb.bodyType = RigidbodyType2D.Dynamic;
         _AM.PlaySFX("Platform Fall");
         

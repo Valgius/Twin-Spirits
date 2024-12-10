@@ -81,6 +81,7 @@ public class PlayerHealth : GameBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //When player touches an enemy projectile, player takes damage.
         if (collision.gameObject.tag == "Enemy")
         {
             EnemyHit();
@@ -95,7 +96,7 @@ public class PlayerHealth : GameBehaviour
         if(health > 0 && hitCooldown <= 0)
         {
             _AM.PlaySFX("Player Hit");
-            health -= 1;
+            this.health -= 1;
             hitCooldown = 1;
             screenShake = 0.5f;
             damage.SetTrigger("Damage");

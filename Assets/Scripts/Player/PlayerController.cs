@@ -13,7 +13,7 @@ public class PlayerController : GameBehaviour
     private PlayerHealth playerHealth;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask climbLayer;
-    public GameObject pausePanel;
+    PauseController pausePanel;
     CheckpointManager manager;
     Tutorial tutorial;
 
@@ -100,6 +100,7 @@ public class PlayerController : GameBehaviour
         ToggleBreath(false);
         fadeOut = FindObjectOfType<FadeOut>();
         manager = FindObjectOfType<CheckpointManager>();
+        pausePanel = FindObjectOfType<PauseController>();
     }
 
     void Update()
@@ -107,7 +108,7 @@ public class PlayerController : GameBehaviour
         Dying();
 
         //If the player is dashing, dying or if the player pauses, dont run anything after.
-        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie || manager.isPaused)
+        if (isDashing || pausePanel.paused || fadeOut.playerDie || manager.isPaused)
             return;
 
         Movement();
@@ -162,7 +163,7 @@ public class PlayerController : GameBehaviour
     void FixedUpdate()
     {
         //If player is dashing, dying or pausing the game, ignore the rest of code.
-        if (isDashing || pausePanel.activeSelf || fadeOut.playerDie || manager.isPaused)
+        if (isDashing || pausePanel.paused || fadeOut.playerDie || manager.isPaused)
             return;
 
         Swimming();
