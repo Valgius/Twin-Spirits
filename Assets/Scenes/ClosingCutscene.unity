@@ -767,6 +767,7 @@ GameObject:
   - component: {fileID: 1604196750}
   - component: {fileID: 1604196749}
   - component: {fileID: 1604196748}
+  - component: {fileID: 1604196754}
   m_Layer: 5
   m_Name: SceneController
   m_TagString: Untagged
@@ -801,8 +802,6 @@ PlayableDirector:
     value: {fileID: 1037323287}
   - key: {fileID: -1142439420126485782, guid: 75d28dc63494ad5418717b0d63c1d556, type: 2}
     value: {fileID: 42668166}
-  - key: {fileID: -2411513094740973580, guid: 75d28dc63494ad5418717b0d63c1d556, type: 2}
-    value: {fileID: 1746239984}
   - key: {fileID: -8313716814204808696, guid: 75d28dc63494ad5418717b0d63c1d556, type: 2}
     value: {fileID: 1037323287}
   - key: {fileID: 4504991724996960581, guid: 75d28dc63494ad5418717b0d63c1d556, type: 2}
@@ -907,6 +906,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1604196754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604196747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f44d0193e03b5c43b5c0eea9b89dc88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skipButton: {fileID: 1746239984}
 --- !u!1 &1746239984
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,7 +937,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1746239985
 RectTransform:
   m_ObjectHideFlags: 0
