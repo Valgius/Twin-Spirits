@@ -26,7 +26,11 @@ public class CheckPoint : GameBehaviour
         playerSeaRespawn = GameObject.Find("PlayerSea").GetComponent<PlayerRespawn>();
         manager = FindObjectOfType<CheckpointManager>();
         tutorial = FindObjectOfType<Tutorial>();
-        respawnPoint = respawnPos.transform.position;
+        if(respawnPos != null)
+        {
+            respawnPoint = respawnPos.transform.position;
+        }
+        
     }
 
     private void Update()
