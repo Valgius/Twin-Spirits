@@ -86,6 +86,7 @@ public class PlayerSwitch : GameBehaviour
         leafRb.constraints = RigidbodyConstraints2D.None;
         leafRb.constraints = RigidbodyConstraints2D.FreezeRotation;
         _EM.player = playerLeaf.transform;
+        _AsM.player = playerLeaf.transform;
         yield return new WaitForSeconds(2);
         leafRb.AddForce(Vector2.down, ForceMode2D.Impulse);
         CheckMusic();
@@ -115,6 +116,7 @@ public class PlayerSwitch : GameBehaviour
         seaRb.constraints = RigidbodyConstraints2D.None;
         seaRb.constraints = RigidbodyConstraints2D.FreezeRotation;
         _EM.player = playerSea.transform;
+        _AsM.player = playerSea.transform;
         yield return new WaitForSeconds(2);
         seaRb.AddForce(Vector2.down, ForceMode2D.Impulse);
         CheckMusic();
