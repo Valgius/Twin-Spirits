@@ -229,6 +229,8 @@ public class PlayerController : GameBehaviour
         if (collision.gameObject.CompareTag("Ground") && !isSwimming)
         {
             isGrounded = true;
+            anim.SetBool("isGrounded", true);
+            anim.SetBool("isJumping", false);
         }
     }
 
@@ -253,7 +255,7 @@ public class PlayerController : GameBehaviour
         if (collision.gameObject.CompareTag("Ground") && !isSwimming)
         {
             isGrounded = false;
-            anim.SetFloat("Speed", 0f);
+            //anim.SetFloat("Speed", 0f);
             anim.SetBool("isJumping", true);
             anim.SetBool("isGrounded", false);
         }
