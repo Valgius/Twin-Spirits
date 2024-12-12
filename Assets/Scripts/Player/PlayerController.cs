@@ -157,11 +157,11 @@ public class PlayerController : GameBehaviour
             breathRefill = false;
 
         //DEV TEST KEY FOR ORBS.
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            hasSeaOrb = true;
-            hasLeafOrb = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    hasSeaOrb = true;
+        //    hasLeafOrb = true;
+        //}
 
         //Set the yVelocity in the Animator
         anim.SetFloat("yVelocity", playerRb.velocity.y);

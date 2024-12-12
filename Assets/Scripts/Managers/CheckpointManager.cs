@@ -31,10 +31,10 @@ public class CheckpointManager : GameBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            CheckpointSelect();
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    CheckpointSelect();
+        //}
         
     }
     
