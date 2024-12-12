@@ -36,7 +36,7 @@ public class NewFish : GameBehaviour
     [SerializeField] private float activationDistance = 50;
 
     [Header("Timers")]
-    [SerializeField] private float detectTime = 5f;
+    public float detectTime = 2f;
     [SerializeField] private float detectCountdown = 1f;
     [SerializeField] private float attackTimer = 0;
 
@@ -108,7 +108,7 @@ public class NewFish : GameBehaviour
             attackTimer -= Time.deltaTime; 
         }
 
-        ReturnToPatrol();
+        StartCoroutine(ReturnToPatrol());
     }
 
     void LookAtDestination()
@@ -131,13 +131,15 @@ public class NewFish : GameBehaviour
             return;
     }
 
-    void ReturnToPatrol()
+    IEnumerator ReturnToPatrol()
     {
         //When player dies return to patrol.
         if (playerHealth.health <= 0)
         {
+            mainAnim.SetTrigger("isAttacking");
+            yield return new WaitForSeconds(1);
             myPatrol = PatrolType.Patrol;
-            targetPoint = startPoint.transform;
+            //targetPoint = startPoint.transform;
         }
     }
 
@@ -213,7 +215,7 @@ public class NewFish : GameBehaviour
         if (Vector2.Distance(transform.position, playerSea.transform.position) > detectDistance || newEnemyChaseZone.canFollow == false)
         {
             targetPoint = startPoint.transform;
-            myPatrol = PatrolType.Patrol;
+            myPatrol = PatrolType.Detect;
         }
     }
 
@@ -223,18 +225,18 @@ public class NewFish : GameBehaviour
         if (attackTimer <= 0 && playerHealth.health > 0)
         {
             print("hit");
-            mainAnim.SetBool("IsAttacking", true);
+            mainAnim.SetTrigger("isAttacking");
             _AM.PlaySFX("Fish Attack");
             playerHealth.EnemyHit();
             PlayAttackAnimationForChildren();
             attackTimer = 1.5f;
+            
         }
 
         //Return to chase when leaving attackDistance.
         if(Vector2.Distance(transform.position, playerSea.position) > attackDistance)
         {
             myPatrol = PatrolType.Chase;
-            mainAnim.SetBool("IsAttacking", false);
             PlayMoveAnimationForChildren();
         }
     }

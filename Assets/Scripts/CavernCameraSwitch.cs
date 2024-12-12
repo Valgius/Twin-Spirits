@@ -16,7 +16,7 @@ public class CavernCameraSwitch : GameBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            _AsM.ToggleScriptUse(false);
+            //_AsM.ToggleScriptUse(false);
             cavernCameraActive = true;
             StartCoroutine(SwitchToCavern());
             print("cavern cam");
@@ -33,6 +33,6 @@ public class CavernCameraSwitch : GameBehaviour
         cavernCameraActive = false;
         this.enabled = false;
         yield return new WaitForSeconds(3);
-        _AsM.ToggleScriptUse(true);
+        //_AsM.ToggleScriptUse(true);
     }
 }
