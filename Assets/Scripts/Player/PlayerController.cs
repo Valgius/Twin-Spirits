@@ -29,6 +29,7 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float doubleJumpForce = 1f;
     [SerializeField] private float gravity = 1f;
     [SerializeField] private float maxFallVelocity = 30f;
+    public bool canMove = true;
     public bool isGrounded;
     public float stepRate = 0.5f;
     float stepCooldown;
@@ -107,7 +108,7 @@ public class PlayerController : GameBehaviour
         pausePanel = FindObjectOfType<PauseController>();
         seaOrbLight.SetActive(false);
         leafOrbLight.SetActive(false);
-
+        canMove = true;
     }
 
     void Update()
@@ -118,7 +119,11 @@ public class PlayerController : GameBehaviour
         if (isDashing || pausePanel.paused || fadeOut.playerDie || manager.isPaused)
             return;
 
-        Movement();
+        if (canMove)
+        {
+            Movement();
+        }
+        
         Dashing();
 
         if (isGrounded)
@@ -230,7 +235,7 @@ public class PlayerController : GameBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         //When the player is touching an enemy and the hit cooldown is zero, run the knockback script.
-        if (collision.gameObject.CompareTag("Enemy") && playerHealth.hitCooldown <= 0)
+        if (collision.gameObject.CompareTag("Enemy") && playerHealth.hitCooldown <= 0 && !isDashing)
         {
             //Assign knockback values
             Vector2 knockback = new Vector2(transform.position.x - collision.transform.position.x, transform.position.y - collision.transform.position.y);
@@ -300,7 +305,7 @@ public class PlayerController : GameBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         //Consult OnCollisionStay2D for details.
-        if (other.gameObject.CompareTag("Enemy") && playerHealth.hitCooldown <= 0)
+        if (other.gameObject.CompareTag("Enemy") && playerHealth.hitCooldown <= 0 && !isDashing)
         {
             //Assign knockback values
             Vector2 knockback = new Vector2(transform.position.x - other.transform.position.x, transform.position.y - other.transform.position.y);

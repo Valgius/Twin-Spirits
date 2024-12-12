@@ -8,6 +8,7 @@ public class NewFish : GameBehaviour
     public PatrolType myPatrol;
     public BoxCollider2D fishCollider;
     public Rigidbody2D rb;
+    PlayerController playerController;
 
     [Header("Patrol Points")]
     public Transform[] patrolPoints;
@@ -56,6 +57,7 @@ public class NewFish : GameBehaviour
         playerHealth = playerSea.GetComponent<PlayerHealth>();
         newEnemyChaseZone = patrolArea.GetComponent<NewEnemyChaseZone>();
         patrolZoneCollider = patrolArea.GetComponent<CircleCollider2D>();
+        playerController = playerSea.GetComponent<PlayerController>();
         mainAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         detectCountdown = detectTime;
@@ -222,7 +224,7 @@ public class NewFish : GameBehaviour
     void Attack()
     {
         //Attack player if attack timer is 0 and player health is greater than 0
-        if (attackTimer <= 0 && playerHealth.health > 0)
+        if (attackTimer <= 0 && playerHealth.health > 0 && !playerController.isDashing)
         {
             print("hit");
             mainAnim.SetTrigger("isAttacking");
