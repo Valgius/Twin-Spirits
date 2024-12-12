@@ -32,17 +32,17 @@ public class AssetManager : Singleton<AssetManager>
         }
 
         // Loop through each platform/climb and deactivate when far away.
-        foreach (GameObject asset in coreList)
-        {
-            // Loop through each child of the asset.
-            foreach (Transform child in asset.transform)
-            {
-                if (useScript)
-                    ToggleAssets(child.gameObject);
-                else
-                    AssetActive (child.gameObject, true) ;
-            }
-        }
+        //foreach (GameObject asset in coreList)
+        //{
+        //    // Loop through each child of the asset.
+        //    foreach (Transform child in asset.transform)
+        //    {
+        //        if (useScript)
+        //            ToggleAssets(child.gameObject);
+        //        else
+        //            AssetActive (child.gameObject, true) ;
+        //    }
+        //}
     }
 
     void ToggleAssets(GameObject asset)
