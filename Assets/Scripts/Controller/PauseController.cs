@@ -21,7 +21,6 @@ public class PauseController : GameBehaviour
     {
         volumeSettings = FindObjectOfType<VolumeSettings>();
         controlManager = FindObjectOfType<ControllerMenuManager>();
-        CheckSliders();
         paused = false;
         pausePanel.SetActive(paused);
         audioMenu = false;
@@ -35,13 +34,6 @@ public class PauseController : GameBehaviour
     {
         if (Input.GetButtonDown("Pause"))
             Pause();
-    }
-
-    private void CheckSliders()
-    {
-        pausePanel.SetActive(true);
-        audioPanel.SetActive(true);
-        volumeSettings.SetSliders();
     }
 
     public void Pause()

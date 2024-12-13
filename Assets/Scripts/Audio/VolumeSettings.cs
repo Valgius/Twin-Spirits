@@ -11,10 +11,8 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] private Slider ambienceSlider;
     [SerializeField] private Slider SFXSlider;
 
-    private void Start()
+    /*private void Start()
     {
-        SetSliders();
-
         if (PlayerPrefs.HasKey("musicVolume"))
         {
             LoadVolume();
@@ -25,17 +23,7 @@ public class VolumeSettings : MonoBehaviour
             SetAmbienceVolume();
             SetSFXVolume();
         }
-    }
-
-    public void SetSliders()
-    {
-        if (musicSlider == null)
-            musicSlider = GameObject.Find("MusicSlider").GetComponent<Slider>();
-        if (ambienceSlider == null)
-            ambienceSlider = GameObject.Find("AmbienceSlider").GetComponent<Slider>();
-        if (SFXSlider == null)
-            SFXSlider = GameObject.Find("SFXSlider").GetComponent<Slider>();
-    }
+    }*/
 
     public void SetMusicVolume()
     {
