@@ -413,9 +413,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1989823272}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: setSliders
+      - m_Target: {fileID: 1911933571}
+        m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
+        m_MethodName: LoadVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1977,11 +1977,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623161137}
   m_CullTransparentMesh: 1
---- !u!1 &625873179 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1054506164315461038, guid: 3efa3f2018dd9a046944a95b37e3b15c, type: 3}
-  m_PrefabInstance: {fileID: 1848400927}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &633153334
 GameObject:
   m_ObjectHideFlags: 0
@@ -5420,6 +5415,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3772118071791274528, guid: 3efa3f2018dd9a046944a95b37e3b15c, type: 3}
+      propertyPath: SFXSlider
+      value: 
+      objectReference: {fileID: 2525908574838162395}
+    - target: {fileID: 3772118071791274528, guid: 3efa3f2018dd9a046944a95b37e3b15c, type: 3}
+      propertyPath: musicSlider
+      value: 
+      objectReference: {fileID: 8688007487356609445}
+    - target: {fileID: 3772118071791274528, guid: 3efa3f2018dd9a046944a95b37e3b15c, type: 3}
+      propertyPath: ambienceSlider
+      value: 
+      objectReference: {fileID: 3454984324179002426}
     - target: {fileID: 5112266047270447435, guid: 3efa3f2018dd9a046944a95b37e3b15c, type: 3}
       propertyPath: dontDestroy
       value: 1
@@ -5427,10 +5434,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1054506164315461038, guid: 3efa3f2018dd9a046944a95b37e3b15c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1911933571}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3efa3f2018dd9a046944a95b37e3b15c, type: 3}
 --- !u!1 &1853477290
 GameObject:
@@ -5728,28 +5732,23 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5112266047270447435, guid: 3efa3f2018dd9a046944a95b37e3b15c, type: 3}
   m_PrefabInstance: {fileID: 1848400927}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 625873179}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4596c4b05c1d3b64bb93353891fea1eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1911933571
+--- !u!114 &1911933571 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3772118071791274528, guid: 3efa3f2018dd9a046944a95b37e3b15c, type: 3}
+  m_PrefabInstance: {fileID: 1848400927}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 625873179}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2912fb11d99e3e043a8b33400be9862b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMixer: {fileID: 24100000, guid: caf2909df47971e43b921cb53d552553, type: 2}
-  musicSlider: {fileID: 0}
-  ambienceSlider: {fileID: 0}
-  SFXSlider: {fileID: 0}
 --- !u!1 &1928986681
 GameObject:
   m_ObjectHideFlags: 0
@@ -5789,7 +5788,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -864, y: -446}
+  m_AnchoredPosition: {x: -827, y: -446}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1928986683
@@ -7039,7 +7038,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1911933568}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: ToggleSFX
+        m_MethodName: AmbienceVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1911933571}
+        m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
+        m_MethodName: SetSFXVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7414,7 +7425,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1911933568}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: ToggleAmbience
+        m_MethodName: AmbienceVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1911933571}
+        m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
+        m_MethodName: SetAmbienceVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8479,9 +8502,21 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1911933568}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: ToggleMusic
+      - m_Target: {fileID: 1911933571}
+        m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
+        m_MethodName: SetMusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1911933571}
+        m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
+        m_MethodName: SetMusicVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
