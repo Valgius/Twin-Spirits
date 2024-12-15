@@ -108,7 +108,7 @@ public class PlayerSwitch : GameBehaviour
         playerSeaUI.SetActive(true);
         playerSeaCamera.SetActive(true);
     
-        seaCamera.Priority = 11;
+        seaCamera.Priority = 13;
 
         isLeafActive = false;
 

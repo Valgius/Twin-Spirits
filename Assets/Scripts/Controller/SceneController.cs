@@ -20,5 +20,11 @@ public class SceneController : GameBehaviour
         }
         else
             return;
+
+        if (Input.GetKeyDown(KeyCode.C) && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            SceneManager.LoadScene("ClosingCutscene");
+            print("playclose");
+        }
     }
 }
