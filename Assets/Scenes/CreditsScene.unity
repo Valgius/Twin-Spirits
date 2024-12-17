@@ -382,7 +382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -6200}
+  m_AnchoredPosition: {x: 0, y: -6382}
   m_SizeDelta: {x: 1024, y: 304}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &242088213
@@ -635,6 +635,9 @@ MonoBehaviour:
 
 
 
+
+    Special Thanks
+
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f83ddb92e721b9342a2f229ca580286f, type: 2}
@@ -746,7 +749,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -5578}
+  m_AnchoredPosition: {x: 0, y: -5945}
   m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &547851046
@@ -922,7 +925,14 @@ MonoBehaviour:
 
     Baxter Dick Evans
 
-    Thomas Henderson Sumarta'
+    Thomas Henderson Sumarta
+
+
+
+    Billy
+    Green
+
+    Petr Joura'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f83ddb92e721b9342a2f229ca580286f, type: 2}
   m_sharedMaterial: {fileID: -6579702416799742933, guid: f83ddb92e721b9342a2f229ca580286f, type: 2}
