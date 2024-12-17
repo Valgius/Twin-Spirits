@@ -11,19 +11,13 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] private Slider ambienceSlider;
     [SerializeField] private Slider SFXSlider;
 
-    /*private void Start()
+    private void Start()
     {
         if (PlayerPrefs.HasKey("musicVolume"))
         {
             LoadVolume();
         }
-        else
-        {
-            SetMusicVolume();
-            SetAmbienceVolume();
-            SetSFXVolume();
-        }
-    }*/
+    }
 
     public void SetMusicVolume()
     {

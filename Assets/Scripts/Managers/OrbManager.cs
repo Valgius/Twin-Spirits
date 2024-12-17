@@ -26,6 +26,11 @@ public class OrbManager : Singleton<OrbManager>
     [Header("- Tutorial -")]
     private Tutorial tutorial;
 
+    [Header("- Object -")]
+    public GameObject statueStart;
+    public GameObject statueEnd;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +47,10 @@ public class OrbManager : Singleton<OrbManager>
         playerSeaController = playerSea.GetComponent<PlayerController>();
 
         tutorial = FindObjectOfType<Tutorial>();
+
+        //Activate Correct State
+        statueStart.SetActive(true);
+        statueEnd.SetActive(false);
     }
 
     public void SetOrbPanelActive(GameObject panel, Image panelImage, Sprite orbImage)
@@ -60,7 +69,10 @@ public class OrbManager : Singleton<OrbManager>
         tutorial.DoubleJumpTutorial();
         playerLeafController.ToggleHasLeafOrb();
         playerLeafController.leafOrbLight.SetActive(true);
-        
+
+        statueStart.SetActive(false);
+        statueEnd.SetActive(true);
+
     }
 
     public void LeafSeaOrbCollision()
