@@ -52,6 +52,7 @@ public class PlayerSwitch : GameBehaviour
 
     public void SwitchCharacter()
     {
+        fadeOut.playerDie = true;
 
         if (isLeafActive == true)
             StartCoroutine(ActivateSea());
@@ -88,6 +89,7 @@ public class PlayerSwitch : GameBehaviour
         _EM.player = playerLeaf.transform;
         //_AsM.player = playerLeaf.transform;
         yield return new WaitForSeconds(2);
+        fadeOut.playerDie = false;
         leafRb.AddForce(Vector2.down, ForceMode2D.Impulse);
         CheckMusic();
     }
@@ -118,6 +120,7 @@ public class PlayerSwitch : GameBehaviour
         _EM.player = playerSea.transform;
         //_AsM.player = playerSea.transform;
         yield return new WaitForSeconds(2);
+        fadeOut.playerDie = false;
         seaRb.AddForce(Vector2.down, ForceMode2D.Impulse);
         CheckMusic();
     }
