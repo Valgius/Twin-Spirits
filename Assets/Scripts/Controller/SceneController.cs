@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class SceneController : GameBehaviour
 {
+    public VideoPlayer cutscene;
     public GameObject loadScene;
     public string scene;
 
@@ -10,6 +12,18 @@ public class SceneController : GameBehaviour
     public void ReloadScene() => LoadScene(SceneManager.GetActiveScene().name);
     public void LoadTitle() => LoadScene("TitleScene");
     public void QuitGame() => Application.Quit();
+
+    private void Start()
+    {
+        Time.timeScale = 1;
+        if(cutscene != null)
+        {
+            cutscene.Play();
+            cutscene.loopPointReached += EndCutscene;
+            
+        }
+        
+    }
 
     private void Update()
     {
@@ -20,5 +34,10 @@ public class SceneController : GameBehaviour
         }
         else
             return;
+    }
+
+    void EndCutscene(VideoPlayer player)
+    {
+        loadScene.SetActive(true);
     }
 }

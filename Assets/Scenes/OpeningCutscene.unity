@@ -160,7 +160,7 @@ VideoPlayer:
   m_RenderMode: 1
   m_AspectRatio: 2
   m_DataSource: 0
-  m_TimeUpdateMode: 2
+  m_TimeUpdateMode: 1
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
   m_TargetAudioSources: []
@@ -759,7 +759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1037323288
 RectTransform:
   m_ObjectHideFlags: 0
@@ -847,7 +847,7 @@ PlayableDirector:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604196747}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: c8af296e2a9a75b449efc6832428389e, type: 2}
   m_InitialState: 1
@@ -877,6 +877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36548eeb9ef29ae4abb3e04e67398833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cutscene: {fileID: 42668167}
   loadScene: {fileID: 401182395}
   scene: FinalLevelScene
 --- !u!114 &1604196750
