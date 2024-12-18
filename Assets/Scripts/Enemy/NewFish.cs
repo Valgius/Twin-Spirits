@@ -8,7 +8,6 @@ public class NewFish : GameBehaviour
     public PatrolType myPatrol;
     public BoxCollider2D fishCollider;
     public Rigidbody2D rb;
-    PlayerController playerController;
 
     [Header("Patrol Points")]
     public Transform[] patrolPoints;
@@ -37,7 +36,7 @@ public class NewFish : GameBehaviour
     [SerializeField] private float activationDistance = 50;
 
     [Header("Timers")]
-    public float detectTime = 2f;
+    [SerializeField] private float detectTime = 5f;
     [SerializeField] private float detectCountdown = 1f;
     [SerializeField] private float attackTimer = 0;
 
@@ -57,7 +56,6 @@ public class NewFish : GameBehaviour
         playerHealth = playerSea.GetComponent<PlayerHealth>();
         newEnemyChaseZone = patrolArea.GetComponent<NewEnemyChaseZone>();
         patrolZoneCollider = patrolArea.GetComponent<CircleCollider2D>();
-        playerController = playerSea.GetComponent<PlayerController>();
         mainAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         detectCountdown = detectTime;
@@ -110,7 +108,7 @@ public class NewFish : GameBehaviour
             attackTimer -= Time.deltaTime; 
         }
 
-        StartCoroutine(ReturnToPatrol());
+        ReturnToPatrol();
     }
 
     void LookAtDestination()
@@ -133,15 +131,13 @@ public class NewFish : GameBehaviour
             return;
     }
 
-    IEnumerator ReturnToPatrol()
+    void ReturnToPatrol()
     {
         //When player dies return to patrol.
         if (playerHealth.health <= 0)
         {
-            mainAnim.SetTrigger("isAttacking");
-            yield return new WaitForSeconds(1);
             myPatrol = PatrolType.Patrol;
-            //targetPoint = startPoint.transform;
+            targetPoint = startPoint.transform;
         }
     }
 
@@ -217,28 +213,28 @@ public class NewFish : GameBehaviour
         if (Vector2.Distance(transform.position, playerSea.transform.position) > detectDistance || newEnemyChaseZone.canFollow == false)
         {
             targetPoint = startPoint.transform;
-            myPatrol = PatrolType.Detect;
+            myPatrol = PatrolType.Patrol;
         }
     }
 
     void Attack()
     {
         //Attack player if attack timer is 0 and player health is greater than 0
-        if (attackTimer <= 0 && playerHealth.health > 0 && !playerController.isDashing)
+        if (attackTimer <= 0 && playerHealth.health > 0)
         {
             print("hit");
-            mainAnim.SetTrigger("isAttacking");
+            mainAnim.SetBool("IsAttacking", true);
             _AM.PlaySFX("Fish Attack");
             playerHealth.EnemyHit();
             PlayAttackAnimationForChildren();
             attackTimer = 1.5f;
-            
         }
 
         //Return to chase when leaving attackDistance.
         if(Vector2.Distance(transform.position, playerSea.position) > attackDistance)
         {
             myPatrol = PatrolType.Chase;
+            mainAnim.SetBool("IsAttacking", false);
             PlayMoveAnimationForChildren();
         }
     }

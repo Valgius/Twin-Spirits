@@ -13,14 +13,11 @@ public class PauseController : GameBehaviour
     public bool audioMenu;
 
     ControllerMenuManager controlManager;
-    public VolumeSettings volumeSettings;
 
     [SerializeField] private GameObject firstPauseButton;
 
     private void Start()
     {
-        volumeSettings = FindObjectOfType<VolumeSettings>();
-        controlManager = FindObjectOfType<ControllerMenuManager>();
         paused = false;
         pausePanel.SetActive(paused);
         audioMenu = false;
@@ -28,6 +25,7 @@ public class PauseController : GameBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        controlManager = FindObjectOfType<ControllerMenuManager>();
     }
 
     void Update()

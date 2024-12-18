@@ -83,12 +83,12 @@ SpriteRenderer:
   m_SortingLayerID: -1226626201
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 325681496, guid: c5140eecf5c1630469cb73978dc9b642, type: 3}
+  m_Sprite: {fileID: -1789669936, guid: bd79e276db5dd774c805a4c68977b795, type: 3}
   m_Color: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.5404131, y: 2.56}
+  m_Size: {x: 2.5362372, y: 2.5500002}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -157,8 +157,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.5404131, y: 2.56}
-    newSize: {x: 2.5404131, y: 2.56}
+    oldSize: {x: 2.5362372, y: 2.5500002}
+    newSize: {x: 2.5362372, y: 2.5500002}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -232,8 +232,6 @@ MonoBehaviour:
   isKnockback: 0
   knockbackTimer: 0
   force: 5
-  seaOrbLight: {fileID: 0}
-  leafOrbLight: {fileID: 0}
 --- !u!96 &2546723653339653019
 TrailRenderer:
   serializedVersion: 3
@@ -5328,7 +5326,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 90
+  field of view: 34
   orthographic: 0
   orthographic size: 11
   m_Depth: 1

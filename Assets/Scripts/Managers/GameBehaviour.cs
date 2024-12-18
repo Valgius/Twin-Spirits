@@ -8,7 +8,7 @@ public class GameBehaviour : MonoBehaviour
     protected static UIManager _UI { get { return UIManager.INSTANCE; } }
     protected static AudioManager _AM { get { return AudioManager.INSTANCE; } }
     protected static OrbManager _OM { get { return OrbManager.INSTANCE; } }
-    //protected static AssetManager _AsM { get { return AssetManager.INSTANCE; } }
+    protected static AssetManager _AsM { get { return AssetManager.INSTANCE; } }
 
     //protected static PlayerController _PLAYER { get { return PlayerController.INSTANCE; } }
 

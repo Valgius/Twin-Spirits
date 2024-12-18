@@ -20,12 +20,5 @@ public class SceneController : GameBehaviour
         }
         else
             return;
-
-        //Skips Gameplay for Scene Testing
-       /* if (Input.GetKeyDown(KeyCode.C) && Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            SceneManager.LoadScene("ClosingCutscene");
-            print("playclose");
-        } */
     }
 }

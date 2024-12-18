@@ -13,13 +13,13 @@ public class Tutorial : GameBehaviour
     {
         animator = GetComponent<Animator>();
         animator.SetTrigger("Enable");
-        text.text = "Press A and D to move left or right.";
+        text.text = "Press A and D (Left Stick) to move left or right.";
     }
 
     public void JumpTutorial()
     {
         animator.SetTrigger("Enable");
-        text.text = "Press Space to Jump.";
+        text.text = "Press Space (A Button) to Jump.";
     }
 
     public void DoubleJumpTutorial()
@@ -31,7 +31,7 @@ public class Tutorial : GameBehaviour
     public void DashTutorial()
     {
         animator.SetTrigger("Enable");
-        text.text = "Sea Orb obtained! Press Shift to dash while underwater.";
+        text.text = "Sea Orb obtained! Press Shift (B button) to dash while underwater.";
     }
 
     public void CheckpointTutorial()
@@ -43,12 +43,12 @@ public class Tutorial : GameBehaviour
     public void SwimTutorial()
     {
         animator.SetTrigger("Enable");
-        text.text = "Use WASD to swim in any direction.";
+        text.text = "Use WASD (Left Stick) to swim in any direction.";
     }
 
     public void CheckpointTeleportTutorial(bool enable)
     {
         animator.SetBool("CheckpointHit", enable);
-        checkpointText.text = "Press E to teleport between checkpoints.";
+        checkpointText.text = "Press E (X Button) to teleport between checkpoints.";
     }
 }

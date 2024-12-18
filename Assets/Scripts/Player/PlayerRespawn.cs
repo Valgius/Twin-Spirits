@@ -28,10 +28,10 @@ public class PlayerRespawn : GameBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Death"))
+        if (collision.gameObject.tag == "Death")
         {
-            playerHealth.health = 1;
-            playerHealth.EnemyHit();
+            fadeOut.playerDie = true;
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -11,9 +10,9 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] private Slider ambienceSlider;
     [SerializeField] private Slider SFXSlider;
 
-    /*private void Start()
+    private void Start()
     {
-        if (PlayerPrefs.HasKey("musicVolume"))
+        if(PlayerPrefs.HasKey("musicVolume"))
         {
             LoadVolume();
         }
@@ -23,7 +22,8 @@ public class VolumeSettings : MonoBehaviour
             SetAmbienceVolume();
             SetSFXVolume();
         }
-    }*/
+
+    }
 
     public void SetMusicVolume()
     {
@@ -36,7 +36,7 @@ public class VolumeSettings : MonoBehaviour
     {
         float volume = ambienceSlider.value;
         myMixer.SetFloat("Ambience", Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat("ambienceVolume", volume);
+        PlayerPrefs.SetFloat("AmbienceVolume", volume);
     }
 
     public void SetSFXVolume()
@@ -46,11 +46,10 @@ public class VolumeSettings : MonoBehaviour
         PlayerPrefs.SetFloat("SFXVolume", volume);
     }
 
-    public void LoadVolume()
+    private void LoadVolume()
     {
         musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
         SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume");
-        ambienceSlider.value = PlayerPrefs.GetFloat("ambienceVolume");
 
         SetMusicVolume();
         SetAmbienceVolume();

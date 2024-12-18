@@ -1,4 +1,3 @@
-using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +13,6 @@ public class EndGameScript : GameBehaviour
     [SerializeField] private bool seaFinished;
     private SpriteRenderer seaSprite;
 
-    public CinemachineVirtualCamera GaiaCamera;
 
     private void Start()
     {
@@ -61,15 +59,6 @@ public class EndGameScript : GameBehaviour
     {
         seaSprite = playerSea.GetComponent<SpriteRenderer>();
         seaSprite.enabled = false;
-        playerSea.GetComponent<PlayerController>().canMove = false;
         fakeSea.SetActive(true);
-        StartCoroutine(LookAtGaia());
-    }
-
-    IEnumerator LookAtGaia()
-    {
-        GaiaCamera.Priority = 12;
-        yield return new WaitForSeconds(2.5f);
-        GaiaCamera.Priority = 0;
     }
 }
