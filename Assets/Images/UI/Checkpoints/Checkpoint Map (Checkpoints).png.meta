@@ -1,0 +1,518 @@
+fileFormatVersion: 2
+guid: 9ff89049d5286f149b4be532e8602f96
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_1
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 579
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bd2b90da292fe142af4ad0701beb5fe
+      internalID: -934376684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_2
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 581
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0efd726691bc57b4788285aa96eaad1b
+      internalID: -409061677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_3
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 759
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b40020fc36ffff9418081f59d6f0780f
+      internalID: -1779313804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_4
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 756
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 132c992dc45be254db95b41ce8f69b42
+      internalID: -1924217010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_5
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 692
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70654adbaf1685b439319c45eae9b7c9
+      internalID: 2055027464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_6
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 797
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfb98658befed6f4b8dc7f3a7a159fe3
+      internalID: 1191090839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_7
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 656
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fe29d329d5ac074da3b6970dc6a82fe
+      internalID: 157540073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_8
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 259
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3be699d9483b5cc48990264ee701d11a
+      internalID: 2690781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_9
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 118
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04daf737e5f399e4692c3e6b5efd0c4f
+      internalID: -1629254603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_10
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 228
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef48b53f205154f439eacaa245786826
+      internalID: -1901780337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_11
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 338
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 731363737662b374cbbb50f0c5c64d8a
+      internalID: -807611940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_12
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 0
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51395e0c3e6516541b7af9b61f6b81c9
+      internalID: 1897424462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_13
+      rect:
+        serializedVersion: 2
+        x: 949
+        y: 108
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af2bf5a7b8d14504b96d362f98645c49
+      internalID: -865490577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Checkpoint Map (Checkpoints)_14
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 111
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82e87c54bbe29cb4c8168141cf6af4e2
+      internalID: 1746571555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Checkpoint Map (Checkpoints)_0: -1069834514
+      Checkpoint Map (Checkpoints)_1: -934376684
+      Checkpoint Map (Checkpoints)_10: -1901780337
+      Checkpoint Map (Checkpoints)_11: -807611940
+      Checkpoint Map (Checkpoints)_12: 1897424462
+      Checkpoint Map (Checkpoints)_13: -865490577
+      Checkpoint Map (Checkpoints)_14: 1746571555
+      Checkpoint Map (Checkpoints)_15: 18740335
+      Checkpoint Map (Checkpoints)_16: 1026935222
+      Checkpoint Map (Checkpoints)_17: 964824955
+      Checkpoint Map (Checkpoints)_18: 1606053575
+      Checkpoint Map (Checkpoints)_19: -1519453278
+      Checkpoint Map (Checkpoints)_2: -409061677
+      Checkpoint Map (Checkpoints)_20: -2017902087
+      Checkpoint Map (Checkpoints)_21: -129160072
+      Checkpoint Map (Checkpoints)_22: -1379705266
+      Checkpoint Map (Checkpoints)_23: 55426160
+      Checkpoint Map (Checkpoints)_24: -737160975
+      Checkpoint Map (Checkpoints)_25: -493258624
+      Checkpoint Map (Checkpoints)_26: 335906801
+      Checkpoint Map (Checkpoints)_27: 1756840930
+      Checkpoint Map (Checkpoints)_28: -1566878746
+      Checkpoint Map (Checkpoints)_29: -202521645
+      Checkpoint Map (Checkpoints)_3: -1779313804
+      Checkpoint Map (Checkpoints)_30: -1252421855
+      Checkpoint Map (Checkpoints)_31: -1580878124
+      Checkpoint Map (Checkpoints)_32: -2117428173
+      Checkpoint Map (Checkpoints)_33: 1487115022
+      Checkpoint Map (Checkpoints)_34: 1849178212
+      Checkpoint Map (Checkpoints)_35: 729743346
+      Checkpoint Map (Checkpoints)_36: -1570452720
+      Checkpoint Map (Checkpoints)_37: 1750497006
+      Checkpoint Map (Checkpoints)_38: 1190686481
+      Checkpoint Map (Checkpoints)_39: -788860417
+      Checkpoint Map (Checkpoints)_4: -1924217010
+      Checkpoint Map (Checkpoints)_40: 733344670
+      Checkpoint Map (Checkpoints)_41: -1677217503
+      Checkpoint Map (Checkpoints)_42: 416569637
+      Checkpoint Map (Checkpoints)_43: 535591268
+      Checkpoint Map (Checkpoints)_44: -146094260
+      Checkpoint Map (Checkpoints)_45: 1783945037
+      Checkpoint Map (Checkpoints)_46: -170412297
+      Checkpoint Map (Checkpoints)_47: -35195005
+      Checkpoint Map (Checkpoints)_48: 1864606546
+      Checkpoint Map (Checkpoints)_49: 641969293
+      Checkpoint Map (Checkpoints)_5: 2055027464
+      Checkpoint Map (Checkpoints)_50: -317441292
+      Checkpoint Map (Checkpoints)_51: -596750976
+      Checkpoint Map (Checkpoints)_52: -873304976
+      Checkpoint Map (Checkpoints)_53: -41030830
+      Checkpoint Map (Checkpoints)_54: -281004336
+      Checkpoint Map (Checkpoints)_55: -615375546
+      Checkpoint Map (Checkpoints)_56: 580771231
+      Checkpoint Map (Checkpoints)_57: -2133814947
+      Checkpoint Map (Checkpoints)_58: 1450273968
+      Checkpoint Map (Checkpoints)_59: -266337512
+      Checkpoint Map (Checkpoints)_6: 1191090839
+      Checkpoint Map (Checkpoints)_60: -1871803378
+      Checkpoint Map (Checkpoints)_61: -648348409
+      Checkpoint Map (Checkpoints)_62: 1076932581
+      Checkpoint Map (Checkpoints)_63: -1694462103
+      Checkpoint Map (Checkpoints)_64: -480715038
+      Checkpoint Map (Checkpoints)_65: -1585150245
+      Checkpoint Map (Checkpoints)_66: 1213713285
+      Checkpoint Map (Checkpoints)_67: -1593096081
+      Checkpoint Map (Checkpoints)_68: -1818092742
+      Checkpoint Map (Checkpoints)_69: -1100549369
+      Checkpoint Map (Checkpoints)_7: 157540073
+      Checkpoint Map (Checkpoints)_70: 2104665183
+      Checkpoint Map (Checkpoints)_71: -1448020079
+      Checkpoint Map (Checkpoints)_72: -1638390697
+      Checkpoint Map (Checkpoints)_73: 1931166732
+      Checkpoint Map (Checkpoints)_74: -763002437
+      Checkpoint Map (Checkpoints)_75: -24463719
+      Checkpoint Map (Checkpoints)_76: 1725722020
+      Checkpoint Map (Checkpoints)_77: -1479350638
+      Checkpoint Map (Checkpoints)_78: 1098558133
+      Checkpoint Map (Checkpoints)_79: 2049709246
+      Checkpoint Map (Checkpoints)_8: 2690781
+      Checkpoint Map (Checkpoints)_80: 1165030053
+      Checkpoint Map (Checkpoints)_81: 866552822
+      Checkpoint Map (Checkpoints)_82: 871294378
+      Checkpoint Map (Checkpoints)_83: 1306765977
+      Checkpoint Map (Checkpoints)_84: 1126070142
+      Checkpoint Map (Checkpoints)_85: 1073308105
+      Checkpoint Map (Checkpoints)_86: 12557356
+      Checkpoint Map (Checkpoints)_87: 1040607294
+      Checkpoint Map (Checkpoints)_88: 439292505
+      Checkpoint Map (Checkpoints)_89: 1364742639
+      Checkpoint Map (Checkpoints)_9: -1629254603
+      Checkpoint Map (Checkpoints)_90: -472379702
+      Checkpoint Map (Checkpoints)_91: 414666426
+      Checkpoint Map (Checkpoints)_92: -285498461
+      Checkpoint Map (Checkpoints)_93: -328212285
+      Checkpoint Map (Checkpoints)_94: 911687470
+      Checkpoint Map (Checkpoints)_95: 174743498
+      Checkpoint Map (Checkpoints)_96: 509865815
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

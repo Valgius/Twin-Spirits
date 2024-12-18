@@ -16,6 +16,7 @@ public class PlayerHealth : GameBehaviour
     private FadeOut fadeOut;
     [SerializeField] private Animator damage;
     public float hitCooldown = 0;
+    PlayerController playerController;
     
     [Header("Cinemachine Shake")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
@@ -27,6 +28,7 @@ public class PlayerHealth : GameBehaviour
 
     void Start()
     {
+        playerController = this.GetComponent<PlayerController>();
         particle = GetComponent<ParticleSystem>();
         fadeOut = FindObjectOfType<FadeOut>();
         noise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -72,7 +74,7 @@ public class PlayerHealth : GameBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         //When player touches an enemy that is not a fish, damage player and set screenshake timer.
-        if (collision.gameObject.tag == "Enemy" && collision.gameObject.GetComponent<EnemyPatrol>().myEnemy != EnemyType.Fish)
+        if (collision.gameObject.tag == "Enemy" && !playerController.isDashing)
         {
             EnemyHit();
             
@@ -82,7 +84,7 @@ public class PlayerHealth : GameBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //When player touches an enemy projectile, player takes damage.
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" && playerController.isDashing == false)
         {
             EnemyHit();
         }

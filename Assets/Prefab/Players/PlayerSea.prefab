@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3093086119399704232}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 56.8, y: 57.5, z: -10}
+  m_LocalPosition: {x: -378.96, y: 52.32, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67,7 +67,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 34
+  field of view: 90
   orthographic: 0
   orthographic size: 11
   m_Depth: -1
@@ -244,7 +244,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1226626201
-  m_SortingLayer: 8
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -1024889819, guid: 0f10d45811ff5c7449d69201b5401e6e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -348,7 +348,6 @@ MonoBehaviour:
   climbLayer:
     serializedVersion: 2
     m_Bits: 64
-  pausePanel: {fileID: 0}
   isLeaf: 0
   hasLeafOrb: 0
   hasSeaOrb: 0
@@ -373,6 +372,8 @@ MonoBehaviour:
   waterDrag: 0
   buoyancyForce: 2.5
   maxBuoyancyVelocity: 2
+  seaLight: {fileID: 0}
+  waterOverlay: {fileID: 0}
   breathTimer: 0
   maxBreathTimer: 40
   breathFill: {fileID: 0}
@@ -394,6 +395,8 @@ MonoBehaviour:
   isKnockback: 0
   knockbackTimer: 0
   force: 5
+  seaOrbLight: {fileID: 0}
+  leafOrbLight: {fileID: 0}
 --- !u!96 &6170460103742773646
 TrailRenderer:
   serializedVersion: 3
@@ -574,7 +577,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 0
   startDelay:

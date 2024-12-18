@@ -48,6 +48,8 @@ public class EnemyPatrol : GameBehaviour
         mySpeed = baseSpeed;
         detectCountdown = detectTime;
         myPatrol = PatrolType.Patrol;
+        
+
     }
 
     // Update is called once per frame
@@ -58,6 +60,8 @@ public class EnemyPatrol : GameBehaviour
         float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
 
         closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
+
+       
 
         float distToClosest = Vector3.Distance(transform.position, closestPlayer.transform.position);
         if (distToClosest <= detectDistance && myPatrol != PatrolType.Attack)
