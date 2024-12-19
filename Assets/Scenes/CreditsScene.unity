@@ -1387,6 +1387,7 @@ GameObject:
   - component: {fileID: 1604196749}
   - component: {fileID: 1604196754}
   - component: {fileID: 1604196755}
+  - component: {fileID: 1604196756}
   m_Layer: 5
   m_Name: SceneController
   m_TagString: Untagged
@@ -1406,6 +1407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36548eeb9ef29ae4abb3e04e67398833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cutscene: {fileID: 0}
   loadScene: {fileID: 401182395}
   scene: TitleScene
 --- !u!114 &1604196750
@@ -1538,6 +1540,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2e237c91f8c9e44aa730f6d34c9418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1604196756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604196747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f44d0193e03b5c43b5c0eea9b89dc88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skipButton: {fileID: 1746239984}
 --- !u!1 &1714656498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,7 +1705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1746239985
 RectTransform:
   m_ObjectHideFlags: 0
