@@ -26,9 +26,9 @@ public class PlayerRespawn : GameBehaviour
         //_AM.PlaySFX("Revive");
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Death"))
+        if (other.gameObject.CompareTag("Death"))
         {
             playerHealth.health = 1;
             playerHealth.EnemyHit();
