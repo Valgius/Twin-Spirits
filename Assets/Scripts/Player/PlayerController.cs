@@ -50,7 +50,7 @@ public class PlayerController : GameBehaviour
     [SerializeField] private float buoyancyForce = 0f;
     [SerializeField] public float maxBuoyancyVelocity = 0f;
     [SerializeField] public GameObject seaLight;
-    [SerializeField] public GameObject waterOverlay;
+    //[SerializeField] public GameObject waterOverlay;
 
     public float breathTimer = 0;
     public float maxBreathTimer = 0;
@@ -574,7 +574,7 @@ public class PlayerController : GameBehaviour
         playerRb.gravityScale = 0.5f;
         _AM.PlaySFX("Player Dive");
         seaLight.SetActive(true);
-        waterOverlay.SetActive(true);
+        //waterOverlay.SetActive(true);
     }
 
     /// <summary>
@@ -594,7 +594,7 @@ public class PlayerController : GameBehaviour
         playerRb.drag = 0f;
         _AM.PlaySFX("Player Dive");
         seaLight.SetActive(false);
-        waterOverlay.SetActive(false);
+        //waterOverlay.SetActive(false);
         DashEnd();
     }
 
