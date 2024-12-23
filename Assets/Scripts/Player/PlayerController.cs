@@ -96,7 +96,6 @@ public class PlayerController : GameBehaviour
     void Start()
     {
         tutorial = FindObjectOfType<Tutorial>();
-        swimSpeed = maxSwimSpeed;
         playerRb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         this.gameObject.GetComponent<PlayerRespawn>();
@@ -745,12 +744,12 @@ public class PlayerController : GameBehaviour
 
     public void ToggleHasLeafOrb()
     {
-        hasLeafOrb = !hasLeafOrb;
+        hasLeafOrb = true;
     }
 
     public void ToggleHasSeaOrb()
     {
-        hasSeaOrb = !hasSeaOrb;
+        hasSeaOrb = true;
     }
 
     public void ToggleBreath(bool active)
