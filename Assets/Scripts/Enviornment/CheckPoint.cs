@@ -9,6 +9,7 @@ public class CheckPoint : GameBehaviour
     public GameObject active;
     public GameObject inActive;
     [SerializeField] private GameObject respawnPos;
+    PauseController pause;
 
     public bool usedCheckPoint;
     bool touchingCheckpoint;
@@ -24,6 +25,7 @@ public class CheckPoint : GameBehaviour
     {
         playerLeafRespawn = GameObject.Find("PlayerLeaf").GetComponent<PlayerRespawn>();
         playerSeaRespawn = GameObject.Find("PlayerSea").GetComponent<PlayerRespawn>();
+        pause = FindObjectOfType<PauseController>();
         manager = FindObjectOfType<CheckpointManager>();
         tutorial = FindObjectOfType<Tutorial>();
         if(respawnPos != null)
@@ -36,7 +38,7 @@ public class CheckPoint : GameBehaviour
     private void Update()
     {
 
-        if (touchingCheckpoint && Input.GetButtonDown("Interact"))
+        if (touchingCheckpoint && Input.GetButtonDown("Interact") && pause.paused == false)
         {
             manager.CheckpointSelect();
         }

@@ -40,11 +40,11 @@ public class PlayerSwitch : GameBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SwitchCharacter();
-            switchCount--;
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    SwitchCharacter();
+        //    switchCount--;
+        //}
     }
 
     public void SwitchCharacter()

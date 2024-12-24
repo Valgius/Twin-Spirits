@@ -55,50 +55,87 @@ public class EnemyPatrol : GameBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Always get the distance between the players and this object and assign the closest player.
-        float distToSea = Vector3.Distance(transform.position, playerSea.transform.position);
-        float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
-
-        closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
-
-       
-
-        float distToClosest = Vector3.Distance(transform.position, closestPlayer.transform.position);
-        if (distToClosest <= detectDistance && myPatrol != PatrolType.Attack)
+        if(myEnemy == EnemyType.Frog)
         {
-            if (myPatrol != PatrolType.Chase)
+            //Always get the distance between the players and this object and assign the closest player.
+            float distToSea = Vector3.Distance(transform.position, playerSea.transform.position);
+            float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
+
+            closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
+
+            float distToClosest = Vector3.Distance(transform.position, closestPlayer.transform.position);
+            if (distToClosest <= detectDistance && myPatrol != PatrolType.Attack)
             {
-                myPatrol = PatrolType.Detect;
+                if (myPatrol != PatrolType.Chase)
+                {
+                    myPatrol = PatrolType.Detect;
+                }
+            }
+
+            {
+                //Switching patrol states logic
+                switch (myPatrol)
+                {
+                    case PatrolType.Patrol:
+                        Patrol();
+                        break;
+
+                    case PatrolType.Detect:
+                        Detect(distToClosest);
+                        break;
+
+                    case PatrolType.Chase:
+                        Chase(distToClosest);
+                        break;
+                }
+            }
+
+            //Set the yVelocity in the Animator
+            enemyAnim.SetFloat("yVelocity", rb.velocity.y);
+            if (isGrounded)
+            {
+                enemyAnim.SetBool("isJumping", false);
+            }
+
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        if(myEnemy == EnemyType.Spider)
+        {
+            float distToSea = Vector3.Distance(transform.position, playerSea.transform.position);
+            float distToLeaf = Vector3.Distance(transform.position, playerLeaf.transform.position);
+
+            closestPlayer = (distToLeaf < distToSea) ? playerLeaf : playerSea;
+
+            float distToClosest = Vector3.Distance(transform.position, closestPlayer.transform.position);
+            if (distToClosest <= detectDistance && myPatrol != PatrolType.Attack)
+            {
+                if (myPatrol != PatrolType.Chase)
+                {
+                    myPatrol = PatrolType.Detect;
+                }
+            }
+
+            //Switching patrol states logic
+            switch (myPatrol)
+            {
+                case PatrolType.Patrol:
+                    Patrol();
+                    break;
+
+                case PatrolType.Detect:
+                    Detect(distToClosest);
+                    break;
+
+                case PatrolType.Chase:
+                    Chase(distToClosest);
+                    break;
             }
         }
-
-        //Switching patrol states logic
-        switch (myPatrol)
-        {
-            case PatrolType.Patrol:
-                Patrol();
-                break;
-
-            case PatrolType.Detect:
-                Detect(distToClosest);
-                break;
-
-            case PatrolType.Chase:
-                Chase(distToClosest);
-                break;
-        }
-
-        switch (myEnemy)
-        {
-            case EnemyType.Frog:
-                //Set the yVelocity in the Animator
-                enemyAnim.SetFloat("yVelocity", rb.velocity.y);
-                if (isGrounded)
-                {
-                    enemyAnim.SetBool("isJumping", false);
-                }
-                break;
-        }
+        
     }
 
     public void Patrol()

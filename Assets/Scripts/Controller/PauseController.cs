@@ -11,6 +11,7 @@ public class PauseController : GameBehaviour
     public GameObject mainPanel;
     public bool paused;
     public bool audioMenu;
+    CheckpointManager checkpointManager;
 
     ControllerMenuManager controlManager;
     public VolumeSettings volumeSettings;
@@ -28,11 +29,12 @@ public class PauseController : GameBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        checkpointManager = FindObjectOfType<CheckpointManager>();
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause") && checkpointManager.isPaused == false)
             Pause();
     }
 
